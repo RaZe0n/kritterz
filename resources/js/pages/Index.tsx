@@ -62,37 +62,37 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
 
     const carouselImages = [
         {
-            url: encodeURI('/storage/images/f19e1a27-d00f-4536-978b-afa078339104 2.JPG'),
+            url: encodeURI('/resources/images/f19e1a27-d00f-4536-978b-afa078339104 2.JPG'),
             title: 'Silverware Symphony',
             description: 'Een harmonieuze mix van oude lepels en vorken'
         },
         {
-            url: encodeURI('/storage/images/ea46a11b-606c-4314-b6b7-13c85037a7c4 2.JPG'),
+            url: encodeURI('/resources/images/ea46a11b-606c-4314-b6b7-13c85037a7c4 2.JPG'),
             title: 'Levend bestek',
             description: 'Waar bestek tot leven komt'
         },
         {
-            url: encodeURI('/storage/images/bf054056-87eb-46a6-b33c-36012ddef79f 2.JPG'),
+            url: encodeURI('/resources/images/bf054056-87eb-46a6-b33c-36012ddef79f 2.JPG'),
             title: 'Artistic Alchemy',
             description: 'Het transformeren van alledaags bestek to kleine kunstwerkjes'
         },
         {
-            url: encodeURI('/storage/images/e3a0e577-8c01-47ab-8f89-6f36f9e2c0cf 2.JPG'),
+            url: encodeURI('/resources/images/e3a0e577-8c01-47ab-8f89-6f36f9e2c0cf 2.JPG'),
             title: 'Elegante expressies',
             description: 'Herkenbare en vrouwelijke interpretaties van de levende natuur'
         },
         {
-            url: encodeURI('/storage/images/f2c2d198-f9ea-4511-8017-98666abe2c1e 2.JPG'),
+            url: encodeURI('/resources/images/f2c2d198-f9ea-4511-8017-98666abe2c1e 2.JPG'),
             title: 'Tijdloze kunstwerken',
             description: 'Elke KritterZ is een uniek kunstwerk'
         },
         {
-            url: encodeURI('/storage/images/7a7d4a6d-58f7-4dd6-a0a7-791230a58464 2.JPG'),
+            url: encodeURI('/resources/images/7a7d4a6d-58f7-4dd6-a0a7-791230a58464 2.JPG'),
             title: "Poor man's Silver Stories",
             description: 'Verhalen geweven in metaal en herinneringen'
         },
         {
-            url: encodeURI('/storage/images/a2fc32d3-065b-4f17-b0f2-6ec1d62b2e21 2.JPG'),
+            url: encodeURI('/resources/images/a2fc32d3-065b-4f17-b0f2-6ec1d62b2e21 2.JPG'),
             title: 'Accessoires van bestek',
             description: 'Elegante hangers uit vintage bestek'
         }
@@ -166,7 +166,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 <div className="bg-gradient-to-br from-orange-200 to-red-200 rounded-3xl p-3 shadow-xl">
                                     <div className="relative h-[500px] bg-gray-200 rounded-2xl overflow-hidden">
                                         <img 
-                                            src="storage/images/moeders.jpg" 
+                                            src="/resources/images/moeders.jpg" 
                                             alt="Artist portrait" 
                                             className="object-cover w-full h-full"
                                         />
@@ -380,7 +380,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 <div className="bg-gradient-to-br from-orange-100 to-red-100 rounded-3xl p-2">
                                     <div className="relative h-[400px] bg-gray-200 rounded-2xl overflow-hidden">
                                         <img 
-                                            src="/storage/images/cave.jpg" 
+                                            src="/resources/images/cave.jpg" 
                                             alt="Mijn atelier in Zuidhorn" 
                                             className="object-cover w-full h-full"
                                         />
@@ -401,7 +401,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                             <div className="group relative overflow-hidden rounded-2xl">
                                 <div className="aspect-square bg-gray-200">
                                     <img 
-                                        src="/storage/images/cave.jpg" 
+                                        src="/resources/images/cave.jpg" 
                                         alt="Gereedschap en materialen" 
                                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
                                     />
@@ -416,7 +416,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                             <div className="group relative overflow-hidden rounded-2xl">
                                 <div className="aspect-square bg-gray-200">
                                     <img 
-                                        src="/storage/images/cave.jpg" 
+                                        src="/resources/images/cave.jpg" 
                                         alt="Werkbank en creatieve ruimte" 
                                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
                                     />
@@ -431,7 +431,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                             <div className="group relative overflow-hidden rounded-2xl">
                                 <div className="aspect-square bg-gray-200">
                                     <img 
-                                        src="/storage/images/cave.jpg" 
+                                        src="/resources/images/cave.jpg" 
                                         alt="Inspiratie en werk in uitvoering" 
                                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
                                     />

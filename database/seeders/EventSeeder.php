@@ -16,7 +16,7 @@ class EventSeeder extends Seeder
         $events = [
             [
                 'title' => 'Silverware Through Time',
-                'image' => '/storage/images/zwaan.jpg',
+                'image' => '/resources/images/zwaan.JPG',
                 'location' => 'Kunstgalerie Amsterdam',
                 'date_range' => '1 Mei - 30 Juni 2024',
                 'description' => 'Een reis door de geschiedenis van bestek kunst, met focus op vintage transformaties.',
@@ -28,7 +28,7 @@ class EventSeeder extends Seeder
             ],
             [
                 'title' => 'Modern Metalwork',
-                'image' => '/storage/images/zwaan.jpg',
+                'image' => '/resources/images/zwaan.JPG',
                 'location' => 'Design Museum Den Haag',
                 'date_range' => '15 Mei - 15 Juli 2024',
                 'description' => 'Hedendaagse interpretaties van klassiek bestek in moderne kunst.',
@@ -40,7 +40,7 @@ class EventSeeder extends Seeder
             ],
             [
                 'title' => 'Sustainable Art',
-                'image' => '/storage/images/zwaan.jpg',
+                'image' => '/resources/images/zwaan.JPG',
                 'location' => 'Eco Art Space Rotterdam',
                 'date_range' => '1 Augustus - 30 September 2024',
                 'description' => 'Een tentoonstelling over duurzame kunst met hergebruikte materialen.',
@@ -50,7 +50,7 @@ class EventSeeder extends Seeder
             ],
             [
                 'title' => 'Silver Stories',
-                'image' => '/storage/images/zwaan.jpg',
+                'image' => '/resources/images/zwaan.JPG',
                 'location' => 'Galerie Utrecht',
                 'date_range' => '1 Maart - 30 April 2024',
                 'description' => 'Een retrospectief van zilverwerk en bestek kunst.',
@@ -60,7 +60,7 @@ class EventSeeder extends Seeder
             ],
             [
                 'title' => 'Expo 1',
-                'image' => '/storage/images/zwaan.jpg',
+                'image' => '/resources/images/zwaan.JPG',
                 'location' => 'Modern Art Gallery, Amsterdam',
                 'date_range' => 'June 1 - July 30, 2024',
                 'description' => 'A solo exhibition featuring the latest collection of cutlery art.',
@@ -70,7 +70,7 @@ class EventSeeder extends Seeder
             ],
             [
                 'title' => 'Expo 2',
-                'image' => '/storage/images/zwaan.jpg',
+                'image' => '/resources/images/zwaan.JPG',
                 'location' => 'Contemporary Museum, Rotterdam',
                 'date_range' => 'August 15 - September 20, 2024',
                 'description' => 'An immersive experience in the world of repurposed dining tools.',

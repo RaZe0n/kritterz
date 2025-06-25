@@ -80,7 +80,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                 alt={exhibition.title}
                                                 className="absolute inset-0 w-full h-full object-cover"
                                                 onError={(e) => {
-                                                    e.currentTarget.src = '/storage/images/placeholder.jpg';
+                                                    e.currentTarget.src = '/resources/images/placeholder.jpg';
                                                 }}
                                             />
                                         </div>
@@ -130,7 +130,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                     alt={exhibition.title}
                                                     className="absolute inset-0 w-full h-full object-cover"
                                                     onError={(e) => {
-                                                        e.currentTarget.src = '/storage/images/placeholder.jpg';
+                                                        e.currentTarget.src = '/resources/images/placeholder.jpg';
                                                     }}
                                                 />
                                             </div>
@@ -169,7 +169,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                     alt={exhibition.title}
                                                     className="absolute inset-0 w-full h-full object-cover grayscale"
                                                     onError={(e) => {
-                                                        e.currentTarget.src = '/storage/images/placeholder.jpg';
+                                                        e.currentTarget.src = '/resources/images/placeholder.jpg';
                                                     }}
                                                 />
                                             </div>
