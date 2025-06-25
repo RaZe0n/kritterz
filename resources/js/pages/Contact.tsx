@@ -6,7 +6,18 @@ import { motion } from 'framer-motion';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaInstagram, FaFacebook } from 'react-icons/fa';
 import { gsap } from 'gsap';
 
-const Contact = () => {
+interface ContactProps {
+    auth?: {
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+            role: string;
+        } | null;
+    };
+}
+
+const Contact: React.FC<ContactProps> = ({ auth }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -339,7 +350,7 @@ const Contact = () => {
                     </section>
                 </main>
 
-                <Footer />
+                <Footer auth={auth} />
             </div>
         </>
     );

@@ -17,9 +17,17 @@ interface Event {
 interface HomePageProps {
     currentEvents?: Event[];
     upcomingEvents?: Event[];
+    auth?: {
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+            role: string;
+        } | null;
+    };
 }
 
-const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents = [] }) => {
+const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents = [], auth }) => {
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -597,7 +605,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                     </motion.div>
                 </section>
 
-                <Footer />
+                <Footer auth={auth} />
             </div>
         </>
     );

@@ -5,7 +5,18 @@ import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { FaSearch, FaPencilRuler, FaMagic } from 'react-icons/fa';
 
-const About = () => {
+interface AboutProps {
+    auth?: {
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+            role: string;
+        } | null;
+    };
+}
+
+const About: React.FC<AboutProps> = ({ auth }) => {
     return (
         <>
             <Head title="About | KritterZ" />
@@ -114,7 +125,7 @@ const About = () => {
                     </section>
                 </main>
 
-                <Footer />
+                <Footer auth={auth} />
             </div>
         </>
     );

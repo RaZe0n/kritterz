@@ -22,9 +22,17 @@ interface ExhibitionsProps {
     currentEvents: Event[];
     upcomingEvents: Event[];
     recentEvents: Event[];
+    auth?: {
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+            role: string;
+        } | null;
+    };
 }
 
-const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents, recentEvents }) => {
+const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents, recentEvents, auth }) => {
     return (
         <>
             <Head title="Exhibitions | Silvercraft" />
@@ -189,7 +197,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                     </section>
                 </main>
 
-                <Footer />
+                <Footer auth={auth} />
             </div>
         </>
     );

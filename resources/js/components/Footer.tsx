@@ -1,7 +1,22 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
-const Footer = () => {
+interface FooterProps {
+    auth?: {
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+            role: string;
+        } | null;
+    };
+}
+
+const Footer: React.FC<FooterProps> = ({ auth }) => {
+    const handleLogout = () => {
+        router.post('/logout');
+    };
+
     return (
         <footer className="bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -40,6 +55,16 @@ const Footer = () => {
                                     Contact
                                 </Link>
                             </li>
+                            {auth?.user && (
+                                <li>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="text-gray-600 hover:text-orange-600 transition-colors"
+                                    >
+                                        Uitloggen
+                                    </button>
+                                </li>
+                            )}
                         </ul>
                     </div>
 

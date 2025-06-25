@@ -55,7 +55,7 @@ Route::get('/api/events/upcoming', [EventController::class, 'getUpcoming']);
 Route::get('/api/events/past', [EventController::class, 'getPast']);
 Route::get('/api/events/homepage', [EventController::class, 'getForHomepage']);
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'dashboard.access'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/gallery', [DashboardController::class, 'gallery'])->name('dashboard.gallery');
     Route::get('/dashboard/exhibitions', [DashboardController::class, 'exhibitions'])->name('dashboard.exhibitions');

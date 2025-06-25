@@ -23,9 +23,17 @@ interface Artwork {
 interface GalleryProps {
     artworks: Artwork[];
     tags: Tag[];
+    auth?: {
+        user?: {
+            id: number;
+            name: string;
+            email: string;
+            role: string;
+        } | null;
+    };
 }
 
-const Gallery: React.FC<GalleryProps> = ({ artworks, tags }) => {
+const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
     const [selectedTag, setSelectedTag] = useState<number | null>(null);
 
     // Group artworks by tag
@@ -201,7 +209,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags }) => {
                     </section>
                 </main>
 
-                <Footer />
+                <Footer auth={auth} />
             </div>
         </>
     );
