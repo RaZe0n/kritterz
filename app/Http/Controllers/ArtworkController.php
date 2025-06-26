@@ -44,7 +44,7 @@ class ArtworkController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:for sale,sold',
             'tag_ids' => 'nullable|array',
             'tag_ids.*' => 'exists:tags,id',
@@ -100,7 +100,7 @@ class ArtworkController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'status' => 'required|in:for sale,sold',
             'tag_ids' => 'nullable|array',
             'tag_ids.*' => 'exists:tags,id',

@@ -232,7 +232,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
 
                 {/* Validation Info */}
                 <div className="text-xs text-gray-500 mb-8 max-w-md mx-auto">
-                    <p>Voer een geldig e-mailadres in met een correcte domein extensie.</p>
+                    <p>Gebruik een geldig e-mailadres.</p>
                 </div>
                 
                 {/* Social Media Links */}
