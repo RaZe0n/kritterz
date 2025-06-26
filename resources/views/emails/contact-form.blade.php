@@ -6,4 +6,8 @@
 **Onderwerp:** {{ $subject }}
 
 ## Bericht:
-{ 
+{{ $message }}
+
+---
+*Dit bericht is automatisch verzonden via het contactformulier op de Kritter website.*
+@endcomponent 

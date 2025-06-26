@@ -41,6 +41,18 @@ Route::get('/welcome', function () {
     return Inertia::render('welcome');
 })->name('welcome');
 
+// Email preview route (for development)
+Route::get('/preview/email/contact-form', function () {
+    $data = [
+        'name' => 'Jan Jansen',
+        'email' => 'jan@example.com',
+        'subject' => 'Vraag over kunstwerk',
+        'message' => 'Hallo, ik heb een vraag over een van je kunstwerken. Ik zou graag meer informatie willen over de techniek die je gebruikt hebt en of het werk nog beschikbaar is voor aankoop. Alvast bedankt voor je reactie!'
+    ];
+    
+    return (new \App\Mail\ContactFormMail($data))->render();
+})->name('preview.email.contact-form');
+
 // API routes for artworks
 Route::get('/api/artworks', [ArtworkController::class, 'getAll']);
 Route::get('/api/artworks/for-sale', [ArtworkController::class, 'getForSale']);
