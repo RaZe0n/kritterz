@@ -66,7 +66,7 @@ const About: React.FC<AboutProps> = ({ auth }) => {
                                     <div className="bg-gradient-to-br from-orange-200 to-red-200 rounded-3xl p-3 shadow-xl">
                                         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                                             <img
-                                                src="/resources/images/moeders.jpg"
+                                                src="/resources/images/behind.jpg"
                                                 alt="Portrait"
                                                 className="absolute inset-0 w-full h-full object-cover"
                                             />
@@ -109,16 +109,43 @@ const About: React.FC<AboutProps> = ({ auth }) => {
                                 transition={{ duration: 0.8 }}
                                 className="bg-gradient-to-br from-white to-orange-50/30 rounded-3xl p-8 md:p-12 shadow-xl border border-orange-100"
                             >
-                                <div className="text-center max-w-3xl mx-auto">
-                                    <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto mb-6"></div>
-                                    <h2 className="text-3xl font-light mb-8 text-gray-800">Mijn passie</h2>
-                                    <p className="text-gray-600 leading-relaxed mb-6">
-                                        Ik ben begonnen met het maken van de KritterZ omdat ik daar zelf heel veel plezier aan beleef(de). Inmiddels is dat uitgebroeid tot een 'hobby' waar ik ook anderen blij mee kan maken. 
-                                    </p>
-                                    <p className="text-gray-600 leading-relaxed">
-                                        Ik streef ernaar om met mijn kunst bij te dragen aan een duurzamere wereld, 
-                                        waar hergebruik en creativiteit hand in hand gaan.  Ik vind het daarbij wel steeds belangrijker worden dat mensen in mijn werken ook de schoonheid en het unieke van de natuur zien. Ik hoop dat mijn werk op die manier een beetje bijdraagt aan natuurbehoud en herstel. 
-                                    </p>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                                    {/* Text Content */}
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.8 }}
+                                        className="text-center lg:text-left"
+                                    >
+                                        <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto lg:mx-0 mb-6"></div>
+                                        <h2 className="text-3xl font-light mb-8 text-gray-800">Mijn passie</h2>
+                                        <p className="text-gray-600 leading-relaxed mb-6">
+                                            Ik ben begonnen met het maken van de KritterZ omdat ik daar zelf heel veel plezier aan beleef(de). Inmiddels is dat uitgebroeid tot een 'hobby' waar ik ook anderen blij mee kan maken. 
+                                        </p>
+                                        <p className="text-gray-600 leading-relaxed">
+                                            Ik streef ernaar om met mijn kunst bij te dragen aan een duurzamere wereld, 
+                                            waar hergebruik en creativiteit hand in hand gaan.  Ik vind het daarbij wel steeds belangrijker worden dat mensen in mijn werken ook de schoonheid en het unieke van de natuur zien. Ik hoop dat mijn werk op die manier een beetje bijdraagt aan natuurbehoud en herstel. 
+                                        </p>
+                                    </motion.div>
+
+                                    {/* Image */}
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.8 }}
+                                        className="relative"
+                                    >
+                                        <div className="bg-gradient-to-br from-orange-200 to-red-200 rounded-2xl p-3 shadow-lg">
+                                            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+                                                <img
+                                                    src="/resources/images/side.jpg"
+                                                    alt="Bestek kunstwerk"
+                                                    className="absolute inset-0 w-full h-full object-cover scale-x-[-1]"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
                                 </div>
                             </motion.div>
                         </div>

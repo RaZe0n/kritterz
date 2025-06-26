@@ -86,12 +86,18 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                 
                 <main className="pt-16">
                     {/* Gallery Header */}
-                    <section className="py-20 px-4 md:px-8 lg:px-16 bg-gray-50">
+                    <section className="py-20 px-4 md:px-8 lg:px-16 bg-gradient-to-br from-gray-50 via-orange-50/30 to-gray-50">
                         <div className="max-w-4xl mx-auto text-center">
-                            <motion.h1 
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8 }}
+                                className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto mb-6"
+                            ></motion.div>
+                            <motion.h1 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.1 }}
                                 className="text-4xl md:text-5xl font-light mb-6 text-gray-800"
                             >
                                 Portfolio
@@ -120,7 +126,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                     }`}
                                 >
-                                    All Tags
+                                    Alle kunstwerken
                                 </button>
                                 {tags.map((tag) => (
                                     <button
@@ -176,18 +182,25 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                                 className="group relative overflow-hidden rounded-lg bg-gray-100 h-full"
                                             >
                                                 <div className="relative pt-[133.33%]">
-                                                    <img
-                                                        src={artwork.image}
-                                                        alt={artwork.title}
-                                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                                                        onError={(e) => {
-                                                            console.error('Image failed to load:', artwork.image);
-                                                            e.currentTarget.style.backgroundColor = '#f3f4f6';
-                                                        }}
-                                                        loading="lazy"
-                                                    />
+                                                    <a 
+                                                        href={artwork.image} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        className="block w-full h-full"
+                                                    >
+                                                        <img
+                                                            src={artwork.image}
+                                                            alt={artwork.title}
+                                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105 cursor-pointer"
+                                                            onError={(e) => {
+                                                                console.error('Image failed to load:', artwork.image);
+                                                                e.currentTarget.style.backgroundColor = '#f3f4f6';
+                                                            }}
+                                                            loading="lazy"
+                                                        />
+                                                    </a>
                                                 </div>
-                                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm">
+                                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm pointer-events-none">
                                                     <div className="text-center text-white translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 px-4">
                                                         <h3 className="text-2xl font-light mb-2">{artwork.title}</h3>
                                                         <p className="text-sm mb-2">{artwork.description}</p>

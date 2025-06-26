@@ -5,6 +5,8 @@ use App\Http\Controllers\ArtworkController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,9 +34,8 @@ Route::get('/about', function () {
     return Inertia::render('About');
 })->name('about');
 
-Route::get('/contact', function () {
-    return Inertia::render('Contact');
-})->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/welcome', function () {
     return Inertia::render('welcome');
@@ -55,10 +56,16 @@ Route::get('/api/events/upcoming', [EventController::class, 'getUpcoming']);
 Route::get('/api/events/past', [EventController::class, 'getPast']);
 Route::get('/api/events/homepage', [EventController::class, 'getForHomepage']);
 
+// API routes for newsletter
+Route::post('/api/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
+Route::post('/api/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe']);
+Route::post('/api/newsletter/check', [NewsletterController::class, 'checkSubscription']);
+
 Route::middleware(['auth', 'verified', 'dashboard.access'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/gallery', [DashboardController::class, 'gallery'])->name('dashboard.gallery');
     Route::get('/dashboard/exhibitions', [DashboardController::class, 'exhibitions'])->name('dashboard.exhibitions');
+    Route::get('/dashboard/newsletter', [DashboardController::class, 'newsletter'])->name('dashboard.newsletter');
     
     // Artwork CRUD routes
     Route::resource('dashboard/artworks', ArtworkController::class)->names([
@@ -92,6 +99,11 @@ Route::middleware(['auth', 'verified', 'dashboard.access'])->group(function () {
         'update' => 'dashboard.events.update',
         'destroy' => 'dashboard.events.destroy',
     ]);
+
+    // Newsletter management routes
+    Route::get('/dashboard/newsletter/subscribers', [NewsletterController::class, 'index'])->name('dashboard.newsletter.subscribers');
+    Route::delete('/dashboard/newsletter/subscribers/{subscriber}', [NewsletterController::class, 'destroy'])->name('dashboard.newsletter.subscribers.destroy');
+    Route::patch('/dashboard/newsletter/subscribers/{subscriber}/toggle', [NewsletterController::class, 'toggleStatus'])->name('dashboard.newsletter.subscribers.toggle');
 });
 
 require __DIR__.'/settings.php';

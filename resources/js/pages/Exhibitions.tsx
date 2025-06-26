@@ -41,12 +41,18 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                 
                 <main className="pt-16">
                     {/* Header */}
-                    <section className="py-20 px-4 md:px-8 lg:px-16 bg-gray-50">
+                    <section className="py-20 px-4 md:px-8 lg:px-16 bg-gradient-to-br from-gray-50 via-orange-50/30 to-gray-50">
                         <div className="max-w-4xl mx-auto text-center">
-                            <motion.h1 
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8 }}
+                                className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto mb-6"
+                            ></motion.div>
+                            <motion.h1 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.1 }}
                                 className="text-4xl md:text-5xl font-light mb-6 text-gray-800"
                             >
                                 Exposities

@@ -101,6 +101,14 @@ class DashboardController extends Controller
     }
 
     /**
+     * Display the newsletter management dashboard.
+     */
+    public function newsletter()
+    {
+        return redirect()->route('dashboard.newsletter.subscribers');
+    }
+
+    /**
      * Generate recent activity based on actual data.
      */
     private function generateRecentActivity($artworks, $currentEvents, $upcomingEvents)
