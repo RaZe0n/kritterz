@@ -18,7 +18,7 @@ Bezoek de website
 @endcomponent
 
 Met vriendelijke groet,<br>
-{{ config('app.name') }}
+Corine - KritterZ
 
 ---
 

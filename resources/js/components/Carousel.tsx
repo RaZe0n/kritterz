@@ -5,6 +5,8 @@ interface CarouselImage {
     url: string;
     title: string;
     description: string;
+    subtitle?: string;
+    photographer?: string;
 }
 
 interface CarouselProps {
@@ -84,19 +86,32 @@ const Carousel = ({ images }: CarouselProps) => {
                                     animate={{ y: 0, opacity: 1 }}
                                     exit={{ y: -10, opacity: 0 }}
                                     transition={{ duration: 0.3 }}
-                                    className="text-4xl md:text-6xl font-light mb-4 drop-shadow-2xl font-semibold"
-                                >
-                                    {images[currentIndex].title}
-                                </motion.h2>
-                                <motion.p
-                                    initial={{ y: 10, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    exit={{ y: -10, opacity: 0 }}
-                                    transition={{ duration: 0.3, delay: 0.1 }}
-                                    className="text-xl md:text-2xl font-light drop-shadow-2xl font-medium"
+                                    className="text-4xl md:text-6xl font-light mb-2 drop-shadow-2xl font-semibold"
                                 >
                                     {images[currentIndex].description}
-                                </motion.p>
+                                </motion.h2>
+                                {images[currentIndex].subtitle && (
+                                    <motion.p
+                                        initial={{ y: 10, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: -10, opacity: 0 }}
+                                        transition={{ duration: 0.3, delay: 0.1 }}
+                                        className="text-xl md:text-2xl font-light drop-shadow-2xl text-white/90 mb-2"
+                                    >
+                                        {images[currentIndex].subtitle}
+                                    </motion.p>
+                                )}
+                                {images[currentIndex].photographer && (
+                                    <motion.p
+                                        initial={{ y: 10, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: -10, opacity: 0 }}
+                                        transition={{ duration: 0.3, delay: 0.2 }}
+                                        className="text-sm md:text-base font-light drop-shadow-2xl text-white/80 italic"
+                                    >
+                                        Foto: {images[currentIndex].photographer}
+                                    </motion.p>
+                                )}
                             </div>
                         </div>
                     </div>

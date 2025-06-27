@@ -71,39 +71,51 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
 
     const carouselImages = [
         {
-            url: encodeURI('/resources/images/boomkruiper.jpg'),
-            title: 'Silverware Symphony',
-            description: 'Een harmonieuze mix van oude lepels en vorken'
+            url: encodeURI('/resources/images/TT Boomklever.jpg'),
+            title: 'Foto Boomklever',
+            description: 'Levend Bestek',
+            subtitle: 'Vintage design ontmoet levende natuur…',
+            photographer: 'Theo Tangelder'
         },
         {
-            url: encodeURI('/resources/images/meeuw.jpg'),
-            title: 'Levend bestek',
-            description: 'Waar bestek tot leven komt'
+            url: encodeURI('/resources/images/Kim Meijer Paraplureiger.jpg'),
+            title: 'Foto Paraplureiger',
+            description: 'Vintage Vogels',
+            subtitle: 'Verhalen geweven uit metaal en herinneringen',
+            photographer: 'Kim Meijer'
         },
         {
-            url: encodeURI('/resources/images/bf054056-87eb-46a6-b33c-36012ddef79f 2.JPG'),
-            title: 'Artistic Alchemy',
-            description: 'Het transformeren van alledaags bestek to kleine kunstwerkjes'
+            url: encodeURI('/resources/images/TT Kokmeeuw.jpg'),
+            title: 'Foto kokmeeuw',
+            description: "'Schitterende' Expressie",
+            subtitle: 'Herkenbare interpretaties van de natuur in al haar glans',
+            photographer: 'Theo Tangelder'
         },
         {
-            url: encodeURI('/resources/images/e3a0e577-8c01-47ab-8f89-6f36f9e2c0cf 2.JPG'),
-            title: 'Elegante expressies',
-            description: 'Herkenbare en vrouwelijke interpretaties van de levende natuur'
+            url: encodeURI('/resources/images/KM Duiker met jong.jpg'),
+            title: 'Foto Duiker',
+            description: 'Dierbaarheid',
+            subtitle: 'Gekoesterd bestek als drijfveer',
+            photographer: 'Kim Meijer'
         },
         {
-            url: encodeURI('/resources/images/f2c2d198-f9ea-4511-8017-98666abe2c1e 2.JPG'),
-            title: 'Tijdloze kunstwerken',
-            description: 'Elke KritterZ is een uniek kunstwerk'
+            url: encodeURI('/resources/images/Hanger visstaart.JPG'),
+            title: 'Foto Visstaart',
+            description: 'Draagbaar Eetgerei',
+            subtitle: 'Elegante hangers met geschiedenis'
         },
         {
-            url: encodeURI('/resources/images/7a7d4a6d-58f7-4dd6-a0a7-791230a58464 2.JPG'),
-            title: "Poor man's Silver Stories",
-            description: 'Verhalen geweven in metaal en herinneringen'
+            url: encodeURI('/resources/images/KM Futen.jpg'),
+            title: 'Foto Futen',
+            description: 'Gevleugelde Passie',
+            subtitle: 'Elke KritterZ is een uniek kunstwerk',
+            photographer: 'Kim Meijer'
         },
         {
-            url: encodeURI('/resources/images/a2fc32d3-065b-4f17-b0f2-6ec1d62b2e21 2.JPG'),
-            title: 'Accessoires van bestek',
-            description: 'Elegante hangers uit vintage bestek'
+            url: encodeURI('/resources/images/Bloemen.jpg'),
+            title: 'Foto Bloemen',
+            description: 'Bloeiend Bestek',
+            subtitle: 'Oud maar nog springlevend'
         }
     ];
 
@@ -343,7 +355,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                             <div className="group relative overflow-hidden rounded-2xl">
                                 <div className="aspect-square bg-gray-200">
                                     <img 
-                                        src="/resources/images/bestek.jpg" 
+                                        src="/resources/images/schuur1.jpg" 
                                         alt="Gereedschap en materialen" 
                                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
                                     />
@@ -358,7 +370,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                             <div className="group relative overflow-hidden rounded-2xl">
                                 <div className="aspect-square bg-gray-200">
                                     <img 
-                                        src="/resources/images/moeders-in-hut.jpg" 
+                                        src="/resources/images/schuur2.jpg" 
                                         alt="Werkbank en creatieve ruimte" 
                                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
                                     />
