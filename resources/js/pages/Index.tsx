@@ -272,79 +272,6 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 </div>
                             </motion.div>
                         </div>
-
-                        {/* Contact & Info Section */}
-                        <motion.div 
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                            className="bg-gradient-to-br from-white to-orange-50/30 rounded-3xl p-8 md:p-12 shadow-xl border border-orange-100"
-                        >
-                            <div className="grid lg:grid-cols-2 gap-12">
-                                {/* Left Side - Info */}
-                                <div className="space-y-8">
-                                    <div>
-                                        <h3 className="text-2xl font-semibold mb-6 text-gray-800">Geïnteresseerd in een KritterZ?</h3>
-                                        <div className="space-y-4 text-gray-600">
-                                            <p className="leading-relaxed">
-                                                Ik maak deze KritterZ vooral omdat ik daar zelf heel veel plezier aan beleef. Maar ik vind het natuurlijk heel leuk als anderen ze ook mooi vinden!
-                                            </p>
-                                            <p className="leading-relaxed">
-                                                Ben je geïnteresseerd in een van mijn KritterZ? Dan hoor ik dat natuurlijk heel graag. Ik ben geen webwinkel maar in overleg kan vast van alles.
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 border border-orange-100 relative">
-                                        <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center shadow-lg transform rotate-12">
-                                            <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                                            </svg>
-                                        </div>
-                                        <h4 className="text-lg font-semibold mb-3 text-gray-800">Iemand een KritterZ kado geven?</h4>
-                                        <p className="text-gray-600 leading-relaxed">
-                                            Vind je het leuk om een gepersonaliseerde KritterZ aan iemand kado te geven? Neem gerust even contact op om de mogelijkheden te bespreken.
-                                        </p>
-                                        <p className="text-gray-600 leading-relaxed">
-                                            Of wil je een KritterZ laten maken van je oude bestek? Neem gerust even contact op om de mogelijkheden te bespreken.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Right Side - Contact & Location */}
-                                <div className="space-y-8">
-                                    <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 border border-orange-100">
-                                        <div className="flex items-center mb-4">
-                                            <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center mr-4">
-                                                <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                </svg>
-                                            </div>
-                                            <h4 className="text-lg font-semibold text-gray-800">Locatie</h4>
-                                        </div>
-                                        <p className="text-gray-600 leading-relaxed">
-                                            Ik werk thuis in mijn eigen "atelier". Mijn Woman Cave. Gevestigd in Zuidhorn.
-                                        </p>
-                                    </div>
-
-                                    <div className="text-center bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-8 border border-orange-100">
-                                        <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                            <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                                            </svg>
-                                        </div>
-                                        <h4 className="text-xl font-semibold mb-3 text-gray-800">Neem contact op</h4>
-                                        <p className="text-gray-600 mb-6">
-                                            Ben je benieuwd of heb je vragen? Neem gerust contact op.
-                                        </p>
-                                        <button className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-3 rounded-full font-medium hover:from-orange-600 hover:to-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                                            Contact opnemen
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
                     </motion.div>
                 </section>
 
@@ -553,6 +480,81 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                     <p className="text-gray-600">Er zijn momenteel geen aankomende evenementen gepland. Houd deze pagina in de gaten voor updates!</p>
                                 </div>
                             )}
+                        </div>
+                    </motion.div>
+                </section>
+
+                {/* Contact & Info Section */}
+                <section className="py-20 px-4 md:px-8 lg:px-16 bg-white">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                        className="bg-gradient-to-br from-white to-orange-50/30 rounded-3xl p-8 md:p-12 shadow-xl border border-orange-100 max-w-7xl mx-auto"
+                    >
+                        <div className="grid lg:grid-cols-2 gap-12">
+                            {/* Left Side - Info */}
+                            <div className="space-y-8">
+                                <div>
+                                    <h3 className="text-2xl font-semibold mb-6 text-gray-800">Geïnteresseerd in een KritterZ?</h3>
+                                    <div className="space-y-4 text-gray-600">
+                                        <p className="leading-relaxed">
+                                            Ik maak deze KritterZ vooral omdat ik daar zelf heel veel plezier aan beleef. Maar ik vind het natuurlijk heel leuk als anderen ze ook mooi vinden!
+                                        </p>
+                                        <p className="leading-relaxed">
+                                            Ben je geïnteresseerd in een van mijn KritterZ? Dan hoor ik dat natuurlijk heel graag. Ik ben geen webwinkel maar in overleg kan vast van alles.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 border border-orange-100 relative">
+                                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center shadow-lg transform rotate-12">
+                                        <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                                        </svg>
+                                    </div>
+                                    <h4 className="text-lg font-semibold mb-3 text-gray-800">Iemand een KritterZ kado geven?</h4>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        Vind je het leuk om een gepersonaliseerde KritterZ aan iemand kado te geven? Neem gerust even contact op om de mogelijkheden te bespreken.
+                                    </p>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        Of wil je een KritterZ laten maken van je oude bestek? Neem gerust even contact op om de mogelijkheden te bespreken.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Right Side - Contact & Location */}
+                            <div className="space-y-8">
+                                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 border border-orange-100">
+                                    <div className="flex items-center mb-4">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center mr-4">
+                                            <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </div>
+                                        <h4 className="text-lg font-semibold text-gray-800">Locatie</h4>
+                                    </div>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        Ik werk thuis in mijn eigen "atelier". Mijn Woman Cave. Gevestigd in Zuidhorn.
+                                    </p>
+                                </div>
+
+                                <div className="text-center bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-8 border border-orange-100">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                        </svg>
+                                    </div>
+                                    <h4 className="text-xl font-semibold mb-3 text-gray-800">Neem contact op</h4>
+                                    <p className="text-gray-600 mb-6">
+                                        Ben je benieuwd of heb je vragen? Neem gerust contact op.
+                                    </p>
+                                    <button className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-3 rounded-full font-medium hover:from-orange-600 hover:to-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                        Contact opnemen
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </motion.div>
                 </section>

@@ -164,13 +164,13 @@ export default function DashboardGallery({ artworks, stats }: Props) {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className="group relative overflow-hidden rounded-lg border bg-card"
+                                    className="group relative overflow-hidden rounded-lg border"
                                 >
-                                    <div className="relative pt-[133.33%]">
+                                    <div className="relative">
                                         <img
                                             src={artwork.image}
                                             alt={artwork.title}
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                            className="w-full h-auto max-h-80 object-contain transition-transform duration-300 group-hover:scale-105"
                                             onError={(e) => {
                                                 e.currentTarget.style.backgroundColor = '#f3f4f6';
                                             }}

@@ -37,6 +37,9 @@ Route::get('/about', function () {
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+// Newsletter unsubscribe via token (email link) - must be before API routes
+Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribeByToken'])->name('newsletter.unsubscribe');
+
 Route::get('/welcome', function () {
     return Inertia::render('welcome');
 })->name('welcome');

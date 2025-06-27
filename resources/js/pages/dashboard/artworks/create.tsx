@@ -200,7 +200,7 @@ export default function CreateArtwork({ tags }: CreateArtworkProps) {
                                                 <img
                                                     src={imagePreview}
                                                     alt="Preview"
-                                                    className="w-full h-64 object-cover rounded-lg border"
+                                                    className="w-full h-auto object-contain rounded-lg"
                                                 />
                                                 <Button
                                                     type="button"
@@ -223,7 +223,7 @@ export default function CreateArtwork({ tags }: CreateArtworkProps) {
                                                         <span className="text-gray-500"> or drag and drop</span>
                                                     </Label>
                                                     <p className="text-xs text-gray-500 mt-1">
-                                                        PNG, JPG, GIF up to 2MB
+                                                        PNG, JPG, GIF up to 20MB
                                                     </p>
                                                 </div>
                                             </div>

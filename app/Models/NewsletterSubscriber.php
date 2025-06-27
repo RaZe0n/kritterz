@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class NewsletterSubscriber extends Model
 {
@@ -11,6 +12,7 @@ class NewsletterSubscriber extends Model
 
     protected $fillable = [
         'email',
+        'unsubscribe_token',
         'is_active',
         'subscribed_at'
     ];
@@ -19,6 +21,20 @@ class NewsletterSubscriber extends Model
         'is_active' => 'boolean',
         'subscribed_at' => 'datetime',
     ];
+
+    /**
+     * Boot the model and generate unsubscribe token when creating
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($subscriber) {
+            if (empty($subscriber->unsubscribe_token)) {
+                $subscriber->unsubscribe_token = Str::random(64);
+            }
+        });
+    }
 
     /**
      * Get validation rules for the model

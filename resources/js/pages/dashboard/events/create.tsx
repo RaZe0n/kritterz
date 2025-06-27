@@ -263,7 +263,7 @@ export default function CreateEvent() {
                                                         <span className="text-gray-500"> or drag and drop</span>
                                                     </Label>
                                                     <p className="text-xs text-gray-500 mt-1">
-                                                        PNG, JPG, GIF up to 2MB
+                                                        PNG, JPG, GIF up to 20MB
                                                     </p>
                                                 </div>
                                             </div>

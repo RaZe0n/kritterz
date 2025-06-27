@@ -80,11 +80,11 @@ export default function ShowArtwork({ artwork }: Props) {
                             <CardTitle>Artwork Image</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="aspect-square overflow-hidden rounded-lg border">
+                            <div className="overflow-hidden rounded-lg">
                                 <img
                                     src={artwork.image}
                                     alt={artwork.title}
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-auto object-contain"
                                     onError={(e) => {
                                         e.currentTarget.style.backgroundColor = '#f3f4f6';
                                     }}

@@ -41,7 +41,7 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:20480',
             'location' => 'required|string|max:255',
             'date_range' => 'required|string|max:255',
             'opening_hours' => 'nullable|string|max:255',
@@ -97,7 +97,7 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480',
             'location' => 'required|string|max:255',
             'date_range' => 'required|string|max:255',
             'opening_hours' => 'nullable|string|max:255',

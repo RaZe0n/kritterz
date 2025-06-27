@@ -34,13 +34,21 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
                                 <h1 className="text-3xl font-light text-gray-900">Tags</h1>
                                 <p className="mt-2 text-gray-600">Manage your gallery tags</p>
                             </div>
-                            <Link
-                                href={route('dashboard.tags.create')}
-                                className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                            >
-                                <Plus className="w-4 h-4 mr-2" />
-                                New Tag
-                            </Link>
+                            <div className="flex items-center gap-2">
+                                <Link
+                                    href={route('dashboard')}
+                                    className="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                                >
+                                    Dashboard
+                                </Link>
+                                <Link
+                                    href={route('dashboard.tags.create')}
+                                    className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                                >
+                                    <Plus className="w-4 h-4 mr-2" />
+                                    New Tag
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
