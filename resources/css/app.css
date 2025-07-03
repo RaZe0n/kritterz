@@ -186,3 +186,65 @@
         @apply transform scale-[1.01];
     }
 }
+
+/* Mobile-specific fixes for Android text visibility */
+@layer utilities {
+    /* Ensure text is always visible on mobile devices */
+    @media (max-width: 768px) {
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="url"],
+        textarea {
+            color: #111827 !important; /* text-gray-900 */
+            -webkit-text-fill-color: #111827 !important;
+            font-size: 16px !important; /* Prevent zoom on iOS */
+            line-height: 1.5 !important;
+        }
+        
+        /* Ensure placeholder text is visible */
+        input::placeholder,
+        textarea::placeholder {
+            color: #6b7280 !important; /* text-gray-500 */
+            -webkit-text-fill-color: #6b7280 !important;
+            opacity: 1 !important;
+        }
+        
+        /* Fix for Android Chrome text rendering */
+        input:focus,
+        textarea:focus {
+            color: #111827 !important;
+            -webkit-text-fill-color: #111827 !important;
+            background-color: #ffffff !important;
+        }
+        
+        /* Ensure proper contrast for better visibility */
+        input,
+        textarea {
+            background-color: #ffffff !important;
+            border-color: #d1d5db !important; /* border-gray-300 */
+        }
+        
+        input:focus,
+        textarea:focus {
+            border-color: #ea580c !important; /* border-orange-500 */
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1) !important;
+        }
+    }
+    
+    /* Additional fixes for very small screens */
+    @media (max-width: 480px) {
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="url"],
+        textarea {
+            font-size: 16px !important;
+            padding: 12px 16px !important;
+        }
+    }
+}

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Head } from '@inertiajs/react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Head, Link } from '@inertiajs/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Carousel from '@/components/Carousel';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
 
 interface Event {
     image: any;
@@ -166,7 +167,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                             <div className="space-y-6">
                                 <div className="w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mb-6"></div>
                                 <p className="text-gray-600 leading-relaxed text-lg">
-                                Op deze website deel ik graag mijn 'KritterZ' creaties met je. Ze zijn allemaal gemaakt van gerecycled bestek dat ik bij elkaar zoek in de kringloopwinkels en vervolgens slijp, polijst en soldeer. De meeste Kritterz stellen dieren, vooral vogels, voor. Soms fantasie, vaak zo realistisch mogelijk. Ik vind het heel leuk dat mensen genieten mijn KritterZ en ze regelmatig uitvliegen naar andere huisjes. 
+                                Op deze website deel ik graag mijn 'KritterZ' creaties met je. Ze zijn allemaal gemaakt van gerecycled bestek dat ik bij elkaar zoek in de kringloopwinkels en vervolgens slijp, polijst en soldeer. De meeste Kritterz stellen dieren, vooral vogels, voor. Soms fantasie, vaak zo realistisch mogelijk. Ik vind het heel leuk dat mensen genieten van mijn KritterZ en ze regelmatig uitvliegen naar andere huisjes. 
                                 </p>
                                 <p className="text-gray-600 leading-relaxed">
                                     Wil je meer te weten komen over mij en mijn werkwijze? Klik dan op de knop hieronder.
@@ -562,9 +563,12 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                     <p className="text-gray-600 mb-6">
                                         Ben je benieuwd of heb je vragen? Neem gerust contact op.
                                     </p>
-                                    <button className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-3 rounded-full font-medium hover:from-orange-600 hover:to-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                                    <Link 
+                                        href="/contact"
+                                        className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-3 rounded-full font-medium hover:from-orange-600 hover:to-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 inline-block"
+                                    >
                                         Contact opnemen
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -261,12 +261,15 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                                     onChange={handleChange}
                                                     onFocus={() => setActiveField('name')}
                                                     onBlur={() => setActiveField('')}
-                                                    className={`w-full px-3 lg:px-4 py-3 lg:py-4 border-2 rounded-xl transition-all duration-300 bg-white text-sm lg:text-base ${
+                                                    className={`w-full px-3 lg:px-4 py-3 lg:py-4 border-2 rounded-xl transition-all duration-300 bg-white text-gray-900 text-sm lg:text-base placeholder-gray-500 ${
                                                         activeField === 'name' 
                                                             ? 'border-orange-500 shadow-lg shadow-orange-100' 
                                                             : 'border-gray-200 hover:border-orange-300'
                                                     }`}
                                                     required
+                                                    autoComplete="name"
+                                                    spellCheck="false"
+                                                    autoCapitalize="words"
                                                 />
                                                 {activeField === 'name' && (
                                                     <motion.div
@@ -297,12 +300,15 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                                     onChange={handleChange}
                                                     onFocus={() => setActiveField('email')}
                                                     onBlur={() => setActiveField('')}
-                                                    className={`w-full px-3 lg:px-4 py-3 lg:py-4 border-2 rounded-xl transition-all duration-300 bg-white text-sm lg:text-base ${
+                                                    className={`w-full px-3 lg:px-4 py-3 lg:py-4 border-2 rounded-xl transition-all duration-300 bg-white text-gray-900 text-sm lg:text-base placeholder-gray-500 ${
                                                         activeField === 'email' 
                                                             ? 'border-orange-500 shadow-lg shadow-orange-100' 
                                                             : 'border-gray-200 hover:border-orange-300'
                                                     }`}
                                                     required
+                                                    autoComplete="email"
+                                                    spellCheck="false"
+                                                    autoCapitalize="none"
                                                 />
                                                 {activeField === 'email' && (
                                                     <motion.div
@@ -334,12 +340,15 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                                 onChange={handleChange}
                                                 onFocus={() => setActiveField('subject')}
                                                 onBlur={() => setActiveField('')}
-                                                className={`w-full px-3 lg:px-4 py-3 lg:py-4 border-2 rounded-xl transition-all duration-300 bg-white text-sm lg:text-base ${
+                                                className={`w-full px-3 lg:px-4 py-3 lg:py-4 border-2 rounded-xl transition-all duration-300 bg-white text-gray-900 text-sm lg:text-base placeholder-gray-500 ${
                                                     activeField === 'subject' 
                                                         ? 'border-orange-500 shadow-lg shadow-orange-100' 
                                                         : 'border-gray-200 hover:border-orange-300'
                                                 }`}
                                                 required
+                                                autoComplete="off"
+                                                spellCheck="false"
+                                                autoCapitalize="sentences"
                                             />
                                             {activeField === 'subject' && (
                                                 <motion.div
@@ -370,12 +379,14 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                                 onFocus={() => setActiveField('message')}
                                                 onBlur={() => setActiveField('')}
                                                 rows={5}
-                                                className={`w-full px-3 lg:px-4 py-3 lg:py-4 border-2 rounded-xl transition-all duration-300 bg-white resize-none text-sm lg:text-base ${
+                                                className={`w-full px-3 lg:px-4 py-3 lg:py-4 border-2 rounded-xl transition-all duration-300 bg-white text-gray-900 text-sm lg:text-base placeholder-gray-500 resize-none ${
                                                     activeField === 'message' 
                                                         ? 'border-orange-500 shadow-lg shadow-orange-100' 
                                                         : 'border-gray-200 hover:border-orange-300'
                                                 }`}
                                                 required
+                                                spellCheck="true"
+                                                autoCapitalize="sentences"
                                             />
                                             {activeField === 'message' && (
                                                 <motion.div
