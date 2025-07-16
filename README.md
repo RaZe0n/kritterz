@@ -1,1 +1,1 @@
-# kritterz
+# KritterZ

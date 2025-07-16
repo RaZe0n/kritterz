@@ -125,7 +125,7 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'kritter',
+        'theme' => 'kritterz',
         'paths' => [
             resource_path('views/vendor/mail'),
         ],

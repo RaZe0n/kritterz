@@ -111,7 +111,7 @@ const Footer: React.FC<FooterProps> = ({ auth }) => {
                         </div>
                         <div className="text-center md:text-right">
                             <p className="text-orange-600 text-sm">
-                                © 2025 Kritterz. Alle rechten voorbehouden. 
+                                © 2025 KritterZ. Alle rechten voorbehouden. 
                             </p>
                             <p className="text-gray-500 text-xs mt-1">
                                 Website ontworpen door <a href="https://www.fmbruinzeel.nl/" className="hover:text-orange-600 transition-colors">Finn Bruinzeel</a>

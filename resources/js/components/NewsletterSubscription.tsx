@@ -158,7 +158,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
                 <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto mb-6"></div>
                 <h2 className="text-4xl font-light mb-4 text-gray-800">Blijf op de hoogte</h2>
                 <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Schrijf je in voor mijn nieuwsbrief en ontvang 2 a 3 keer per jaar updates over nieuwe KritterZ en exposities
+                    Schrijf je in voor mijn nieuwsbrief en ontvang 2 à 3 keer per jaar updates over nieuwe KritterZ en exposities.
                 </p>
                 
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-8">
@@ -237,7 +237,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
                 
                 {/* Social Media Links */}
                 <div className="border-t border-gray-200 pt-8">
-                    <p className="text-gray-600 mb-6">Of volg ons op social media</p>
+                    <p className="text-gray-600 mb-6">Of volg mij op social media</p>
                     <div className="flex justify-center space-x-8">
                         <a 
                             href="https://www.instagram.com/kritterz.nl/" 

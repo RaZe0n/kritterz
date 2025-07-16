@@ -77,7 +77,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                 transition={{ duration: 0.8 }}
                                 className="text-3xl font-light mb-12 text-gray-800"
                             >
-                                Huidige Events
+                                Lopende exposities
                             </motion.h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {currentEvents.map((exhibition, index) => (
@@ -128,7 +128,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                 transition={{ duration: 0.8 }}
                                 className="mb-16"
                             >
-                                <h2 className="text-3xl font-light mb-12 text-gray-800">Aankomende Events</h2>
+                                <h2 className="text-3xl font-light mb-12 text-gray-800">Aankomende exposities</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {upcomingEvents.map((exhibition, index) => (
                                         <motion.div
@@ -167,7 +167,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <h2 className="text-3xl font-light mb-12 text-gray-800">Recente Events</h2>
+                                <h2 className="text-3xl font-light mb-12 text-gray-800">Recente exposities</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {recentEvents.map((exhibition, index) => (
                                         <motion.div

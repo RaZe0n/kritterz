@@ -9,5 +9,5 @@
 {{ $message }}
 
 ---
-*Dit bericht is automatisch verzonden via het contactformulier op de Kritter website.*
+*Dit bericht is automatisch verzonden via het contactformulier op de KritterZ website.*
 @endcomponent 

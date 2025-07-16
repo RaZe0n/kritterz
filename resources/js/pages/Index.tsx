@@ -162,12 +162,22 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                         transition={{ duration: 0.8 }}
                         className="max-w-4xl mx-auto"
                     >
-                        <h2 className="text-4xl text-center font-light mb-12 text-gray-800">Hoi, ik ben Corine,</h2>
+                        <div className="mb-12 text-center">
+                            <h2 className="text-5xl md:text-6xl font-extralight text-gray-900 mb-4 tracking-tight">
+                                Welkom bij KritterZ
+                            </h2>
+                            <div className="flex justify-center mb-4">
+                                <span className="inline-block w-24 h-1 rounded-full bg-gradient-to-r from-orange-400 to-red-500"></span>
+                            </div>
+                            <h3 className="text-2xl md:text-3xl font-light text-gray-700">
+                                Hallo, ik ben Corine
+                            </h3>
+                        </div>
                         <div className="grid md:grid-cols-2 gap-12 items-center">
                             <div className="space-y-6">
                                 <div className="w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mb-6"></div>
                                 <p className="text-gray-600 leading-relaxed text-lg">
-                                Op deze website deel ik graag mijn 'KritterZ' creaties met je. Ze zijn allemaal gemaakt van gerecycled bestek dat ik bij elkaar zoek in de kringloopwinkels en vervolgens slijp, polijst en soldeer. De meeste Kritterz stellen dieren, vooral vogels, voor. Soms fantasie, vaak zo realistisch mogelijk. Ik vind het heel leuk dat mensen genieten van mijn KritterZ en ze regelmatig uitvliegen naar andere huisjes. 
+                                Op deze website deel ik graag mijn 'KritterZ' creaties met je. Ze zijn allemaal gemaakt van gerecycled bestek dat ik bij elkaar zoek in de kringloopwinkels en vervolgens slijp, polijst en soldeer. De meeste KritterZ stellen dieren, vooral vogels, voor. Soms fantasie, vaak zo realistisch mogelijk. Ik vind het heel leuk dat mensen genieten van mijn KritterZ en ze regelmatig uitvliegen naar andere huisjes. 
                                 </p>
                                 <p className="text-gray-600 leading-relaxed">
                                     Wil je meer te weten komen over mij en mijn werkwijze? Klik dan op de knop hieronder.
@@ -239,7 +249,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                     </div>
                                     <h3 className="text-xl font-semibold mb-4 text-gray-800">Gerecycled materiaal</h3>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Ik maak zoveel mogelijk gebruik van gerecycled materiaal. Het afstruinen van kringloopwinkels voor bestek, andere metalen materialen en gereedschap is een deel van de lol. Elke vondst vertelt een verhaal - van oude verzilverde lepels die ooit familie-erfstukken waren tot vergeten gereedschap dat een tweede leven verdient. Het is fascinerend om te zien hoe verschillende materialen samen kunnen komen om iets nieuws te creëren. Soms vind ik onverwachte schatten die perfect zijn voor een specifieke Kritter die ik al een tijdje in gedachten had.
+                                        Ik maak zoveel mogelijk gebruik van gerecycled materiaal. Het afstruinen van kringloopwinkels voor bestek, andere metalen materialen en gereedschap is een deel van de lol. Elke vondst vertelt een verhaal - van oude verzilverde lepels die ooit familie-erfstukken waren tot vergeten gereedschap dat een tweede leven verdient. Het is fascinerend om te zien hoe verschillende materialen samen kunnen komen om iets nieuws te creëren. Soms vind ik onverwachte schatten die perfect zijn voor een specifieke KritterZ die ik al een tijdje in gedachten had.
                                     </p>
                                 </div>
                             </motion.div>
@@ -259,7 +269,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                     </div>
                                     <h3 className="text-xl font-semibold mb-4 text-gray-800">Inspiratie</h3>
                                     <p className="text-gray-600 leading-relaxed mb-4">
-                                    Mijn inspiratie voor deze KritterZ komt uit de natuur en heeft zeker te maken met mijn opleiding als bioloog. Als kind was ik al gefascineerd door dieren en tijdens mijn studie kon ik diergedrag bestuderen en naar verre oorden reizen. De creativiteit raakte echter op de achtergrond tot de knop om moest. Het maakt me verdrietig dat de natuur wereldwijd onder druk staat en zoveel soorten verdwijnen. Ik hoop dat mensen in mijn KritterZ de schoonheid van die diversiteit zien en anders naar echte soorten en hun voortbestaan gaan kijken.
+                                    Mijn inspiratie voor deze KritterZ komt uit de natuur en heeft zeker te maken met mijn opleiding als bioloog. Als kind was ik al gefascineerd door dieren en tijdens mijn studie kon ik diergedrag bestuderen en naar verre oorden reizen. De creativiteit raakte echter op de achtergrond tot de knop om moest. Nu probeer ik de unieke schoonheid van de natuur te vangen in mijn creaties. Het maakt me verdrietig dat de natuur wereldwijd onder druk staat en zoveel soorten verdwijnen. Ik hoop dat mensen in mijn KritterZ de schoonheid van die diversiteit zien en anders naar echte soorten en hun voortbestaan gaan kijken.
                                     </p>
                                 </div>
                             </motion.div>
@@ -280,7 +290,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                     </div>
                                     <h3 className="text-xl font-semibold mb-4 text-gray-800">Slijpen, schuren en solderen</h3>
                                     <p className="text-gray-600 leading-relaxed mb-4">
-                                        Met een bankschroef, flex, Dremel en schuurmachine kom je voor het maken van bestek KritterZ een heel eind. Daarna worden de stukken zoveel mogelijk natuurgetrouw aan elkaar gesoldeerd met zilver tin. Door schuren of polijsten worden verschillende looks gecreëerd. Om dit zo goed mogelijk te kunnen doen, heb ik geïnvesteerd in professionele apparatuur die me hierbij helpt. Elk stuk krijgt de tijd die het nodig heeft om tot zijn recht te komen, soms moet ik een stuk meerdere keren aanpassen tot het precies goed voelt. Het is een proces van geduld en precisie, waarbij elke Kritter zijn eigen karakter krijgt.
+                                        Met een bankschroef, flex, Dremel en schuurmachine kom je voor het maken van bestek KritterZ een heel eind. Daarna worden de stukken zoveel mogelijk natuurgetrouw aan elkaar gesoldeerd met zilver tin. Door schuren of polijsten worden verschillende looks gecreëerd. Om dit zo goed mogelijk te kunnen doen, heb ik geïnvesteerd in professionele apparatuur die me hierbij helpt. Elk stuk krijgt de tijd dat het nodig heeft om tot zijn recht te komen; soms moet ik een stuk meerdere keren aanpassen tot het precies goed voelt. Het is een proces van geduld en precisie, waarbij elke KritterZ zijn eigen karakter krijgt.
                                     </p>
                                 </div>
                             </motion.div>
@@ -297,9 +307,9 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                         className="max-w-7xl mx-auto"
                     >
                         <div className="text-center mb-16">
-                            <h2 className="text-4xl font-light mb-4 text-gray-800">Mijn "Atelier"</h2>
+                            <h2 className="text-4xl font-light mb-4 text-gray-800">Mijn Woman Cave</h2>
                             <p className="text-gray-600 max-w-2xl mx-auto">
-                                Mijn Woman Cave - waar creativiteit en passie samenkomen
+                                Waar creativiteit en passie samenkomen
                             </p>
                         </div>
 
@@ -311,13 +321,13 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 transition={{ duration: 0.8 }}
                                 className="space-y-6"
                             >
-                                <h3 className="text-2xl font-semibold text-gray-800">Mijn creatieve ruimte</h3>
+                                <h3 className="text-2xl font-semibold text-gray-800">Creatieve ruimte</h3>
                                 <div className="space-y-4 text-gray-600 leading-relaxed">
                                     <p>
-                                        In mijn atelier in Zuidhorn vind je alles wat ik nodig heb om mijn KritterZ te maken. 
+                                        In mijn atelier in Zuidhorn, niet meer dan een schuurtje in de achtertuin, vind je alles wat ik nodig heb om m'n KritterZ te maken. 
                                     </p>
                                     <p>
-                                        Inmiddels heb ik een flinke voorraad bestek verzameld, zowel uit de kringloopwinkels als ook gekregen van mensen die weten dat ik bestek spaar. Ook werk ik voor het solderen met verschillende flux materialen, afhankelijk van het type legering in het metaal dat ik gebruik. Dat is niet altijd aan de buitenkant te zien, maar blijkt in de praktijk al snel. 
+                                        Inmiddels heb ik een flinke voorraad bestek verzameld, zowel uit de kringloopwinkels als ook gekregen van mensen die weten dat ik bestek spaar. Bij het solderen werk ik met verschillende flux materialen, afhankelijk van het type legering in het metaal dat ik gebruik. Dat is niet altijd aan de buitenkant te zien, maar blijkt in de praktijk al snel. 
                                     </p>
                                     <p>
                                         In mijn schuurtje heb ik samen met mijn oudste zoon een werkbank gemaakt en zelf een simpel afzuigsysteem geïnstalleerd. Met een lekker muziekje erbij vliegen de uren voorbij zonder dat ik het merk en kom ik helemaal tot rust.
@@ -515,7 +525,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             Ik maak deze KritterZ vooral omdat ik daar zelf heel veel plezier aan beleef. Maar ik vind het natuurlijk heel leuk als anderen ze ook mooi vinden!
                                         </p>
                                         <p className="leading-relaxed">
-                                            Ben je geïnteresseerd in een van mijn KritterZ? Dan hoor ik dat natuurlijk heel graag. Ik ben geen webwinkel maar in overleg kan vast van alles.
+                                            Ben je geïnteresseerd in een van mijn KritterZ? Dan hoor ik dat natuurlijk heel graag. Neem een kijkje in de gallerij om te zien welke KritterZ er op dit moment beshikbaar zijn.
                                         </p>
                                     </div>
                                 </div>
@@ -528,10 +538,10 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                     </div>
                                     <h4 className="text-lg font-semibold mb-3 text-gray-800">Iemand een KritterZ kado geven?</h4>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Vind je het leuk om een gepersonaliseerde KritterZ aan iemand kado te geven? Neem gerust even contact op om de mogelijkheden te bespreken.
+                                        Vind je het leuk om een gepersonaliseerde KritterZ aan iemand kado te geven? 
                                     </p>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Of wil je een KritterZ laten maken van je oude bestek? Neem gerust even contact op om de mogelijkheden te bespreken.
+                                        Of wil je een unieke KritterZ laten maken van je eigen oude bestek? Neem gerust even contact op om de mogelijkheden te bespreken.
                                     </p>
                                 </div>
                             </div>
@@ -549,7 +559,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                         <h4 className="text-lg font-semibold text-gray-800">Locatie</h4>
                                     </div>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Ik werk thuis in mijn eigen "atelier". Mijn Woman Cave. Gevestigd in Zuidhorn.
+                                        Ik werk thuis in mijn eigen werkplaats, gevestigd in Zuidhorn.
                                     </p>
                                 </div>
 

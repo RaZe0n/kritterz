@@ -110,7 +110,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
 
     return (
         <>
-            <Head title="Gallery | Silvercraft" />
+            <Head title="KritterZ | Gallerij" />
             <div className="min-h-screen bg-white">
                 <Navbar />
                 
@@ -138,7 +138,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="text-xl text-gray-600 mb-8"
                             >
-                                Bekijk hier wat van mijn gemaakte kunst.
+                                Bekijk hieronder al mijn diverse creaties.
                             </motion.p>
                             
                             {/* Tag Filter */}
