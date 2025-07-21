@@ -155,6 +155,46 @@ class NewsletterController extends Controller
     }
 
     /**
+     * Manually add a subscriber from the dashboard (no confirmation email)
+     */
+    public function addManual(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:newsletter_subscribers,email'
+        ], [
+            'email.required' => 'E-mailadres is verplicht.',
+            'email.email' => 'Voer een geldig e-mailadres in.',
+            'email.unique' => 'Dit e-mailadres is al ingeschreven.'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first('email'),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $subscriber = NewsletterSubscriber::create([
+                'email' => $request->email,
+                'is_active' => true,
+                'subscribed_at' => now()
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Abonnee succesvol toegevoegd.'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Er is een fout opgetreden. Probeer het later opnieuw.'
+            ], 500);
+        }
+    }
+
+    /**
      * Show newsletter subscribers in dashboard
      */
     public function index()

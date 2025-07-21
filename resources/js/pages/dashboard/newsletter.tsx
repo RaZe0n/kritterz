@@ -19,6 +19,8 @@ import {
     Calendar
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import axios from 'axios';
 
 interface NewsletterSubscriber {
     id: number;
@@ -52,14 +54,76 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function DashboardNewsletter({ subscribers, stats }: Props) {
-    const handleDelete = (subscriberId: number) => {
-        if (confirm('Are you sure you want to delete this subscriber?')) {
-            router.delete(route('dashboard.newsletter.subscribers.destroy', subscriberId));
+    const handleDelete = async (subscriberId: number) => {
+        if (!confirm('Are you sure you want to delete this subscriber?')) return;
+        setManualAddMessage(null);
+        setManualAddError(null);
+        try {
+            const response = await axios.delete(route('dashboard.newsletter.subscribers.destroy', subscriberId));
+            if (response.data.success) {
+                setManualAddMessage('Abonnee succesvol verwijderd!');
+                router.reload({ only: ['subscribers', 'stats'] });
+            } else {
+                setManualAddError(response.data.message || 'Er is een fout opgetreden.');
+            }
+        } catch (error: any) {
+            if (error.response && error.response.data && error.response.data.message) {
+                setManualAddError(error.response.data.message);
+            } else {
+                setManualAddError('Er is een fout opgetreden.');
+            }
         }
     };
 
     const handleToggleStatus = (subscriberId: number) => {
         router.patch(route('dashboard.newsletter.subscribers.toggle', subscriberId));
+    };
+
+    // State for manual add
+    const [manualEmail, setManualEmail] = useState('');
+    const [manualAddLoading, setManualAddLoading] = useState(false);
+    const [manualAddMessage, setManualAddMessage] = useState<string|null>(null);
+    const [manualAddError, setManualAddError] = useState<string|null>(null);
+    const [copied, setCopied] = useState(false);
+
+    const handleManualAdd = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setManualAddLoading(true);
+        setManualAddMessage(null);
+        setManualAddError(null);
+        try {
+            const response = await axios.post(route('dashboard.newsletter.subscribers.add'), { email: manualEmail });
+            if (response.data.success) {
+                setManualAddMessage('Abonnee succesvol toegevoegd!');
+                setManualEmail('');
+                // Reload the page to update the list
+                router.reload({ only: ['subscribers', 'stats'] });
+            } else {
+                setManualAddError(response.data.message || 'Er is een fout opgetreden.');
+            }
+        } catch (error: any) {
+            if (error.response && error.response.data && error.response.data.message) {
+                setManualAddError(error.response.data.message);
+            } else {
+                setManualAddError('Er is een fout opgetreden.');
+            }
+        } finally {
+            setManualAddLoading(false);
+        }
+    };
+
+    // Copy all emails to clipboard or open mailto
+    const handleCopyAllEmails = () => {
+        const allEmails = subscribers.map(s => s.email).join(', ');
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(allEmails);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+    };
+    const handleMailAll = () => {
+        const allEmails = subscribers.map(s => s.email).join(',');
+        window.open(`mailto:?bcc=${encodeURIComponent(allEmails)}`);
     };
 
     return (
@@ -71,16 +135,46 @@ export default function DashboardNewsletter({ subscribers, stats }: Props) {
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight">Newsletter Management</h1>
                         <p className="text-muted-foreground">
-                            Manage your newsletter subscribers and their preferences
+                            Beheren van abonnees 
                         </p>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <Button variant="outline">
-                            <Download className="mr-2 h-4 w-4" />
-                            Export CSV
-                        </Button>
-                    </div>
                 </div>
+
+                {/* Manual Add & Email Actions */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Handmatig e-mail toevoegen</CardTitle>
+                        <CardDescription>Voeg een e-mailadres toe aan de nieuwsbrieflijst.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={handleManualAdd} className="flex flex-col md:flex-row gap-2 md:items-center">
+                            <input
+                                type="email"
+                                value={manualEmail}
+                                onChange={e => setManualEmail(e.target.value)}
+                                placeholder="E-mailadres invoeren..."
+                                className="border border-input rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-ring flex-1"
+                                required
+                                disabled={manualAddLoading}
+                            />
+                            <Button type="submit" disabled={manualAddLoading || !manualEmail}>
+                                <Plus className="mr-2 h-4 w-4" />
+                                Toevoegen
+                            </Button>
+                            <Button type="button" variant="outline" onClick={handleCopyAllEmails}>
+                                <Mail className="mr-2 h-4 w-4" />
+                                Kopieer alle e-mails
+                            </Button>
+                            <Button type="button" variant="outline" onClick={handleMailAll}>
+                                <Mail className="mr-2 h-4 w-4" />
+                                Mail alle abonnees
+                            </Button>
+                        </form>
+                        {copied && <div className="mt-2 text-green-600">Gekopieerd!</div>}
+                        {manualAddMessage && <div className="mt-2 text-green-600">{manualAddMessage}</div>}
+                        {manualAddError && <div className="mt-2 text-red-600">{manualAddError}</div>}
+                    </CardContent>
+                </Card>
 
                 {/* Stats Cards */}
                 <div className="grid gap-4 md:grid-cols-3">

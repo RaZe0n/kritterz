@@ -93,6 +93,23 @@ class TagController extends Controller
     }
 
     /**
+     * Update the order of tags.
+     */
+    public function updateOrder(Request $request)
+    {
+        $request->validate([
+            'order' => 'required|array',
+            'order.*' => 'integer|exists:tags,id',
+        ]);
+
+        foreach ($request->order as $index => $tagId) {
+            Tag::where('id', $tagId)->update(['order' => $index]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Tag order updated.']);
+    }
+
+    /**
      * Get all tags for API consumption.
      */
     public function getAll()

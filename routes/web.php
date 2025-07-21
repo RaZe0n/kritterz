@@ -103,6 +103,7 @@ Route::middleware(['auth', 'verified', 'dashboard.access'])->group(function () {
         'update' => 'dashboard.tags.update',
         'destroy' => 'dashboard.tags.destroy',
     ]);
+    Route::post('/dashboard/tags/update-order', [\App\Http\Controllers\TagController::class, 'updateOrder'])->name('dashboard.tags.updateOrder');
     
     // Event CRUD routes
     Route::resource('dashboard/events', EventController::class)->names([
@@ -119,6 +120,7 @@ Route::middleware(['auth', 'verified', 'dashboard.access'])->group(function () {
     Route::get('/dashboard/newsletter/subscribers', [NewsletterController::class, 'index'])->name('dashboard.newsletter.subscribers');
     Route::delete('/dashboard/newsletter/subscribers/{subscriber}', [NewsletterController::class, 'destroy'])->name('dashboard.newsletter.subscribers.destroy');
     Route::patch('/dashboard/newsletter/subscribers/{subscriber}/toggle', [NewsletterController::class, 'toggleStatus'])->name('dashboard.newsletter.subscribers.toggle');
+    Route::post('/dashboard/newsletter/subscribers/add', [NewsletterController::class, 'addManual'])->name('dashboard.newsletter.subscribers.add');
 });
 
 require __DIR__.'/settings.php';

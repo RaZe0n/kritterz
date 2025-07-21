@@ -2,6 +2,8 @@ import React from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
+import axios from 'axios';
+import { useState } from 'react';
 
 interface Tag {
     id: number;
@@ -9,6 +11,7 @@ interface Tag {
     color: string;
     description: string;
     artworks_count: number;
+    order?: number; // Added order field
 }
 
 interface TagsIndexProps {
@@ -16,9 +19,42 @@ interface TagsIndexProps {
 }
 
 const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
+    const [tagList, setTagList] = useState([...tags].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
+    const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+    const [saving, setSaving] = useState(false);
+    const [saveMessage, setSaveMessage] = useState<string|null>(null);
+
     const handleDelete = (tagId: number) => {
         if (confirm('Are you sure you want to delete this tag?')) {
             router.delete(route('dashboard.tags.destroy', tagId));
+        }
+    };
+
+    // Drag and drop handlers
+    const onDragStart = (index: number) => setDraggedIndex(index);
+    const onDragOver = (index: number) => {
+        if (draggedIndex === null || draggedIndex === index) return;
+        const newList = [...tagList];
+        const [removed] = newList.splice(draggedIndex, 1);
+        newList.splice(index, 0, removed);
+        setTagList(newList);
+        setDraggedIndex(index);
+    };
+    const onDragEnd = () => setDraggedIndex(null);
+
+    // Save order to backend
+    const saveOrder = async () => {
+        setSaving(true);
+        setSaveMessage(null);
+        try {
+            const order = tagList.map(tag => tag.id);
+            await axios.post(route('dashboard.tags.updateOrder'), { order });
+            setSaveMessage('Order saved!');
+        } catch (e) {
+            setSaveMessage('Error saving order.');
+        } finally {
+            setSaving(false);
+            setTimeout(() => setSaveMessage(null), 2000);
         }
     };
 
@@ -52,16 +88,34 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
                         </div>
                     </div>
 
-                    {/* Tags Grid */}
+                    {/* Save Order Button */}
+                    <div className="px-4 mb-4 flex gap-4 items-center">
+                        <button
+                            onClick={saveOrder}
+                            disabled={saving}
+                            className="px-4 py-2 bg-green-600 text-white rounded-md font-semibold text-xs uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                        >
+                            {saving ? 'Saving...' : 'Save Order'}
+                        </button>
+                        {saveMessage && <span className="text-green-600">{saveMessage}</span>}
+                    </div>
+
+                    {/* Tags Grid (Draggable) */}
                     <div className="px-4 py-6 sm:px-0">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {tags.map((tag, index) => (
+                            {tagList.map((tag, index) => (
                                 <motion.div
                                     key={tag.id}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className="bg-white overflow-hidden shadow rounded-lg"
+                                    className={`bg-white overflow-hidden shadow rounded-lg ${draggedIndex === index ? 'ring-2 ring-blue-400' : ''}`}
+                                    draggable
+                                    onDragStart={() => onDragStart(index)}
+                                    onDragOver={e => { e.preventDefault(); onDragOver(index); }}
+                                    onDrop={onDragEnd}
+                                    onDragEnd={onDragEnd}
+                                    style={{ cursor: 'grab', opacity: draggedIndex === index ? 0.7 : 1 }}
                                 >
                                     <div className="p-6">
                                         <div className="flex items-center justify-between mb-4">
@@ -95,13 +149,11 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
                                                 </button>
                                             </div>
                                         </div>
-                                        
                                         {tag.description && (
                                             <p className="text-gray-600 text-sm mb-4">
                                                 {tag.description}
                                             </p>
                                         )}
-                                        
                                         <div className="flex items-center justify-between">
                                             <span className="text-sm text-gray-500">
                                                 {tag.artworks_count} artwork{tag.artworks_count !== 1 ? 's' : ''}
@@ -120,8 +172,7 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
                                 </motion.div>
                             ))}
                         </div>
-
-                        {tags.length === 0 && (
+                        {tagList.length === 0 && (
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}

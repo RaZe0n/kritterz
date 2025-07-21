@@ -15,8 +15,8 @@ class ArtworkController extends Controller
      */
     public function index()
     {
-        $artworks = Artwork::with('tags')->get();
-        $tags = Tag::all();
+        $artworks = Artwork::with(['tags' => function($q) { $q->orderBy('order'); }])->get();
+        $tags = Tag::orderBy('order')->get();
         
         return Inertia::render('Gallery', [
             'artworks' => $artworks,

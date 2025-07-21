@@ -18,6 +18,7 @@ class Tag extends Model
         'name',
         'color',
         'description',
+        'order',
     ];
 
     /**

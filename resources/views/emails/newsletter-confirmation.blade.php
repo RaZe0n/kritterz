@@ -9,7 +9,6 @@ Bedankt voor je inschrijving voor de KritterZ nieuwsbrief! Je bent nu ingeschrev
 - Updates over nieuwe kunstwerken
 - Aankondigingen van exposities
 - Achtergrondverhalen over de creaties
-- Exclusieve previews
 
 Ik respecteer je privacy en stuur alleen relevante updates. Je kunt je op elk moment uitschrijven via de link onderaan deze e-mail.
 

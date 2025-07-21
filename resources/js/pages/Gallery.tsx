@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Head } from '@inertiajs/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -37,6 +37,19 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
     // Find the Recent tag and set it as initial selection if it exists
     const recentTag = tags.find(tag => tag.name.toLowerCase() === 'recent');
     const [selectedTag, setSelectedTag] = useState<number | null>(recentTag ? recentTag.id : null);
+
+    // Add state for 'for sale' filter
+    const [forSaleOnly, setForSaleOnly] = useState(false);
+
+    // Mobile overlay state
+    const [activeArtworkId, setActiveArtworkId] = useState<number | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // Group artworks by tag
     const groupedArtworks = useMemo(() => {
@@ -82,13 +95,22 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
         });
     }, [artworks, tags]);
 
-    // Filter groups if a tag is selected
+    // Filter groups if a tag is selected and/or forSaleOnly is checked
     const filteredGroups = useMemo(() => {
-        if (selectedTag === null) {
-            return groupedArtworks;
+        let groups = groupedArtworks;
+        if (selectedTag !== null) {
+            groups = groups.filter(group => group.tag.id === selectedTag);
         }
-        return groupedArtworks.filter(group => group.tag.id === selectedTag);
-    }, [groupedArtworks, selectedTag]);
+        if (forSaleOnly) {
+            groups = groups
+                .map(group => ({
+                    ...group,
+                    artworks: group.artworks.filter(artwork => artwork.status === 'for sale'),
+                }))
+                .filter(group => group.artworks.length > 0);
+        }
+        return groups;
+    }, [groupedArtworks, selectedTag, forSaleOnly]);
 
     // Create ordered tag list for filter buttons
     const orderedTags = useMemo(() => {
@@ -146,7 +168,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.4 }}
-                                className="flex flex-wrap justify-center gap-2"
+                                className="flex flex-wrap justify-center gap-2 items-center"
                             >
                                 {/* Show ordered tags first */}
                                 {orderedTags.map((tag) => (
@@ -162,7 +184,6 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                         {tag.name}
                                     </button>
                                 ))}
-                                
                                 {/* Show "All artworks" button last */}
                                 <button
                                     onClick={() => setSelectedTag(null)}
@@ -174,6 +195,16 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                 >
                                     Alle kunstwerken
                                 </button>
+                                {/* Beschikbaar checkbox */}
+                                <label className="flex items-center ml-4 text-sm select-none cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        checked={forSaleOnly}
+                                        onChange={e => setForSaleOnly(e.target.checked)}
+                                        className="form-checkbox h-4 w-4 text-green-600 transition duration-150 mr-2"
+                                    />
+                                    Toon alleen beschikbare kunstwerken
+                                </label>
                             </motion.div>
                         </div>
                     </section>
@@ -219,6 +250,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                                     target="_blank" 
                                                     rel="noopener noreferrer"
                                                     className="block w-full"
+                                                    tabIndex={-1}
                                                 >
                                                     <div className="relative">
                                                         <img
@@ -230,9 +262,38 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                                                 e.currentTarget.style.backgroundColor = '#f3f4f6';
                                                             }}
                                                             loading="lazy"
+                                                            onClick={e => {
+                                                                if (isMobile) {
+                                                                    if (activeArtworkId !== artwork.id) {
+                                                                        e.preventDefault();
+                                                                        setActiveArtworkId(artwork.id);
+                                                                    } else {
+                                                                        // Overlay is open, allow default (open image)
+                                                                        setActiveArtworkId(null); // Optionally close overlay after
+                                                                    }
+                                                                }
+                                                            }}
                                                         />
-                                                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm pointer-events-none">
-                                                            <div className="text-center text-white translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 px-4">
+                                                        <div
+                                                            className={
+                                                                `absolute inset-0 bg-black/60 transition-all duration-300 flex items-center justify-center backdrop-blur-sm px-4 ` +
+                                                                (
+                                                                    isMobile
+                                                                        ? (activeArtworkId === artwork.id ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none')
+                                                                        : 'opacity-0 group-hover:opacity-100 pointer-events-none'
+                                                                )
+                                                            }
+                                                            style={{ zIndex: 2 }}
+                                                            onClick={e => isMobile && e.stopPropagation()}
+                                                        >
+                                                            <div className={
+                                                                `text-center text-white transition-all duration-300 ` +
+                                                                (
+                                                                    isMobile
+                                                                        ? (activeArtworkId === artwork.id ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+                                                                        : 'translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100'
+                                                                )
+                                                            }>
                                                                 <h3 className="text-2xl font-light mb-2">{artwork.title}</h3>
                                                                 <p className="text-sm mb-2">{artwork.description}</p>
                                                                 <span className={`inline-block px-3 py-1 rounded-full text-sm ${
