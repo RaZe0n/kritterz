@@ -79,6 +79,10 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
             }
         });
         
+        // Sort each group's artworks by most recent (highest id first)
+        Object.values(grouped).forEach(group => {
+            group.artworks.sort((a, b) => b.id - a.id);
+        });
         // Filter out empty groups and apply custom sorting
         const groups = Object.values(grouped).filter(group => group.artworks.length > 0);
         
