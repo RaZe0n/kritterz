@@ -104,6 +104,10 @@ Route::middleware(['auth', 'verified', 'dashboard.access'])->group(function () {
         'destroy' => 'dashboard.tags.destroy',
     ]);
     Route::post('/dashboard/tags/update-order', [\App\Http\Controllers\TagController::class, 'updateOrder'])->name('dashboard.tags.updateOrder');
+
+    // Add these routes for artworks per tag
+    Route::get('/dashboard/tags/{tag}/artworks', [\App\Http\Controllers\ArtworkController::class, 'getArtworksForTag'])->name('dashboard.tags.artworks');
+    Route::post('/dashboard/tags/{tag}/artworks/order', [\App\Http\Controllers\ArtworkController::class, 'updateArtworksOrder'])->name('dashboard.tags.artworks.order');
     
     // Event CRUD routes
     Route::resource('dashboard/events', EventController::class)->names([

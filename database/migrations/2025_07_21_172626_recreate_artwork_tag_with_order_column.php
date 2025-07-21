@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // 'order' column already exists in tags table from creation migration. No action needed.
+        Schema::table('artwork_tag', function (Blueprint $table) {
+            //
+        });
     }
 
     /**
@@ -19,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // No action needed.
+        Schema::table('artwork_tag', function (Blueprint $table) {
+            //
+        });
     }
 };

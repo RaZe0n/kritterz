@@ -168,4 +168,38 @@ class ArtworkController extends Controller
     {
         return Artwork::with('tags')->sold()->get();
     }
+
+    /**
+     * Get artworks for a tag, ordered by the pivot 'order' column.
+     */
+    public function getArtworksForTag(Request $request, Tag $tag)
+    {
+        // Only allow admin
+        if (!$request->user() || $request->user()->role !== 'admin') {
+            abort(403);
+        }
+        $artworks = $tag->artworks()->with('tags')->orderBy('artwork_tag.order')->get();
+        return response()->json(['artworks' => $artworks]);
+    }
+
+    /**
+     * Update the order of artworks for a tag.
+     * Expects: { order: [artwork_id1, artwork_id2, ...] }
+     */
+    public function updateArtworksOrder(Request $request, Tag $tag)
+    {
+        // Only allow admin
+        if (!$request->user() || $request->user()->role !== 'admin') {
+            abort(403);
+        }
+        $order = $request->input('order');
+        if (!is_array($order)) {
+            return response()->json(['error' => 'Invalid order data'], 422);
+        }
+        // Update each artwork's order in the pivot
+        foreach ($order as $index => $artworkId) {
+            $tag->artworks()->updateExistingPivot($artworkId, ['order' => $index]);
+        }
+        return response()->json(['success' => true]);
+    }
 }

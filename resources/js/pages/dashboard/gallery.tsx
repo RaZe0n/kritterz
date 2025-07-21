@@ -18,6 +18,22 @@ import {
     Upload
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+  useSortable
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { useEffect, useState } from 'react';
 
 interface Artwork {
     id: number;
@@ -46,6 +62,15 @@ interface Props {
     stats: Stats;
 }
 
+interface Tag {
+  id: number;
+  name: string;
+  color: string;
+  description: string;
+  artworks_count?: number;
+  order?: number;
+}
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -57,7 +82,149 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ];
 
-export default function DashboardGallery({ artworks, stats }: Props) {
+export default function DashboardGallery({ artworks: initialArtworks, stats }: Props) {
+    const [tags, setTags] = useState<Tag[]>([]);
+    const [selectedTag, setSelectedTag] = useState<number | null>(null);
+    const [artworks, setArtworks] = useState<Artwork[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [saveMessage, setSaveMessage] = useState<string | null>(null);
+
+    // Fetch tags on mount
+    useEffect(() => {
+        axios.get('/api/tags').then(res => setTags(res.data));
+    }, []);
+
+    // Fetch artworks for selected tag
+    useEffect(() => {
+        if (selectedTag) {
+            setLoading(true);
+            axios.get(`/dashboard/tags/${selectedTag}/artworks`)
+                .then(res => {
+                    console.log('API response for artworks:', res.data);
+                    setArtworks(res.data.artworks);
+                })
+                .catch(err => {
+                    setArtworks([]);
+                    // Optionally, you could set an error state here
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        } else {
+            setArtworks([]);
+        }
+    }, [selectedTag]);
+
+    // DnD-kit setup
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 5,
+            },
+        })
+    );
+
+    function handleDragEnd(event: any) {
+        const { active, over } = event;
+        if (active.id !== over.id) {
+            const oldIndex = artworks.findIndex(a => a.id === active.id);
+            const newIndex = artworks.findIndex(a => a.id === over.id);
+            const newArtworks = arrayMove(artworks, oldIndex, newIndex);
+            setArtworks(newArtworks);
+        }
+    }
+
+    async function saveOrder() {
+        setSaving(true);
+        setSaveMessage(null);
+        try {
+            await axios.post(`/dashboard/tags/${selectedTag}/artworks/order`, {
+                order: artworks.map(a => a.id),
+            });
+            setSaveMessage('Order saved!');
+        } catch (e) {
+            setSaveMessage('Error saving order.');
+        } finally {
+            setSaving(false);
+            setTimeout(() => setSaveMessage(null), 2000);
+        }
+    }
+
+    // Sortable item component
+    function SortableArtwork({ artwork }: { artwork: Artwork }) {
+        const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+            id: artwork.id,
+        });
+        const style = {
+            transform: CSS.Transform.toString(transform),
+            transition,
+            zIndex: isDragging ? 10 : undefined,
+            opacity: isDragging ? 0.7 : 1,
+        };
+        return (
+            <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="group relative overflow-hidden rounded-lg border bg-white">
+                <div className="relative">
+                    <img
+                        src={artwork.image}
+                        alt={artwork.title}
+                        className="w-full h-auto max-h-80 object-contain transition-transform duration-300 group-hover:scale-105"
+                        onError={e => {
+                            e.currentTarget.style.backgroundColor = '#f3f4f6';
+                        }}
+                    />
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                        <div className="flex gap-2">
+                            <Link href={route('dashboard.artworks.show', artwork.id)}>
+                                <Button size="sm" variant="secondary">
+                                    <Eye className="h-4 w-4" />
+                                </Button>
+                            </Link>
+                            <Link href={route('dashboard.artworks.edit', artwork.id)}>
+                                <Button size="sm" variant="secondary">
+                                    <Edit className="h-4 w-4" />
+                                </Button>
+                            </Link>
+                            <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => handleDelete(artwork.id)}
+                            >
+                                <Trash2 className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+                <div className="p-4">
+                    <div className="flex items-start justify-between mb-2">
+                        <h3 className="font-medium text-sm">{artwork.title}</h3>
+                        <Badge variant={artwork.status === 'sold' ? 'secondary' : 'default'}>
+                            {artwork.status === 'sold' ? 'Sold' : 'For Sale'}
+                        </Badge>
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-2">{artwork.description}</p>
+                    {artwork.tags && artwork.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-2">
+                            {artwork.tags.map(tag => (
+                                <span
+                                    key={tag.id}
+                                    className="px-2 py-1 text-xs rounded-full"
+                                    style={{ backgroundColor: tag.color + '20', color: tag.color }}
+                                >
+                                    {tag.name}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>{new Date(artwork.created_at).getFullYear()}</span>
+                        <span>{artwork.status === 'sold' ? 'Sold' : 'Available'}</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     const handleDelete = (artworkId: number) => {
         if (confirm('Are you sure you want to delete this artwork?')) {
             router.delete(route('dashboard.artworks.destroy', artworkId));
@@ -156,82 +323,133 @@ export default function DashboardGallery({ artworks, stats }: Props) {
                             </Button>
                         </div>
 
-                        {/* Artwork Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                            {artworks.map((artwork, index) => (
-                                <motion.div
-                                    key={artwork.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className="group relative overflow-hidden rounded-lg border"
-                                >
-                                    <div className="relative">
-                                        <img
-                                            src={artwork.image}
-                                            alt={artwork.title}
-                                            className="w-full h-auto max-h-80 object-contain transition-transform duration-300 group-hover:scale-105"
-                                            onError={(e) => {
-                                                e.currentTarget.style.backgroundColor = '#f3f4f6';
-                                            }}
-                                        />
-                                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                                            <div className="flex gap-2">
-                                                <Link href={route('dashboard.artworks.show', artwork.id)}>
-                                                    <Button size="sm" variant="secondary">
-                                                        <Eye className="h-4 w-4" />
-                                                    </Button>
-                                                </Link>
-                                                <Link href={route('dashboard.artworks.edit', artwork.id)}>
-                                                    <Button size="sm" variant="secondary">
-                                                        <Edit className="h-4 w-4" />
-                                                    </Button>
-                                                </Link>
-                                                <Button 
-                                                    size="sm" 
-                                                    variant="destructive"
-                                                    onClick={() => handleDelete(artwork.id)}
-                                                >
-                                                    <Trash2 className="h-4 w-4" />
-                                                </Button>
-                                            </div>
-                                        </div>
+                        {/* Tag Selector for Reordering */}
+                        <Card>
+                            <CardHeader>
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <CardTitle>Artwork Order per Tag</CardTitle>
+                                        <CardDescription>
+                                            Select a tag to reorder artworks within that tag
+                                        </CardDescription>
                                     </div>
-                                    <div className="p-4">
-                                        <div className="flex items-start justify-between mb-2">
-                                            <h3 className="font-medium text-sm">{artwork.title}</h3>
-                                            <Badge variant={artwork.status === 'sold' ? 'secondary' : 'default'}>
-                                                {artwork.status === 'sold' ? 'Sold' : 'For Sale'}
-                                            </Badge>
-                                        </div>
-                                        <p className="text-xs text-muted-foreground mb-2">{artwork.description}</p>
-                                        
-                                        {/* Tags */}
-                                        {artwork.tags && artwork.tags.length > 0 && (
-                                            <div className="flex flex-wrap gap-1 mb-2">
-                                                {artwork.tags.map((tag) => (
-                                                    <span
-                                                        key={tag.id}
-                                                        className="px-2 py-1 text-xs rounded-full"
-                                                        style={{
-                                                            backgroundColor: tag.color + '20',
-                                                            color: tag.color,
-                                                        }}
-                                                    >
-                                                        {tag.name}
-                                                    </span>
+                                </div>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex items-center gap-4 mb-6">
+                                    <select
+                                        className="border rounded px-3 py-2"
+                                        value={selectedTag ?? ''}
+                                        onChange={e => setSelectedTag(e.target.value ? Number(e.target.value) : null)}
+                                    >
+                                        <option value="">Select tag...</option>
+                                        {tags.map(tag => (
+                                            <option key={tag.id} value={tag.id}>
+                                                {tag.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {selectedTag && (
+                                        <Button onClick={saveOrder} disabled={saving}>
+                                            {saving ? 'Saving...' : 'Save Order'}
+                                        </Button>
+                                    )}
+                                    {saveMessage && <span className="text-green-600">{saveMessage}</span>}
+                                </div>
+                                {loading && <div>Loading artworks...</div>}
+                                {!loading && selectedTag && artworks.length === 0 && (
+                                    <div className="text-gray-500">No artworks found for this tag.</div>
+                                )}
+                                {!selectedTag && !loading && <div className="text-gray-500">Select a tag to reorder artworks.</div>}
+                                {selectedTag && !loading && artworks.length > 0 && (
+                                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                                        <SortableContext items={artworks.map(a => a.id)} strategy={verticalListSortingStrategy}>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                                {artworks.map(artwork => (
+                                                    <SortableArtwork key={artwork.id} artwork={artwork} />
                                                 ))}
                                             </div>
-                                        )}
-                                        
-                                        <div className="flex items-center justify-between text-xs text-muted-foreground">
-                                            <span>{new Date(artwork.created_at).getFullYear()}</span>
-                                            <span>{artwork.status === 'sold' ? 'Sold' : 'Available'}</span>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
+                                        </SortableContext>
+                                    </DndContext>
+                                )}
+                            </CardContent>
+                        </Card>
+                        {/* Artwork Grid */}
+                        {!selectedTag && (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                              {artworks.map((artwork, index) => (
+                                  <motion.div
+                                      key={artwork.id}
+                                      initial={{ opacity: 0, y: 20 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                                      className="group relative overflow-hidden rounded-lg border"
+                                  >
+                                      <div className="relative">
+                                          <img
+                                              src={artwork.image}
+                                              alt={artwork.title}
+                                              className="w-full h-auto max-h-80 object-contain transition-transform duration-300 group-hover:scale-105"
+                                              onError={(e) => {
+                                                  e.currentTarget.style.backgroundColor = '#f3f4f6';
+                                              }}
+                                          />
+                                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                                              <div className="flex gap-2">
+                                                  <Link href={route('dashboard.artworks.show', artwork.id)}>
+                                                      <Button size="sm" variant="secondary">
+                                                          <Eye className="h-4 w-4" />
+                                                      </Button>
+                                                  </Link>
+                                                  <Link href={route('dashboard.artworks.edit', artwork.id)}>
+                                                      <Button size="sm" variant="secondary">
+                                                          <Edit className="h-4 w-4" />
+                                                      </Button>
+                                                  </Link>
+                                                  <Button 
+                                                      size="sm" 
+                                                      variant="destructive"
+                                                      onClick={() => handleDelete(artwork.id)}
+                                                  >
+                                                      <Trash2 className="h-4 w-4" />
+                                                  </Button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div className="p-4">
+                                          <div className="flex items-start justify-between mb-2">
+                                              <h3 className="font-medium text-sm">{artwork.title}</h3>
+                                              <Badge variant={artwork.status === 'sold' ? 'secondary' : 'default'}>
+                                                  {artwork.status === 'sold' ? 'Sold' : 'For Sale'}
+                                              </Badge>
+                                          </div>
+                                          <p className="text-xs text-muted-foreground mb-2">{artwork.description}</p>
+                                          {/* Tags */}
+                                          {artwork.tags && artwork.tags.length > 0 && (
+                                              <div className="flex flex-wrap gap-1 mb-2">
+                                                  {artwork.tags.map((tag) => (
+                                                      <span
+                                                          key={tag.id}
+                                                          className="px-2 py-1 text-xs rounded-full"
+                                                          style={{
+                                                              backgroundColor: tag.color + '20',
+                                                              color: tag.color,
+                                                          }}
+                                                      >
+                                                          {tag.name}
+                                                      </span>
+                                                  ))}
+                                              </div>
+                                          )}
+                                          <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                              <span>{new Date(artwork.created_at).getFullYear()}</span>
+                                              <span>{artwork.status === 'sold' ? 'Sold' : 'Available'}</span>
+                                          </div>
+                                      </div>
+                                  </motion.div>
+                              ))}
+                          </div>
+                        )}
                     </CardContent>
                 </Card>
             </div>
