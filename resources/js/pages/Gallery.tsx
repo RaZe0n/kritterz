@@ -196,7 +196,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                     Alle kunstwerken
                                 </button>
                                 {/* Beschikbaar checkbox */}
-                                <label className="flex items-center ml-4 text-sm select-none cursor-pointer">
+                                <label className="flex items-center ml-4 text-sm text-black select-none cursor-pointer">
                                     <input
                                         type="checkbox"
                                         checked={forSaleOnly}
