@@ -23,6 +23,7 @@ class Event extends Model
         'date_range',
         'opening_hours',
         'ticket_info',
+        'link',
         'status',
         'start_date',
         'end_date',

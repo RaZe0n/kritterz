@@ -16,6 +16,7 @@ interface Event {
     status: 'current' | 'upcoming' | 'past';
     start_date?: string;
     end_date?: string;
+    link?: string;
 }
 
 interface ExhibitionsProps {
@@ -98,9 +99,21 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                 }}
                                             />
                                         </div>
-                                        <div className="p-6">
+                                        <div className="p-6 relative">
                                             <h3 className="text-2xl font-light mb-2">{exhibition.title}</h3>
                                             <p className="text-gray-600 mb-4">{exhibition.description}</p>
+                                            {exhibition.link && (
+                                                <a
+                                                    href={exhibition.link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="absolute bottom-4 right-4 z-10"
+                                                >
+                                                    <button className="px-3 py-1.5 rounded-full shadow bg-white/90 text-gray-700 text-sm font-medium border border-gray-200 hover:bg-orange-500 hover:text-white transition-all">
+                                                        Meer info
+                                                    </button>
+                                                </a>
+                                            )}
                                             <div className="space-y-2 text-sm text-gray-600">
                                                 <p><strong>Locatie:</strong> {exhibition.location}</p>
                                                 <p><strong>Datum:</strong> {exhibition.date_range}</p>
@@ -148,9 +161,21 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                     }}
                                                 />
                                             </div>
-                                            <div className="p-6">
+                                            <div className="p-6 relative">
                                                 <h3 className="text-xl font-light mb-2">{exhibition.title}</h3>
                                                 <p className="text-gray-600 mb-4">{exhibition.description}</p>
+                                                {exhibition.link && (
+                                                    <a
+                                                        href={exhibition.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="absolute bottom-4 right-4 z-10"
+                                                    >
+                                                        <button className="px-3 py-1.5 rounded-full shadow bg-white/90 text-gray-700 text-sm font-medium border border-gray-200 hover:bg-orange-500 hover:text-white transition-all">
+                                                            Meer info
+                                                        </button>
+                                                    </a>
+                                                )}
                                                 <div className="text-sm text-gray-600">
                                                     <p><strong>Locatie:</strong> {exhibition.location}</p>
                                                     <p><strong>Datum:</strong> {exhibition.date_range}</p>
@@ -187,9 +212,21 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                     }}
                                                 />
                                             </div>
-                                            <div className="p-6">
+                                            <div className="p-6 relative">
                                                 <h3 className="text-xl font-light mb-2">{exhibition.title}</h3>
                                                 <p className="text-gray-600 mb-4">{exhibition.description}</p>
+                                                {exhibition.link && (
+                                                    <a
+                                                        href={exhibition.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="absolute bottom-4 right-4 z-10"
+                                                    >
+                                                        <button className="px-3 py-1.5 rounded-full shadow bg-white/90 text-gray-700 text-sm font-medium border border-gray-200 hover:bg-orange-500 hover:text-white transition-all">
+                                                            Meer info
+                                                        </button>
+                                                    </a>
+                                                )}
                                                 <div className="text-sm text-gray-600">
                                                     <p><strong>Locatie:</strong> {exhibition.location}</p>
                                                     <p><strong>Datum:</strong> {exhibition.date_range}</p>

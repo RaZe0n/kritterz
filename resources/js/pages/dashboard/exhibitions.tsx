@@ -36,6 +36,7 @@ interface Event {
     end_date?: string;
     created_at: string;
     updated_at: string;
+    link?: string; // Added link property
 }
 
 interface Stats {
@@ -142,7 +143,7 @@ export default function DashboardExhibitions({
                                 <CardDescription>
                                     Active exhibitions and events
                                 </CardDescription>
-                            </div>
+                            </div>  
                         </div>
                     </CardHeader>
                     <CardContent>
@@ -192,6 +193,18 @@ export default function DashboardExhibitions({
                                             <Badge variant="default">Active</Badge>
                                         </div>
                                         <p className="text-sm text-muted-foreground mb-3">{exhibition.description}</p>
+                                        {exhibition.link && (
+                                            <a
+                                                href={exhibition.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-block mb-2"
+                                            >
+                                                <Button size="sm" variant="outline" className="w-full">
+                                                    Meer info
+                                                </Button>
+                                            </a>
+                                        )}
                                         <div className="space-y-2 text-xs text-muted-foreground">
                                             <div className="flex items-center gap-2">
                                                 <MapPin className="h-3 w-3" />

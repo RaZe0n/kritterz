@@ -19,6 +19,7 @@ interface Event {
     date_range: string;
     opening_hours?: string;
     ticket_info?: string;
+    link?: string;
     status: 'current' | 'upcoming' | 'past';
     start_date?: string;
     end_date?: string;
@@ -56,6 +57,7 @@ export default function EditEvent({ event }: Props) {
         date_range: event.date_range,
         opening_hours: event.opening_hours || '',
         ticket_info: event.ticket_info || '',
+        link: event.link || '',
         status: event.status,
         start_date: event.start_date || '',
         end_date: event.end_date || '',
@@ -231,6 +233,20 @@ export default function EditEvent({ event }: Props) {
                                     />
                                     {errors.ticket_info && (
                                         <p className="text-sm text-red-500">{errors.ticket_info}</p>
+                                    )}
+                                </div>
+                                {/* Event Link */}
+                                <div className="space-y-2">
+                                    <Label htmlFor="link">Event Link</Label>
+                                    <Input
+                                        id="link"
+                                        value={data.link}
+                                        onChange={(e) => setData('link', e.target.value)}
+                                        placeholder="https://..."
+                                        className={errors.link ? 'border-red-500' : ''}
+                                    />
+                                    {errors.link && (
+                                        <p className="text-sm text-red-500">{errors.link}</p>
                                     )}
                                 </div>
 

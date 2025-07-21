@@ -36,6 +36,7 @@ export default function CreateEvent() {
         date_range: '',
         opening_hours: '',
         ticket_info: '',
+        link: '',
         status: 'upcoming' as 'current' | 'upcoming' | 'past',
         start_date: '',
         end_date: '',
@@ -210,6 +211,20 @@ export default function CreateEvent() {
                                     />
                                     {errors.ticket_info && (
                                         <p className="text-sm text-red-500">{errors.ticket_info}</p>
+                                    )}
+                                </div>
+                                {/* Event Link */}
+                                <div className="space-y-2">
+                                    <Label htmlFor="link">Event Link</Label>
+                                    <Input
+                                        id="link"
+                                        value={data.link}
+                                        onChange={(e) => setData('link', e.target.value)}
+                                        placeholder="https://..."
+                                        className={errors.link ? 'border-red-500' : ''}
+                                    />
+                                    {errors.link && (
+                                        <p className="text-sm text-red-500">{errors.link}</p>
                                     )}
                                 </div>
 
