@@ -45,7 +45,7 @@ const Navbar = () => {
                             href="/gallery" 
                             className="text-gray-600 hover:text-orange-600 transition-colors relative group"
                         >
-                            Gallerij
+                            Galerij
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 group-hover:w-full transition-all duration-300"></span>
                         </Link>
                         <Link 
@@ -100,7 +100,7 @@ const Navbar = () => {
                             href="/gallery"
                             className="block px-3 py-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-colors"
                         >
-                            Gallerij
+                            Galerij
                         </Link>
                         <Link
                             href="/exhibitions"
