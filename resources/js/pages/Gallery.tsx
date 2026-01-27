@@ -136,7 +136,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
 
     return (
         <>
-            <Head title="KritterZ | Gallerij" />
+            <Head title="KritterZ | Galerij" />
             <div className="min-h-screen bg-white">
                 <Navbar />
                 

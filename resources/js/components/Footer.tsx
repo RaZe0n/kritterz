@@ -37,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({ auth }) => {
                         <ul className="mt-4 space-y-2">
                             <li>
                                 <Link href="/gallery" className="text-gray-600 hover:text-orange-600 transition-colors">
-                                    Gallerij
+                                    Galerij
                                 </Link>
                             </li>
                             <li>
