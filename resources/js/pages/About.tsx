@@ -19,7 +19,7 @@ interface AboutProps {
 const About: React.FC<AboutProps> = ({ auth }) => {
     return (
         <>
-            <Head title="About | KritterZ" />
+            <Head title="Over mij | KritterZ" />
             <div className="min-h-screen bg-white">
                 <Navbar />
                 

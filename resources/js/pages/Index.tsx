@@ -525,7 +525,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             Ik maak deze KritterZ vooral omdat ik daar zelf heel veel plezier aan beleef. Maar ik vind het natuurlijk heel leuk als anderen ze ook mooi vinden!
                                         </p>
                                         <p className="leading-relaxed">
-                                            Ben je geïnteresseerd in een van mijn KritterZ? Dan hoor ik dat natuurlijk heel graag. Neem een kijkje in de gallerij om te zien welke KritterZ er op dit moment beshikbaar zijn.
+                                            Ben je geïnteresseerd in een van mijn KritterZ? Dan hoor ik dat natuurlijk heel graag. Neem een kijkje in de galerij om te zien welke KritterZ er op dit moment beshikbaar zijn.
                                         </p>
                                     </div>
                                 </div>

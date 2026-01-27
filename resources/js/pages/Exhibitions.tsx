@@ -36,7 +36,7 @@ interface ExhibitionsProps {
 const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents, recentEvents, auth }) => {
     return (
         <>
-            <Head title="Exhibitions | Silvercraft" />
+            <Head title="Exposities | KritterZ" />
             <div className="min-h-screen bg-white">
                 <Navbar />
                 
