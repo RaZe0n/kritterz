@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Lang;
 use App\Mail\ContactFormMail;
 use Inertia\Inertia;
 
@@ -30,12 +31,12 @@ class ContactController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.'
+                'message' => Lang::get('ui.contact.success_message')
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Er is een fout opgetreden. Probeer het later opnieuw.'
+                'message' => Lang::get('ui.contact.error_message')
             ], 500);
         }
     }

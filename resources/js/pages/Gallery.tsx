@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
+import { useT } from '@/hooks/useT';
 
 interface Tag {
     id: number;
@@ -34,6 +35,8 @@ interface GalleryProps {
 }
 
 const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
+    const { props } = usePage<{ locale: string; translations?: Record<string, string> }>();
+    const t = useT(props.translations || {});
     // Find the Recent tag and set it as initial selection if it exists
     const recentTag = tags.find(tag => tag.name.toLowerCase() === 'recent');
     const [selectedTag, setSelectedTag] = useState<number | null>(recentTag ? recentTag.id : null);
@@ -136,7 +139,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
 
     return (
         <>
-            <Head title="KritterZ | Galerij" />
+            <Head title={`KritterZ | ${t('gallery.title', 'Galerij')}`} />
             <div className="min-h-screen bg-white">
                 <Navbar />
                 
@@ -156,7 +159,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                 transition={{ duration: 0.8, delay: 0.1 }}
                                 className="text-4xl md:text-5xl font-light mb-6 text-gray-800"
                             >
-                                Portfolio
+                                {t('gallery.title')}
                             </motion.h1>
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
@@ -164,7 +167,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="text-xl text-gray-600 mb-8"
                             >
-                                Bekijk hieronder al mijn diverse creaties.
+                                {t('gallery.subtitle')}
                             </motion.p>
                             
                             {/* Tag Filter */}
@@ -197,7 +200,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                     }`}
                                 >
-                                    Alle kunstwerken
+                                    {t('gallery.all_artworks')}
                                 </button>
                                 {/* Beschikbaar checkbox */}
                                 <label className="flex items-center ml-4 text-sm text-black select-none cursor-pointer">
@@ -207,7 +210,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                         onChange={e => setForSaleOnly(e.target.checked)}
                                         className="form-checkbox h-4 w-4 text-green-600 transition duration-150 mr-2"
                                     />
-                                    Toon alleen beschikbare kunstwerken
+                                    {t('gallery.show_available_only')}
                                 </label>
                             </motion.div>
                         </div>
@@ -305,7 +308,9 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                                                     ? 'bg-red-500/90' 
                                                                     : 'bg-green-500/90'
                                                                 }`}>
-                                                                    {artwork.status === 'sold' ? 'Verkocht' : 'Beschikbaar'}
+                                                                    {artwork.status === 'sold'
+                                                                        ? t('gallery.sold', 'Verkocht')
+                                                                        : t('gallery.available', 'Beschikbaar')}
                                                                 </span>
                                                             </div>
                                                         </div>

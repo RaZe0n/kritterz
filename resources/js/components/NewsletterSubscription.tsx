@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Dialog,
@@ -7,12 +8,15 @@ import {
     DialogTitle,
     DialogDescription,
 } from '@/components/ui/dialog';
+import { useT } from '@/hooks/useT';
 
 interface NewsletterSubscriptionProps {
     className?: string;
 }
 
 const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ className = '' }) => {
+    const { props } = usePage<{ translations?: Record<string, string> }>();
+    const t = useT(props.translations || {});
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -27,13 +31,13 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
         
         // Check if email is empty
         if (!trimmedEmail) {
-            return { isValid: false, error: 'E-mailadres is verplicht.' };
+            return { isValid: false, error: t('newsletter.email_required', 'E-mailadres is verplicht.') };
         }
 
         // Basic email format regex
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(trimmedEmail)) {
-            return { isValid: false, error: 'Voer een geldig e-mailadres in (bijvoorbeeld: naam@domein.nl).' };
+            return { isValid: false, error: t('newsletter.email_invalid', 'Voer een geldig e-mailadres in (bijvoorbeeld: naam@domein.nl).') };
         }
 
         // More specific validation
@@ -43,29 +47,29 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
 
         // Check local part
         if (localPart.length < 1 || localPart.length > 64) {
-            return { isValid: false, error: 'Het e-mailadres is te kort of te lang.' };
+            return { isValid: false, error: t('newsletter.email_length', 'Het e-mailadres is te kort of te lang.') };
         }
 
         // Check domain part
         if (!domainPart || domainPart.length < 3 || domainPart.length > 253) {
-            return { isValid: false, error: 'Het domein is ongeldig.' };
+            return { isValid: false, error: t('newsletter.domain_invalid', 'Het domein is ongeldig.') };
         }
 
         // Check for valid domain extension
         const domainParts = domainPart.split('.');
         if (domainParts.length < 2) {
-            return { isValid: false, error: 'Het e-mailadres moet een geldig domein hebben.' };
+            return { isValid: false, error: t('newsletter.domain_required', 'Het e-mailadres moet een geldig domein hebben.') };
         }
 
         const extension = domainParts[domainParts.length - 1];
         if (extension.length < 2 || extension.length > 6) {
-            return { isValid: false, error: 'Het domein heeft een ongeldige extensie.' };
+            return { isValid: false, error: t('newsletter.domain_extension', 'Het domein heeft een ongeldige extensie.') };
         }
 
         // Check for special characters that might cause issues
         const specialCharRegex = /[<>()[\]\\,;:\s"]/;
         if (specialCharRegex.test(localPart)) {
-            return { isValid: false, error: 'Het e-mailadres bevat ongeldige tekens.' };
+            return { isValid: false, error: t('newsletter.email_chars', 'Het e-mailadres bevat ongeldige tekens.') };
         }
 
         return { isValid: true, error: '' };
@@ -128,7 +132,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
                 showErrorModal(data.message);
             }
         } catch (error) {
-            showErrorModal('Er is een fout opgetreden. Probeer het later opnieuw.');
+            showErrorModal(t('newsletter.error_generic', 'Er is een fout opgetreden. Probeer het later opnieuw.'));
         } finally {
             setIsLoading(false);
         }
@@ -156,9 +160,11 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
         <>
             <div className={`text-center ${className}`}>
                 <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto mb-6"></div>
-                <h2 className="text-4xl font-light mb-4 text-gray-800">Blijf op de hoogte</h2>
+                <h2 className="text-4xl font-light mb-4 text-gray-800">
+                    {t('newsletter.title', 'Blijf op de hoogte')}
+                </h2>
                 <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Schrijf je in voor mijn nieuwsbrief en ontvang 2 à 3 keer per jaar updates over nieuwe KritterZ en exposities.
+                    {t('newsletter.subtitle', 'Schrijf je in voor mijn nieuwsbrief en ontvang 2 à 3 keer per jaar updates over nieuwe KritterZ en exposities.')}
                 </p>
                 
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-8">
@@ -167,7 +173,7 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
                             type="email"
                             value={email}
                             onChange={handleEmailChange}
-                            placeholder="Jouw e-mailadres"
+                            placeholder={t('newsletter.email_placeholder', 'Jouw e-mailadres')}
                             className={`w-full px-6 py-4 border rounded-full focus:outline-none focus:ring-2 focus:border-transparent text-gray-800 transition-all duration-300 ${
                                 emailError 
                                     ? 'border-red-300 focus:ring-red-500 bg-red-50' 
@@ -211,10 +217,10 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                Inschrijven...
+                                {t('newsletter.submitting', 'Inschrijven...')}
                             </div>
                         ) : (
-                            'Inschrijven'
+                            t('newsletter.submit', 'Inschrijven')
                         )}
                     </button>
                 </form>
@@ -232,12 +238,14 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
 
                 {/* Validation Info */}
                 <div className="text-xs text-gray-500 mb-8 max-w-md mx-auto">
-                    <p>Gebruik een geldig e-mailadres.</p>
+                    <p>{t('newsletter.validation_hint', 'Gebruik een geldig e-mailadres.')}</p>
                 </div>
                 
                 {/* Social Media Links */}
                 <div className="border-t border-gray-200 pt-8">
-                    <p className="text-gray-600 mb-6">Of volg mij op social media</p>
+                    <p className="text-gray-600 mb-6">
+                        {t('newsletter.follow_social', 'Of volg mij op social media')}
+                    </p>
                     <div className="flex justify-center space-x-8">
                         <a 
                             href="https://www.instagram.com/kritterz.nl/" 
@@ -270,7 +278,9 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
                 <DialogContent className="sm:max-w-md">
                     <DialogHeader>
                         <DialogTitle className={`text-center ${modalType === 'success' ? 'text-green-600' : 'text-red-600'}`}>
-                            {modalType === 'success' ? 'Succes!' : 'Fout'}
+                            {modalType === 'success'
+                                ? t('newsletter.success_title', 'Succes!')
+                                : t('newsletter.error_title', 'Fout')}
                         </DialogTitle>
                         <DialogDescription className="text-center text-gray-600 mt-2">
                             {modalMessage}
@@ -284,8 +294,8 @@ const NewsletterSubscription: React.FC<NewsletterSubscriptionProps> = ({ classNa
                                     ? 'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700'
                                     : 'bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700'
                             }`}
-                        >
-                            Sluiten
+                            >
+                                {t('newsletter.close', 'Sluiten')}
                         </button>
                     </div>
                 </DialogContent>

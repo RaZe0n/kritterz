@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Artwork extends Model
 {
@@ -27,6 +28,33 @@ class Artwork extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function translations()
+    {
+        return $this->hasMany(ArtworkTranslation::class);
+    }
+
+    public function getTranslatedTitleAttribute(): string
+    {
+        $locale = App::getLocale();
+        $defaultLocale = config('locales.default', config('app.locale', 'en'));
+
+        $translation = $this->translations->firstWhere('locale', $locale)
+            ?? $this->translations->firstWhere('locale', $defaultLocale);
+
+        return $translation?->title ?? $this->title;
+    }
+
+    public function getTranslatedDescriptionAttribute(): string
+    {
+        $locale = App::getLocale();
+        $defaultLocale = config('locales.default', config('app.locale', 'en'));
+
+        $translation = $this->translations->firstWhere('locale', $locale)
+            ?? $this->translations->firstWhere('locale', $defaultLocale);
+
+        return $translation?->description ?? $this->description;
     }
 
     /**

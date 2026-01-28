@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Carousel from '@/components/Carousel';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
+import { useT } from '@/hooks/useT';
 
 interface Event {
     image: any;
@@ -30,6 +31,8 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents = [], auth }) => {
+    const { props } = usePage<{ translations?: Record<string, string> }>();
+    const t = useT(props.translations || {});
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -164,30 +167,30 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                     >
                         <div className="mb-12 text-center">
                             <h2 className="text-5xl md:text-6xl font-extralight text-gray-900 mb-4 tracking-tight">
-                                Welkom bij KritterZ
+                                {t('home.welcome_title')}
                             </h2>
                             <div className="flex justify-center mb-4">
                                 <span className="inline-block w-24 h-1 rounded-full bg-gradient-to-r from-orange-400 to-red-500"></span>
                             </div>
                             <h3 className="text-2xl md:text-3xl font-light text-gray-700">
-                                Hallo, ik ben Corine
+                                {t('home.about_me')}
                             </h3>
                         </div>
                         <div className="grid md:grid-cols-2 gap-12 items-center">
                             <div className="space-y-6">
                                 <div className="w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mb-6"></div>
                                 <p className="text-gray-600 leading-relaxed text-lg">
-                                Op deze website deel ik graag mijn 'KritterZ' creaties met je. Ze zijn allemaal gemaakt van gerecycled bestek dat ik bij elkaar zoek in de kringloopwinkels en vervolgens slijp, polijst en soldeer. De meeste KritterZ stellen dieren, vooral vogels, voor. Soms fantasie, vaak zo realistisch mogelijk. Ik vind het heel leuk dat mensen genieten van mijn KritterZ en ze regelmatig uitvliegen naar andere huisjes. 
+                                    {t('home.intro_paragraph')}
                                 </p>
                                 <p className="text-gray-600 leading-relaxed">
-                                    Wil je meer te weten komen over mij en mijn werkwijze? Klik dan op de knop hieronder.
+                                    {t('home.learn_more')}
                                 </p>
                                 <div className="pt-4">
                                     <a 
                                         href="/about" 
                                         className="inline-flex items-center bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-3 rounded-full font-medium hover:from-orange-600 hover:to-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                                     >
-                                        Meer over mij
+                                        {t('home.learn_more_button')}
                                         <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                         </svg>
@@ -226,9 +229,11 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                     >
                         <div className="text-center mb-16">
                             <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto mb-6"></div>
-                            <h2 className="text-4xl font-light mb-4 text-gray-800">Mijn werkwijze</h2>
+                            <h2 className="text-4xl font-light mb-4 text-gray-800">
+                                {t('home.workflow_title')}
+                            </h2>
                             <p className="text-gray-600 max-w-2xl mx-auto">
-                                Van gerecycled materiaal tot unieke kunstwerken
+                                {t('home.workflow_subtitle')}
                             </p>
                         </div>
                         
@@ -247,9 +252,11 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-xl font-semibold mb-4 text-gray-800">Gerecycled materiaal</h3>
+                                    <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                                        {t('home.recycled_materials_title')}
+                                    </h3>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Ik maak zoveel mogelijk gebruik van gerecycled materiaal. Het afstruinen van kringloopwinkels voor bestek, andere metalen materialen en gereedschap is een deel van de lol. Elke vondst vertelt een verhaal - van oude verzilverde lepels die ooit familie-erfstukken waren tot vergeten gereedschap dat een tweede leven verdient. Het is fascinerend om te zien hoe verschillende materialen samen kunnen komen om iets nieuws te creëren. Soms vind ik onverwachte schatten die perfect zijn voor een specifieke KritterZ die ik al een tijdje in gedachten had.
+                                        {t('home.recycled_materials_text')}
                                     </p>
                                 </div>
                             </motion.div>
@@ -267,9 +274,11 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-xl font-semibold mb-4 text-gray-800">Inspiratie</h3>
+                                    <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                                        {t('home.inspiration_title')}
+                                    </h3>
                                     <p className="text-gray-600 leading-relaxed mb-4">
-                                    Mijn inspiratie voor deze KritterZ komt uit de natuur en heeft zeker te maken met mijn opleiding als bioloog. Als kind was ik al gefascineerd door dieren en tijdens mijn studie kon ik diergedrag bestuderen en naar verre oorden reizen. De creativiteit raakte echter op de achtergrond tot de knop om moest. Nu probeer ik de unieke schoonheid van de natuur te vangen in mijn creaties. Het maakt me verdrietig dat de natuur wereldwijd onder druk staat en zoveel soorten verdwijnen. Ik hoop dat mensen in mijn KritterZ de schoonheid van die diversiteit zien en anders naar echte soorten en hun voortbestaan gaan kijken.
+                                        {t('home.inspiration_text')}
                                     </p>
                                 </div>
                             </motion.div>
@@ -288,9 +297,11 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-xl font-semibold mb-4 text-gray-800">Slijpen, schuren en solderen</h3>
+                                    <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                                        {t('home.crafting_title')}
+                                    </h3>
                                     <p className="text-gray-600 leading-relaxed mb-4">
-                                        Met een bankschroef, flex, Dremel en schuurmachine kom je voor het maken van bestek KritterZ een heel eind. Daarna worden de stukken zoveel mogelijk natuurgetrouw aan elkaar gesoldeerd met zilver tin. Door schuren of polijsten worden verschillende looks gecreëerd. Om dit zo goed mogelijk te kunnen doen, heb ik geïnvesteerd in professionele apparatuur die me hierbij helpt. Elk stuk krijgt de tijd dat het nodig heeft om tot zijn recht te komen; soms moet ik een stuk meerdere keren aanpassen tot het precies goed voelt. Het is een proces van geduld en precisie, waarbij elke KritterZ zijn eigen karakter krijgt.
+                                        {t('home.crafting_text')}
                                     </p>
                                 </div>
                             </motion.div>
@@ -307,9 +318,11 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                         className="max-w-7xl mx-auto"
                     >
                         <div className="text-center mb-16">
-                            <h2 className="text-4xl font-light mb-4 text-gray-800">Mijn Woman Cave</h2>
+                            <h2 className="text-4xl font-light mb-4 text-gray-800">
+                                {t('home.atelier_title')}
+                            </h2>
                             <p className="text-gray-600 max-w-2xl mx-auto">
-                                Waar creativiteit en passie samenkomen
+                                {t('home.atelier_subtitle')}
                             </p>
                         </div>
 
@@ -321,17 +334,14 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 transition={{ duration: 0.8 }}
                                 className="space-y-6"
                             >
-                                <h3 className="text-2xl font-semibold text-gray-800">Creatieve ruimte</h3>
+                                <h3 className="text-2xl font-semibold text-gray-800">
+                                    {/* Could be translated as well if you add a key */}
+                                    Creatieve ruimte
+                                </h3>
                                 <div className="space-y-4 text-gray-600 leading-relaxed">
-                                    <p>
-                                        In mijn atelier in Zuidhorn, niet meer dan een schuurtje in de achtertuin, vind je alles wat ik nodig heb om m'n KritterZ te maken. 
-                                    </p>
-                                    <p>
-                                        Inmiddels heb ik een flinke voorraad bestek verzameld, zowel uit de kringloopwinkels als ook gekregen van mensen die weten dat ik bestek spaar. Bij het solderen werk ik met verschillende flux materialen, afhankelijk van het type legering in het metaal dat ik gebruik. Dat is niet altijd aan de buitenkant te zien, maar blijkt in de praktijk al snel. 
-                                    </p>
-                                    <p>
-                                        In mijn schuurtje heb ik samen met mijn oudste zoon een werkbank gemaakt en zelf een simpel afzuigsysteem geïnstalleerd. Met een lekker muziekje erbij vliegen de uren voorbij zonder dat ik het merk en kom ik helemaal tot rust.
-                                    </p>
+                                    <p>{t('home.atelier_text_1')}</p>
+                                    <p>{t('home.atelier_text_2')}</p>
+                                    <p>{t('home.atelier_text_3')}</p>
                                 </div>
                             </motion.div>
 
@@ -373,7 +383,9 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <p className="text-sm font-medium">Gereedschap & Materialen</p>
+                                    <p className="text-sm font-medium">
+                                        {t('home.tools_materials')}
+                                    </p>
                                 </div>
                             </div>
 
@@ -388,7 +400,9 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <p className="text-sm font-medium">Werkbank & Creatieve Ruimte</p>
+                                    <p className="text-sm font-medium">
+                                        {t('home.workbench_space')}
+                                    </p>
                                 </div>
                             </div>
 
@@ -403,7 +417,9 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <p className="text-sm font-medium">Inspiratie & Werk in Uitvoering</p>
+                                    <p className="text-sm font-medium">
+                                        {t('home.inspiration_work')}
+                                    </p>
                                 </div>
                             </div>
                         </motion.div>
@@ -427,7 +443,9 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                         transition={{ duration: 0.8 }}
                         className="max-w-4xl mx-auto"
                     >
-                        <h2 className="text-4xl font-light mb-12 text-gray-800">Lopende exposities</h2>
+                        <h2 className="text-4xl font-light mb-12 text-gray-800">
+                            {t('home.current_exhibitions_title')}
+                        </h2>
                         <div className="grid md:grid-cols-2 gap-8">
                             {currentEvents.length > 0 ? (
                                 currentEvents.map((exhibition, index) => (
@@ -455,8 +473,12 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-xl font-medium text-gray-800 mb-2">Geen lopende exposities</h3>
-                                    <p className="text-gray-600">Er zijn momenteel geen lopende exposities. Bekijk de aankomende evenementen hieronder!</p>
+                                    <h3 className="text-xl font-medium text-gray-800 mb-2">
+                                        {t('home.no_current_exhibitions')}
+                                    </h3>
+                                    <p className="text-gray-600">
+                                        {t('home.no_current_exhibitions_text')}
+                                    </p>
                                 </div>
                             )}
                         </div>
@@ -471,7 +493,9 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                         transition={{ duration: 0.8 }}
                         className="max-w-4xl mx-auto"
                     >
-                        <h2 className="text-4xl font-light mb-12 text-gray-800">Binnenkort te zien</h2>
+                        <h2 className="text-4xl font-light mb-12 text-gray-800">
+                            {t('home.upcoming_exhibitions_title')}
+                        </h2>
                         <div className="grid md:grid-cols-2 gap-8">
                             {upcomingEvents.length > 0 ? (
                                 upcomingEvents.map((exhibition, index) => (
@@ -499,8 +523,12 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-xl font-medium text-gray-800 mb-2">Geen aankomende evenementen</h3>
-                                    <p className="text-gray-600">Er zijn momenteel geen aankomende evenementen gepland. Houd deze pagina in de gaten voor updates!</p>
+                                    <h3 className="text-xl font-medium text-gray-800 mb-2">
+                                        {t('home.no_upcoming_exhibitions')}
+                                    </h3>
+                                    <p className="text-gray-600">
+                                        {t('home.no_upcoming_exhibitions_text')}
+                                    </p>
                                 </div>
                             )}
                         </div>
@@ -519,13 +547,15 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                             {/* Left Side - Info */}
                             <div className="space-y-8">
                                 <div>
-                                    <h3 className="text-2xl font-semibold mb-6 text-gray-800">Geïnteresseerd in een KritterZ?</h3>
+                                    <h3 className="text-2xl font-semibold mb-6 text-gray-800">
+                                        {t('home.interested_title')}
+                                    </h3>
                                     <div className="space-y-4 text-gray-600">
                                         <p className="leading-relaxed">
-                                            Ik maak deze KritterZ vooral omdat ik daar zelf heel veel plezier aan beleef. Maar ik vind het natuurlijk heel leuk als anderen ze ook mooi vinden!
+                                            {t('home.interested_text_1')}
                                         </p>
                                         <p className="leading-relaxed">
-                                            Ben je geïnteresseerd in een van mijn KritterZ? Dan hoor ik dat natuurlijk heel graag. Neem een kijkje in de galerij om te zien welke KritterZ er op dit moment beshikbaar zijn.
+                                            {t('home.interested_text_2')}
                                         </p>
                                     </div>
                                 </div>
@@ -536,12 +566,14 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                                         </svg>
                                     </div>
-                                    <h4 className="text-lg font-semibold mb-3 text-gray-800">Iemand een KritterZ kado geven?</h4>
+                                    <h4 className="text-lg font-semibold mb-3 text-gray-800">
+                                        {t('home.gift_title')}
+                                    </h4>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Vind je het leuk om een gepersonaliseerde KritterZ aan iemand kado te geven? 
+                                        {t('home.gift_text_1')}
                                     </p>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Of wil je een unieke KritterZ laten maken van je eigen oude bestek? Neem gerust even contact op om de mogelijkheden te bespreken.
+                                        {t('home.gift_text_2')}
                                     </p>
                                 </div>
                             </div>
@@ -556,10 +588,12 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                         </div>
-                                        <h4 className="text-lg font-semibold text-gray-800">Locatie</h4>
+                                        <h4 className="text-lg font-semibold text-gray-800">
+                                            {t('home.location_title')}
+                                        </h4>
                                     </div>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Ik werk thuis in mijn eigen werkplaats, gevestigd in Zuidhorn.
+                                        {t('home.location_text')}
                                     </p>
                                 </div>
 
@@ -569,15 +603,17 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                         </svg>
                                     </div>
-                                    <h4 className="text-xl font-semibold mb-3 text-gray-800">Neem contact op</h4>
+                                    <h4 className="text-xl font-semibold mb-3 text-gray-800">
+                                        {t('home.contact_title')}
+                                    </h4>
                                     <p className="text-gray-600 mb-6">
-                                        Ben je benieuwd of heb je vragen? Neem gerust contact op.
+                                        {t('home.contact_text')}
                                     </p>
                                     <Link 
                                         href="/contact"
                                         className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-8 py-3 rounded-full font-medium hover:from-orange-600 hover:to-red-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 inline-block"
                                     >
-                                        Contact opnemen
+                                        {t('home.contact_button')}
                                     </Link>
                                 </div>
                             </div>

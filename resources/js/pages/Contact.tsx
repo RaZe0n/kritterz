@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Head, router } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
@@ -12,6 +12,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import { useT } from '@/hooks/useT';
 
 interface ContactProps {
     auth?: {
@@ -25,6 +26,10 @@ interface ContactProps {
 }
 
 const Contact: React.FC<ContactProps> = ({ auth }) => {
+    const { props } = usePage<{ translations?: Record<string, string>; locale?: string }>();
+    const t = useT(props.translations || {});
+    const locale = props.locale || 'nl';
+    
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -60,7 +65,7 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
         setIsLoading(true);
         
         try {
-            const response = await fetch('/contact', {
+            const response = await fetch(`/${locale}/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,11 +86,11 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                     message: ''
                 });
             } else {
-                showErrorModal(result.message || 'Er is een fout opgetreden.');
+                showErrorModal(result.message || t('contact.error_message'));
             }
         } catch (error) {
             console.error('Error:', error);
-            showErrorModal('Er is een fout opgetreden. Probeer het later opnieuw.');
+            showErrorModal(t('contact.error_message'));
         } finally {
             setIsLoading(false);
         }
@@ -118,24 +123,24 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
     const contactInfo = [
         {
             icon: FaEnvelope,
-            title: 'Email',
+            title: t('contact.email_title', 'Email'),
             content: 'kritterzart@gmail.com',
             link: 'mailto:kritterzart@gmail.com',
-            description: 'Stuur een directe email'
+            description: t('contact.email_description', 'Stuur een directe email')
         },
         {
             icon: FaPhone,
-            title: 'Telefoon',
+            title: t('contact.phone_title', 'Telefoon'),
             content: '+31 6 50437633',
             link: 'tel:+31650437633',
-            description: 'Bij voorkeur contact via email/sociale media'
+            description: t('contact.phone_description', 'Bij voorkeur contact via email/sociale media')
         },
         {
             icon: FaMapMarkerAlt,
-            title: 'Atelier',
+            title: t('contact.studio_title', 'Atelier'),
             content: 'Zuidhorn, Groningen',
             link: 'https://maps.google.com/?q=Zuidhorn,Groningen',
-            description: 'Bezoekadres op aanvraag'
+            description: t('contact.studio_description', 'Bezoekadres op aanvraag')
         }
     ];
 
@@ -173,11 +178,10 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                             >
                                 <div className="w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mb-6 lg:mb-8"></div>
                                 <h1 className="text-3xl lg:text-4xl xl:text-5xl font-light mb-4 lg:mb-6 text-gray-800">
-                                    Kom in contact.
+                                    {t('contact.title', 'Kom in contact.')}
                                 </h1>
                                 <p className="text-lg lg:text-xl text-gray-600 mb-8 lg:mb-12 leading-relaxed">
-                                    Ben je geïnteresseerd in een unieke KritterZ of heb je vragen over mijn werk? 
-                                    Ik hoor graag van je!
+                                    {t('contact.subtitle', 'Ben je geïnteresseerd in een unieke KritterZ of heb je vragen over mijn werk? Ik hoor graag van je!')}
                                 </p>
 
                                 {/* Contact Cards */}
@@ -207,7 +211,9 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
 
                                 {/* Social Links */}
                                 <div>
-                                    <h3 className="text-base lg:text-lg font-medium text-gray-800 mb-3 lg:mb-4">Volg me op social media</h3>
+                                    <h3 className="text-base lg:text-lg font-medium text-gray-800 mb-3 lg:mb-4">
+                                        {t('contact.follow_social', 'Volg me op social media')}
+                                    </h3>
                                     <div className="flex space-x-3 lg:space-x-4">
                                         {socialLinks.map((social, index) => (
                                             <motion.a
@@ -236,9 +242,11 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                             >
                                 <div className="text-center mb-6 lg:mb-8">
                                     <div className="w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto mb-4 lg:mb-6"></div>
-                                    <h2 className="text-2xl lg:text-3xl font-light mb-3 lg:mb-4 text-gray-800">Stuur een bericht</h2>
+                                    <h2 className="text-2xl lg:text-3xl font-light mb-3 lg:mb-4 text-gray-800">
+                                        {t('contact.send_message', 'Stuur een bericht')}
+                                    </h2>
                                     <p className="text-sm lg:text-base text-gray-600">
-                                        Vertel me over je project of vraag
+                                        {t('contact.tell_about_project', 'Vertel me over je project of vraag')}
                                     </p>
                                 </div>
 
@@ -250,7 +258,7 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                             transition={{ duration: 0.6, delay: 0.3 }}
                                         >
                                             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                                                Naam *
+                                                {t('contact.name', 'Naam')} *
                                             </label>
                                             <div className="relative">
                                                 <input
@@ -289,7 +297,7 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                             transition={{ duration: 0.6, delay: 0.4 }}
                                         >
                                             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                                                Email *
+                                                {t('contact.email', 'Email')} *
                                             </label>
                                             <div className="relative">
                                                 <input
@@ -329,7 +337,7 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                         transition={{ duration: 0.6, delay: 0.5 }}
                                     >
                                         <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                                            Onderwerp *
+                                            {t('contact.subject', 'Onderwerp')} *
                                         </label>
                                         <div className="relative">
                                             <input
@@ -368,7 +376,7 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                         transition={{ duration: 0.6, delay: 0.6 }}
                                     >
                                         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                                            Bericht *
+                                            {t('contact.message', 'Bericht')} *
                                         </label>
                                         <div className="relative">
                                             <textarea
@@ -417,10 +425,10 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                     </svg>
-                                                    Versturen...
+                                                    {t('contact.submitting', 'Versturen...')}
                                                 </div>
                                             ) : (
-                                                'Verstuur Bericht'
+                                                t('contact.submit', 'Verstuur Bericht')
                                             )}
                                         </button>
                                     </motion.div>
@@ -438,7 +446,9 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                     <DialogContent className="sm:max-w-md">
                         <DialogHeader>
                             <DialogTitle className={`text-center ${modalType === 'success' ? 'text-green-600' : 'text-red-600'}`}>
-                                {modalType === 'success' ? 'Succes!' : 'Fout'}
+                                {modalType === 'success'
+                                    ? t('contact.success_title', 'Succes!')
+                                    : t('contact.error_title', 'Fout')}
                             </DialogTitle>
                             <DialogDescription className="text-center text-gray-600 mt-2">
                                 {modalMessage}
@@ -453,7 +463,7 @@ const Contact: React.FC<ContactProps> = ({ auth }) => {
                                         : 'bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700'
                                 }`}
                             >
-                                Sluiten
+                                {t('contact.close', 'Sluiten')}
                             </button>
                         </div>
                     </DialogContent>

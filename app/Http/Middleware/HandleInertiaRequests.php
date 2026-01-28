@@ -39,6 +39,10 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $supportedLocales = config('locales.supported', ['en']);
+        $defaultLocale = config('locales.default', config('app.locale', 'en'));
+        $currentLocale = app()->getLocale();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
@@ -46,6 +50,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'locale' => $currentLocale,
+            'availableLocales' => $supportedLocales,
             'ziggy' => fn (): array => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

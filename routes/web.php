@@ -7,7 +7,6 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ContactController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,31 +17,91 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    $currentEvents = \App\Models\Event::current()->take(2)->get();
-    $upcomingEvents = \App\Models\Event::upcoming()->take(2)->get();
-    return Inertia::render('Index', [
-        'currentEvents' => $currentEvents,
-        'upcomingEvents' => $upcomingEvents
-    ]);
-})->name('home');
-
-Route::get('/gallery', [ArtworkController::class, 'index'])->name('gallery');
-
-Route::get('/exhibitions', [EventController::class, 'index'])->name('exhibitions');
-
-Route::get('/about', function () {
-    return Inertia::render('About');
-})->name('about');
-
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+    $defaultLocale = config('locales.default', config('app.locale', 'en'));
+    return redirect()->route('home', ['locale' => $defaultLocale]);
+});
 
 // Newsletter unsubscribe via token (email link) - must be before API routes
 Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribeByToken'])->name('newsletter.unsubscribe');
 
-Route::get('/welcome', function () {
-    return Inertia::render('welcome');
-})->name('welcome');
+Route::prefix('{locale}')
+    ->middleware(['set.locale'])
+    ->group(function () {
+        Route::get('/', function () {
+            $currentEvents = \App\Models\Event::current()->take(2)->get();
+            $upcomingEvents = \App\Models\Event::upcoming()->take(2)->get();
+            return Inertia::render('Index', [
+                'currentEvents' => $currentEvents,
+                'upcomingEvents' => $upcomingEvents
+            ]);
+        })->name('home');
+
+        Route::get('/gallery', [ArtworkController::class, 'index'])->name('gallery');
+
+        Route::get('/exhibitions', [EventController::class, 'index'])->name('exhibitions');
+
+        Route::get('/about', function () {
+            return Inertia::render('About');
+        })->name('about');
+
+        Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+        Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+        Route::get('/welcome', function () {
+            return Inertia::render('welcome');
+        })->name('welcome');
+
+        Route::middleware(['auth', 'verified', 'dashboard.access'])->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+            Route::get('/dashboard/gallery', [DashboardController::class, 'gallery'])->name('dashboard.gallery');
+            Route::get('/dashboard/exhibitions', [DashboardController::class, 'exhibitions'])->name('dashboard.exhibitions');
+            Route::get('/dashboard/newsletter', [DashboardController::class, 'newsletter'])->name('dashboard.newsletter');
+
+            // Artwork CRUD routes
+            Route::resource('dashboard/artworks', ArtworkController::class)->names([
+                'index' => 'dashboard.artworks.index',
+                'create' => 'dashboard.artworks.create',
+                'store' => 'dashboard.artworks.store',
+                'show' => 'dashboard.artworks.show',
+                'edit' => 'dashboard.artworks.edit',
+                'update' => 'dashboard.artworks.update',
+                'destroy' => 'dashboard.artworks.destroy',
+            ]);
+
+            // Tag CRUD routes
+            Route::resource('dashboard/tags', TagController::class)->names([
+                'index' => 'dashboard.tags.index',
+                'create' => 'dashboard.tags.create',
+                'store' => 'dashboard.tags.store',
+                'show' => 'dashboard.tags.show',
+                'edit' => 'dashboard.tags.edit',
+                'update' => 'dashboard.tags.update',
+                'destroy' => 'dashboard.tags.destroy',
+            ]);
+            Route::post('/dashboard/tags/update-order', [\App\Http\Controllers\TagController::class, 'updateOrder'])->name('dashboard.tags.updateOrder');
+
+            // Add these routes for artworks per tag
+            Route::get('/dashboard/tags/{tag}/artworks', [\App\Http\Controllers\ArtworkController::class, 'getArtworksForTag'])->name('dashboard.tags.artworks');
+            Route::post('/dashboard/tags/{tag}/artworks/order', [\App\Http\Controllers\ArtworkController::class, 'updateArtworksOrder'])->name('dashboard.tags.artworks.order');
+
+            // Event CRUD routes
+            Route::resource('dashboard/events', EventController::class)->names([
+                'index' => 'dashboard.events.index',
+                'create' => 'dashboard.events.create',
+                'store' => 'dashboard.events.store',
+                'show' => 'dashboard.events.show',
+                'edit' => 'dashboard.events.edit',
+                'update' => 'dashboard.events.update',
+                'destroy' => 'dashboard.events.destroy',
+            ]);
+
+            // Newsletter management routes
+            Route::get('/dashboard/newsletter/subscribers', [NewsletterController::class, 'index'])->name('dashboard.newsletter.subscribers');
+            Route::delete('/dashboard/newsletter/subscribers/{subscriber}', [NewsletterController::class, 'destroy'])->name('dashboard.newsletter.subscribers.destroy');
+            Route::patch('/dashboard/newsletter/subscribers/{subscriber}/toggle', [NewsletterController::class, 'toggleStatus'])->name('dashboard.newsletter.subscribers.toggle');
+            Route::post('/dashboard/newsletter/subscribers/add', [NewsletterController::class, 'addManual'])->name('dashboard.newsletter.subscribers.add');
+        });
+    });
 
 // Email preview route (for development)
 Route::get('/preview/email/contact-form', function () {
@@ -56,7 +115,7 @@ Route::get('/preview/email/contact-form', function () {
     return (new \App\Mail\ContactFormMail($data))->render();
 })->name('preview.email.contact-form');
 
-// API routes for artworks
+// API routes for artworks (kept locale-agnostic)
 Route::get('/api/artworks', [ArtworkController::class, 'getAll']);
 Route::get('/api/artworks/for-sale', [ArtworkController::class, 'getForSale']);
 Route::get('/api/artworks/sold', [ArtworkController::class, 'getSold']);
@@ -75,57 +134,6 @@ Route::get('/api/events/homepage', [EventController::class, 'getForHomepage']);
 Route::post('/api/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
 Route::post('/api/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe']);
 Route::post('/api/newsletter/check', [NewsletterController::class, 'checkSubscription']);
-
-Route::middleware(['auth', 'verified', 'dashboard.access'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/gallery', [DashboardController::class, 'gallery'])->name('dashboard.gallery');
-    Route::get('/dashboard/exhibitions', [DashboardController::class, 'exhibitions'])->name('dashboard.exhibitions');
-    Route::get('/dashboard/newsletter', [DashboardController::class, 'newsletter'])->name('dashboard.newsletter');
-    
-    // Artwork CRUD routes
-    Route::resource('dashboard/artworks', ArtworkController::class)->names([
-        'index' => 'dashboard.artworks.index',
-        'create' => 'dashboard.artworks.create',
-        'store' => 'dashboard.artworks.store',
-        'show' => 'dashboard.artworks.show',
-        'edit' => 'dashboard.artworks.edit',
-        'update' => 'dashboard.artworks.update',
-        'destroy' => 'dashboard.artworks.destroy',
-    ]);
-    
-    // Tag CRUD routes
-    Route::resource('dashboard/tags', TagController::class)->names([
-        'index' => 'dashboard.tags.index',
-        'create' => 'dashboard.tags.create',
-        'store' => 'dashboard.tags.store',
-        'show' => 'dashboard.tags.show',
-        'edit' => 'dashboard.tags.edit',
-        'update' => 'dashboard.tags.update',
-        'destroy' => 'dashboard.tags.destroy',
-    ]);
-    Route::post('/dashboard/tags/update-order', [\App\Http\Controllers\TagController::class, 'updateOrder'])->name('dashboard.tags.updateOrder');
-
-    // Add these routes for artworks per tag
-    Route::get('/dashboard/tags/{tag}/artworks', [\App\Http\Controllers\ArtworkController::class, 'getArtworksForTag'])->name('dashboard.tags.artworks');
-    Route::post('/dashboard/tags/{tag}/artworks/order', [\App\Http\Controllers\ArtworkController::class, 'updateArtworksOrder'])->name('dashboard.tags.artworks.order');
-    
-    // Event CRUD routes
-    Route::resource('dashboard/events', EventController::class)->names([
-        'index' => 'dashboard.events.index',
-        'create' => 'dashboard.events.create',
-        'store' => 'dashboard.events.store',
-        'show' => 'dashboard.events.show',
-        'edit' => 'dashboard.events.edit',
-        'update' => 'dashboard.events.update',
-        'destroy' => 'dashboard.events.destroy',
-    ]);
-
-    // Newsletter management routes
-    Route::get('/dashboard/newsletter/subscribers', [NewsletterController::class, 'index'])->name('dashboard.newsletter.subscribers');
-    Route::delete('/dashboard/newsletter/subscribers/{subscriber}', [NewsletterController::class, 'destroy'])->name('dashboard.newsletter.subscribers.destroy');
-    Route::patch('/dashboard/newsletter/subscribers/{subscriber}/toggle', [NewsletterController::class, 'toggleStatus'])->name('dashboard.newsletter.subscribers.toggle');
-    Route::post('/dashboard/newsletter/subscribers/add', [NewsletterController::class, 'addManual'])->name('dashboard.newsletter.subscribers.add');
-});
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

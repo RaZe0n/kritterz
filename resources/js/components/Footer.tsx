@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
+import { useT } from '@/hooks/useT';
 
 interface FooterProps {
     auth?: {
@@ -13,6 +14,10 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ auth }) => {
+    const { props } = usePage<{ locale: string; translations?: Record<string, string> }>();
+    const locale = props.locale;
+    const t = useT(props.translations || {});
+
     const handleLogout = () => {
         router.post('/logout');
     };
@@ -23,36 +28,38 @@ const Footer: React.FC<FooterProps> = ({ auth }) => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Brand Section */}
                     <div className="col-span-1 md:col-span-2">
-                        <Link href="/" className="text-xl font-light text-orange-600 hover:text-orange-700 transition-all duration-300 hover:scale-105 transform hover:rotate-1">
+                        <Link href={`/${locale}`} className="text-xl font-light text-orange-600 hover:text-orange-700 transition-all duration-300 hover:scale-105 transform hover:rotate-1">
                             KritterZ
                         </Link>
                         <p className="mt-4 text-gray-600 max-w-md">
-                            Bestekkunst
+                            {t('footer.tagline', 'Bestekkunst')}
                         </p>
                     </div>
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-sm font-medium text-gray-800 uppercase tracking-wider">Snelkoppelingen</h3>
+                        <h3 className="text-sm font-medium text-gray-800 uppercase tracking-wider">
+                            {t('footer.quick_links', 'Snelkoppelingen')}
+                        </h3>
                         <ul className="mt-4 space-y-2">
                             <li>
-                                <Link href="/gallery" className="text-gray-600 hover:text-orange-600 transition-colors">
-                                    Galerij
+                                <Link href={`/${locale}/gallery`} className="text-gray-600 hover:text-orange-600 transition-colors">
+                                    {t('nav.gallery')}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/exhibitions" className="text-gray-600 hover:text-orange-600 transition-colors">
-                                    Exposities
+                                <Link href={`/${locale}/exhibitions`} className="text-gray-600 hover:text-orange-600 transition-colors">
+                                    {t('nav.exhibitions')}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/about" className="text-gray-600 hover:text-orange-600 transition-colors">
-                                    Over mij
+                                <Link href={`/${locale}/about`} className="text-gray-600 hover:text-orange-600 transition-colors">
+                                    {t('nav.about')}
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/contact" className="text-gray-600 hover:text-orange-600 transition-colors">
-                                    Contact
+                                <Link href={`/${locale}/contact`} className="text-gray-600 hover:text-orange-600 transition-colors">
+                                    {t('nav.contact')}
                                 </Link>
                             </li>
                             {auth?.user && (
@@ -61,7 +68,7 @@ const Footer: React.FC<FooterProps> = ({ auth }) => {
                                         onClick={handleLogout}
                                         className="text-gray-600 hover:text-orange-600 transition-colors"
                                     >
-                                        Uitloggen
+                                        {t('nav.logout', 'Uitloggen')}
                                     </button>
                                 </li>
                             )}
@@ -70,10 +77,12 @@ const Footer: React.FC<FooterProps> = ({ auth }) => {
 
                     {/* Contact Info */}
                     <div>
-                        <h3 className="text-sm font-medium text-gray-800 uppercase tracking-wider">Contact</h3>
+                        <h3 className="text-sm font-medium text-gray-800 uppercase tracking-wider">
+                            {t('footer.contact', 'Contact')}
+                        </h3>
                         <ul className="mt-4 space-y-2">
                             <li className="text-gray-600">
-                                Atelier adres:<br />
+                                {t('footer.studio_address', 'Atelier adres:')}<br />
                                 Cort van der lindenstraat 8<br />
                                 9801 KP Zuidhorn
                             </li>
@@ -111,10 +120,10 @@ const Footer: React.FC<FooterProps> = ({ auth }) => {
                         </div>
                         <div className="text-center md:text-right">
                             <p className="text-orange-600 text-sm">
-                                © 2025 KritterZ. Alle rechten voorbehouden. 
+                                © 2025 KritterZ. {t('footer.copyright')}
                             </p>
                             <p className="text-gray-500 text-xs mt-1">
-                                Website ontworpen door <a href="https://www.fmbruinzeel.nl/" className="hover:text-orange-600 transition-colors">Finn Bruinzeel</a>
+                                {t('footer.designed_by')} <a href="https://www.fmbruinzeel.nl/" className="hover:text-orange-600 transition-colors">Finn Bruinzeel</a>
                             </p>
                         </div>
                     </div>
