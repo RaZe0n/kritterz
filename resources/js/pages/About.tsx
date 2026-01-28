@@ -1,9 +1,10 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import { FaSearch, FaPencilRuler, FaMagic } from 'react-icons/fa';
+import { useT } from '@/hooks/useT';
 
 interface AboutProps {
     auth?: {
@@ -17,9 +18,12 @@ interface AboutProps {
 }
 
 const About: React.FC<AboutProps> = ({ auth }) => {
+    const { props } = usePage<{ translations?: Record<string, string> }>();
+    const t = useT(props.translations || {});
+    
     return (
         <>
-            <Head title="Over mij | KritterZ" />
+            <Head title={`${t('nav.about', 'Over mij')} | KritterZ`} />
             <div className="min-h-screen bg-white">
                 <Navbar />
                 
@@ -39,7 +43,7 @@ const About: React.FC<AboutProps> = ({ auth }) => {
                                 transition={{ duration: 0.8, delay: 0.1 }}
                                 className="text-4xl md:text-5xl font-light mb-6 text-gray-800"
                             >
-                                Wie ben ik?
+                                {t('about.title', 'Wie ben ik?')}
                             </motion.h1>
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
@@ -47,7 +51,7 @@ const About: React.FC<AboutProps> = ({ auth }) => {
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="text-xl text-gray-600"
                             >
-                                Het gezicht achter KritterZ
+                                {t('about.subtitle', 'Het gezicht achter KritterZ')}
                             </motion.p>
                         </div>
                     </section>
@@ -83,17 +87,17 @@ const About: React.FC<AboutProps> = ({ auth }) => {
                                     className="space-y-6"
                                 >
                                     <div className="w-16 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mb-6"></div>
-                                    <h2 className="text-3xl font-light text-gray-800">Corine Eising</h2>
+                                    <h2 className="text-3xl font-light text-gray-800">
+                                        {t('about.name', 'Corine Eising')}
+                                    </h2>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Dat is de naam van de kunstenaar achter KritterZ. 
+                                        {t('about.intro', 'Dat is de naam van de kunstenaar achter KritterZ.')}
                                     </p>
                                     <p className="text-gray-600 leading-relaxed">
-                                    Terwijl ik aan het herstellen was van oververmoeidheid in 2019, sleepte een vriendin van me mij mee naar een cursus lassen. Heerlijk vond ik het; vuur, vlammen, slijpen en timmeren, eindelijk weer eens iets maken, creatief uitgedaagd worden. Daar hervond ik een stukje creativiteit waarvan ik al lang geleden was vergeten dat ik het had. Dat smaakte naar meer, maar lassen is niet iets dat je 'zo maar' even doet in een klein achtertuintje. Een andere vriendin, die heel creatief in borduren en ander 'frutsel-werk' is, stuurde mij links van verschillende sociale media platforms. Daar kwam ik al snel metalen creaties, vooral vogels, tegen die me fantastisch leken om te kunnen maken. Kleiner van stuk, dus waarom niet solderen in plaats van lassen? Als ik niet toevallig iemand uit Groningen was tegengekomen die bereid was om me de geheimpjes van het bestek solderen te verklappen was het misschien niet gelukt maar inmiddels zijn we een heel aantal 'KritterZ' verder. Ik geloof dat ik inmiddels ook wel een eigen stijl hierin gevonden heb en mijn creaties wel als KritterZ herkenbaar zijn. Op voorstel van mijn man hebben we in onze tuin een schuurtje neergezet waar ik samen met m'n zoons een werkbank en afzuiginstallatie in heb geknutseld. Daar beleef ik heel veel plezier en voldoening aan het maken van m'n bestekkunst en ik hoop daar de komende periode nog meer tijd aan te kunnen besteden. Ik hoop dat jullie er net zo van kunnen genieten als ik! 
+                                        {t('about.story_paragraph_1', 'Terwijl ik aan het herstellen was van oververmoeidheid in 2019, sleepte een vriendin van me mij mee naar een cursus lassen. Heerlijk vond ik het; vuur, vlammen, slijpen en timmeren, eindelijk weer eens iets maken, creatief uitgedaagd worden. Daar hervond ik een stukje creativiteit waarvan ik al lang geleden was vergeten dat ik het had. Dat smaakte naar meer, maar lassen is niet iets dat je \'zo maar\' even doet in een klein achtertuintje. Een andere vriendin, die heel creatief in borduren en ander \'frutsel-werk\' is, stuurde mij links van verschillende sociale media platforms. Daar kwam ik al snel metalen creaties, vooral vogels, tegen die me fantastisch leken om te kunnen maken. Kleiner van stuk, dus waarom niet solderen in plaats van lassen? Als ik niet toevallig iemand uit Groningen was tegengekomen die bereid was om me de geheimpjes van het bestek solderen te verklappen was het misschien niet gelukt maar inmiddels zijn we een heel aantal \'KritterZ\' verder. Ik geloof dat ik inmiddels ook wel een eigen stijl hierin gevonden heb en mijn creaties wel als KritterZ herkenbaar zijn. Op voorstel van mijn man hebben we in onze tuin een schuurtje neergezet waar ik samen met m\'n zoons een werkbank en afzuiginstallatie in heb geknutseld. Daar beleef ik heel veel plezier en voldoening aan het maken van m\'n bestekkunst en ik hoop daar de komende periode nog meer tijd aan te kunnen besteden. Ik hoop dat jullie er net zo van kunnen genieten als ik!')}
                                     </p>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Elk stuk bestek heeft een eigen verhaal en geschiedenis. Door deze te 
-                                        transformeren in kunstwerken, geef ik ze een nieuw leven en een nieuwe betekenis. 
-                                        Mijn werk is een reflectie van duurzaamheid en de schoonheid van hergebruik.
+                                        {t('about.story_paragraph_2', 'Elk stuk bestek heeft een eigen verhaal en geschiedenis. Door deze te transformeren in kunstwerken, geef ik ze een nieuw leven en een nieuwe betekenis. Mijn werk is een reflectie van duurzaamheid en de schoonheid van hergebruik.')}
                                     </p>
                                 </motion.div>
                             </div>
@@ -118,13 +122,14 @@ const About: React.FC<AboutProps> = ({ auth }) => {
                                         className="text-center lg:text-left"
                                     >
                                         <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-red-500 rounded-full mx-auto lg:mx-0 mb-6"></div>
-                                        <h2 className="text-3xl font-light mb-8 text-gray-800">Mijn passie</h2>
+                                        <h2 className="text-3xl font-light mb-8 text-gray-800">
+                                            {t('about.passion_title', 'Mijn passie')}
+                                        </h2>
                                         <p className="text-gray-600 leading-relaxed mb-6">
-                                            Ik ben begonnen met het maken van de KritterZ omdat ik daar zelf heel veel plezier aan beleef(de). Inmiddels is dat uitgegroeid tot een (full-time) hobby waar ik ook anderen blij mee kan maken. 
+                                            {t('about.passion_paragraph_1', 'Ik ben begonnen met het maken van de KritterZ omdat ik daar zelf heel veel plezier aan beleef(de). Inmiddels is dat uitgegroeid tot een (full-time) hobby waar ik ook anderen blij mee kan maken.')}
                                         </p>
                                         <p className="text-gray-600 leading-relaxed">
-                                            Ik streef er naar om met mijn kunst bij te dragen aan een duurzamere wereld, 
-                                            waar hergebruik en creativiteit hand in hand gaan. Ik vind het daarbij wel steeds belangrijker worden dat mensen in mijn werken ook de schoonheid en het unieke van de natuur zien. Ik hoop dat mijn werk op die manier een beetje bijdraagt aan natuurbehoud en herstel. 
+                                            {t('about.passion_paragraph_2', 'Ik streef er naar om met mijn kunst bij te dragen aan een duurzamere wereld, waar hergebruik en creativiteit hand in hand gaan. Ik vind het daarbij wel steeds belangrijker worden dat mensen in mijn werken ook de schoonheid en het unieke van de natuur zien. Ik hoop dat mijn werk op die manier een beetje bijdraagt aan natuurbehoud en herstel.')}
                                         </p>
                                     </motion.div>
 

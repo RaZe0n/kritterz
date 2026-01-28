@@ -109,6 +109,29 @@ return [
     'contact.success_message' => 'Vielen Dank für Ihre Nachricht! Wir werden uns so schnell wie möglich bei Ihnen melden.',
     'contact.error_message' => 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.',
 
+    // About Page
+    'about.title' => 'Wer bin ich?',
+    'about.subtitle' => 'Das Gesicht hinter KritterZ',
+    'about.name' => 'Corine Eising',
+    'about.intro' => 'Das ist der Name der Künstlerin hinter KritterZ.',
+    'about.story_paragraph_1' => 'Während ich mich 2019 von einem Burnout erholte, schleppte mich eine Freundin zu einem Schweißkurs mit. Ich liebte es; Feuer, Flammen, Schleifen und Hämmern, endlich wieder etwas zu machen, kreativ herausgefordert zu werden. Dort entdeckte ich ein Stück Kreativität wieder, das ich längst vergessen hatte. Das machte Lust auf mehr, aber Schweißen ist nicht etwas, das man einfach so in einem kleinen Hinterhof macht. Eine andere Freundin, die sehr kreativ im Sticken und anderen \'Bastelarbeiten\' ist, schickte mir Links von verschiedenen Social-Media-Plattformen. Dort stieß ich schnell auf Metallkreationen, besonders Vögel, die fantastisch zu machen schienen. Kleinere Stücke, also warum nicht löten statt schweißen? Wenn ich nicht zufällig jemanden aus Groningen getroffen hätte, der bereit war, mir die Geheimnisse des Besteclötens zu verraten, hätte es vielleicht nicht funktioniert, aber wir sind jetzt schon einige \'KritterZ\' weiter. Ich glaube, ich habe inzwischen meinen eigenen Stil darin gefunden und meine Kreationen sind als KritterZ erkennbar. Auf Vorschlag meines Mannes haben wir in unserem Garten einen Schuppen aufgestellt, in dem ich zusammen mit meinen Söhnen eine Werkbank und ein Absaugsystem gebaut habe. Ich habe dort sehr viel Freude und Zufriedenheit beim Herstellen meiner Besteckkunst und hoffe, in der kommenden Zeit mehr Zeit dafür aufwenden zu können. Ich hoffe, Sie können genauso viel Freude daran haben wie ich!',
+    'about.story_paragraph_2' => 'Jedes Besteckstück hat seine eigene Geschichte. Indem ich diese in Kunstwerke verwandle, gebe ich ihnen ein neues Leben und eine neue Bedeutung. Meine Arbeit ist eine Reflexion über Nachhaltigkeit und die Schönheit der Wiederverwendung.',
+    'about.passion_title' => 'Meine Leidenschaft',
+    'about.passion_paragraph_1' => 'Ich habe mit der Herstellung der KritterZ begonnen, weil ich selbst sehr viel Freude daran hatte. Das hat sich inzwischen zu einem (Vollzeit-)Hobby entwickelt, mit dem ich auch andere glücklich machen kann.',
+    'about.passion_paragraph_2' => 'Ich strebe danach, mit meiner Kunst zu einer nachhaltigeren Welt beizutragen, in der Wiederverwendung und Kreativität Hand in Hand gehen. Ich finde es auch zunehmend wichtiger, dass die Menschen in meinen Werken die Schönheit und Einzigartigkeit der Natur sehen. Ich hoffe, dass meine Arbeit auf diese Weise einen kleinen Beitrag zum Naturschutz und zur Wiederherstellung leistet.',
+
+    // Exhibitions Page
+    'exhibitions.title' => 'Ausstellungen',
+    'exhibitions.subtitle' => 'Entdecken Sie, wo meine Arbeit zu sehen ist',
+    'exhibitions.current_title' => 'Laufende Ausstellungen',
+    'exhibitions.upcoming_title' => 'Bevorstehende Ausstellungen',
+    'exhibitions.recent_title' => 'Kürzliche Ausstellungen',
+    'exhibitions.location_label' => 'Ort:',
+    'exhibitions.date_label' => 'Datum:',
+    'exhibitions.opening_hours_label' => 'Öffnungszeiten:',
+    'exhibitions.ticket_info_label' => 'Eintritt:',
+    'exhibitions.more_info' => 'Mehr Info',
+
     // Common
     'common.loading' => 'Laden...',
     'common.error' => 'Ein Fehler ist aufgetreten',

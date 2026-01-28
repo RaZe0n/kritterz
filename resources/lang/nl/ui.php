@@ -109,6 +109,29 @@ return [
     'contact.success_message' => 'Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.',
     'contact.error_message' => 'Er is een fout opgetreden. Probeer het later opnieuw.',
 
+    // About Page
+    'about.title' => 'Wie ben ik?',
+    'about.subtitle' => 'Het gezicht achter KritterZ',
+    'about.name' => 'Corine Eising',
+    'about.intro' => 'Dat is de naam van de kunstenaar achter KritterZ.',
+    'about.story_paragraph_1' => 'Terwijl ik aan het herstellen was van oververmoeidheid in 2019, sleepte een vriendin van me mij mee naar een cursus lassen. Heerlijk vond ik het; vuur, vlammen, slijpen en timmeren, eindelijk weer eens iets maken, creatief uitgedaagd worden. Daar hervond ik een stukje creativiteit waarvan ik al lang geleden was vergeten dat ik het had. Dat smaakte naar meer, maar lassen is niet iets dat je \'zo maar\' even doet in een klein achtertuintje. Een andere vriendin, die heel creatief in borduren en ander \'frutsel-werk\' is, stuurde mij links van verschillende sociale media platforms. Daar kwam ik al snel metalen creaties, vooral vogels, tegen die me fantastisch leken om te kunnen maken. Kleiner van stuk, dus waarom niet solderen in plaats van lassen? Als ik niet toevallig iemand uit Groningen was tegengekomen die bereid was om me de geheimpjes van het bestek solderen te verklappen was het misschien niet gelukt maar inmiddels zijn we een heel aantal \'KritterZ\' verder. Ik geloof dat ik inmiddels ook wel een eigen stijl hierin gevonden heb en mijn creaties wel als KritterZ herkenbaar zijn. Op voorstel van mijn man hebben we in onze tuin een schuurtje neergezet waar ik samen met m\'n zoons een werkbank en afzuiginstallatie in heb geknutseld. Daar beleef ik heel veel plezier en voldoening aan het maken van m\'n bestekkunst en ik hoop daar de komende periode nog meer tijd aan te kunnen besteden. Ik hoop dat jullie er net zo van kunnen genieten als ik!',
+    'about.story_paragraph_2' => 'Elk stuk bestek heeft een eigen verhaal en geschiedenis. Door deze te transformeren in kunstwerken, geef ik ze een nieuw leven en een nieuwe betekenis. Mijn werk is een reflectie van duurzaamheid en de schoonheid van hergebruik.',
+    'about.passion_title' => 'Mijn passie',
+    'about.passion_paragraph_1' => 'Ik ben begonnen met het maken van de KritterZ omdat ik daar zelf heel veel plezier aan beleef(de). Inmiddels is dat uitgegroeid tot een (full-time) hobby waar ik ook anderen blij mee kan maken.',
+    'about.passion_paragraph_2' => 'Ik streef er naar om met mijn kunst bij te dragen aan een duurzamere wereld, waar hergebruik en creativiteit hand in hand gaan. Ik vind het daarbij wel steeds belangrijker worden dat mensen in mijn werken ook de schoonheid en het unieke van de natuur zien. Ik hoop dat mijn werk op die manier een beetje bijdraagt aan natuurbehoud en herstel.',
+
+    // Exhibitions Page
+    'exhibitions.title' => 'Exposities',
+    'exhibitions.subtitle' => 'Ontdek waar mijn werk te zien is',
+    'exhibitions.current_title' => 'Lopende exposities',
+    'exhibitions.upcoming_title' => 'Aankomende exposities',
+    'exhibitions.recent_title' => 'Recente exposities',
+    'exhibitions.location_label' => 'Locatie:',
+    'exhibitions.date_label' => 'Datum:',
+    'exhibitions.opening_hours_label' => 'Openingstijden:',
+    'exhibitions.ticket_info_label' => 'Entree:',
+    'exhibitions.more_info' => 'Meer info',
+
     // Common
     'common.loading' => 'Laden...',
     'common.error' => 'Er is een fout opgetreden',

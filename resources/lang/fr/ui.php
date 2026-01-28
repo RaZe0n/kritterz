@@ -109,6 +109,29 @@ return [
     'contact.success_message' => 'Merci pour votre message ! Nous vous contacterons dans les plus brefs délais.',
     'contact.error_message' => 'Une erreur s\'est produite. Veuillez réessayer plus tard.',
 
+    // About Page
+    'about.title' => 'Qui suis-je ?',
+    'about.subtitle' => 'Le visage derrière KritterZ',
+    'about.name' => 'Corine Eising',
+    'about.intro' => 'C\'est le nom de l\'artiste derrière KritterZ.',
+    'about.story_paragraph_1' => 'Alors que je me remettais d\'un épuisement professionnel en 2019, une amie m\'a traînée à un cours de soudure. J\'ai adoré ; le feu, les flammes, le meulage et le martelage, enfin créer quelque chose à nouveau, être créativement stimulée. Là, j\'ai redécouvert une part de créativité que j\'avais depuis longtemps oubliée avoir. Cela m\'a donné envie de plus, mais la soudure n\'est pas quelque chose que l\'on fait simplement dans un petit jardin arrière. Une autre amie, très créative en broderie et autres travaux de \'bricolage\', m\'a envoyé des liens de diverses plateformes de médias sociaux. Là, j\'ai rapidement rencontré des créations métalliques, notamment des oiseaux, qui semblaient fantastiques à pouvoir fabriquer. Des pièces plus petites, alors pourquoi ne pas souder au lieu de souder ? Si je n\'avais pas rencontré par hasard quelqu\'un de Groningen qui était prêt à me révéler les secrets de la soudure de couverts, cela n\'aurait peut-être pas fonctionné, mais nous sommes maintenant bien plus loin avec les \'KritterZ\'. Je crois avoir maintenant trouvé mon propre style et mes créations sont reconnaissables comme KritterZ. Sur la suggestion de mon mari, nous avons installé un abri dans notre jardin où j\'ai, avec mes fils, construit un établi et un système d\'extraction. J\'y prends beaucoup de plaisir et de satisfaction à créer mon art de la coutellerie et j\'espère pouvoir y consacrer plus de temps dans la période à venir. J\'espère que vous pourrez en profiter autant que moi !',
+    'about.story_paragraph_2' => 'Chaque pièce de couverts a sa propre histoire. En les transformant en œuvres d\'art, je leur donne une nouvelle vie et une nouvelle signification. Mon travail est une réflexion sur la durabilité et la beauté de la réutilisation.',
+    'about.passion_title' => 'Ma passion',
+    'about.passion_paragraph_1' => 'J\'ai commencé à fabriquer les KritterZ parce que j\'en tire vraiment beaucoup de plaisir. Cela s\'est maintenant transformé en un passe-temps (à temps plein) avec lequel je peux aussi rendre les autres heureux.',
+    'about.passion_paragraph_2' => 'Je m\'efforce de contribuer à un monde plus durable avec mon art, où la réutilisation et la créativité vont de pair. Je trouve également de plus en plus important que les gens voient la beauté et l\'unicité de la nature dans mes œuvres. J\'espère que mon travail contribue ainsi un peu à la conservation et à la restauration de la nature.',
+
+    // Exhibitions Page
+    'exhibitions.title' => 'Expositions',
+    'exhibitions.subtitle' => 'Découvrez où mon travail peut être vu',
+    'exhibitions.current_title' => 'Expositions en cours',
+    'exhibitions.upcoming_title' => 'Expositions à venir',
+    'exhibitions.recent_title' => 'Expositions récentes',
+    'exhibitions.location_label' => 'Lieu :',
+    'exhibitions.date_label' => 'Date :',
+    'exhibitions.opening_hours_label' => 'Heures d\'ouverture :',
+    'exhibitions.ticket_info_label' => 'Entrée :',
+    'exhibitions.more_info' => 'Plus d\'infos',
+
     // Common
     'common.loading' => 'Chargement...',
     'common.error' => 'Une erreur s\'est produite',

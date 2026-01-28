@@ -109,6 +109,29 @@ return [
     'contact.success_message' => 'Thank you for your message! We will contact you as soon as possible.',
     'contact.error_message' => 'An error occurred. Please try again later.',
 
+    // About Page
+    'about.title' => 'Who am I?',
+    'about.subtitle' => 'The face behind KritterZ',
+    'about.name' => 'Corine Eising',
+    'about.intro' => 'That is the name of the artist behind KritterZ.',
+    'about.story_paragraph_1' => 'While I was recovering from burnout in 2019, a friend of mine dragged me along to a welding course. I loved it; fire, flames, grinding and hammering, finally making something again, being creatively challenged. There I rediscovered a piece of creativity that I had long forgotten I had. That made me want more, but welding is not something you just do in a small backyard. Another friend, who is very creative in embroidery and other \'fiddling work\', sent me links from various social media platforms. There I quickly came across metal creations, especially birds, that seemed fantastic to be able to make. Smaller pieces, so why not solder instead of weld? If I hadn\'t happened to meet someone from Groningen who was willing to reveal the secrets of cutlery soldering to me, it might not have worked, but we\'re now quite a few \'KritterZ\' further. I believe I have now found my own style in this and my creations are recognizable as KritterZ. On the suggestion of my husband, we set up a shed in our garden where I, together with my sons, built a workbench and extraction system. I have a lot of fun and satisfaction making my cutlery art there and I hope to be able to spend more time on it in the coming period. I hope you can enjoy it as much as I do!',
+    'about.story_paragraph_2' => 'Each piece of cutlery has its own story and history. By transforming these into artworks, I give them a new life and a new meaning. My work is a reflection of sustainability and the beauty of reuse.',
+    'about.passion_title' => 'My passion',
+    'about.passion_paragraph_1' => 'I started making the KritterZ because I really enjoy(ed) it myself. This has now grown into a (full-time) hobby where I can also make others happy.',
+    'about.passion_paragraph_2' => 'I strive to contribute to a more sustainable world with my art, where reuse and creativity go hand in hand. I also find it increasingly important that people see the beauty and uniqueness of nature in my works. I hope that my work contributes a little to nature conservation and restoration in this way.',
+
+    // Exhibitions Page
+    'exhibitions.title' => 'Exhibitions',
+    'exhibitions.subtitle' => 'Discover where my work can be seen',
+    'exhibitions.current_title' => 'Current exhibitions',
+    'exhibitions.upcoming_title' => 'Upcoming exhibitions',
+    'exhibitions.recent_title' => 'Recent exhibitions',
+    'exhibitions.location_label' => 'Location:',
+    'exhibitions.date_label' => 'Date:',
+    'exhibitions.opening_hours_label' => 'Opening hours:',
+    'exhibitions.ticket_info_label' => 'Admission:',
+    'exhibitions.more_info' => 'More info',
+
     // Common
     'common.loading' => 'Loading...',
     'common.error' => 'An error occurred',

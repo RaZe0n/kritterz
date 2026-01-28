@@ -1,8 +1,9 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
+import { useT } from '@/hooks/useT';
 
 interface Event {
     id: number;
@@ -34,9 +35,12 @@ interface ExhibitionsProps {
 }
 
 const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents, recentEvents, auth }) => {
+    const { props } = usePage<{ translations?: Record<string, string> }>();
+    const t = useT(props.translations || {});
+    
     return (
         <>
-            <Head title="Exposities | KritterZ" />
+            <Head title={`${t('exhibitions.title', 'Exposities')} | KritterZ`} />
             <div className="min-h-screen bg-white">
                 <Navbar />
                 
@@ -56,7 +60,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                 transition={{ duration: 0.8, delay: 0.1 }}
                                 className="text-4xl md:text-5xl font-light mb-6 text-gray-800"
                             >
-                                Exposities
+                                {t('exhibitions.title', 'Exposities')}
                             </motion.h1>
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
@@ -64,7 +68,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                 transition={{ duration: 0.8, delay: 0.2 }}
                                 className="text-xl text-gray-600"
                             >
-                                Ontdek waar mijn werk te zien is
+                                {t('exhibitions.subtitle', 'Ontdek waar mijn werk te zien is')}
                             </motion.p>
                         </div>
                     </section>
@@ -78,7 +82,7 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                 transition={{ duration: 0.8 }}
                                 className="text-3xl font-light mb-12 text-gray-800"
                             >
-                                Lopende exposities
+                                {t('exhibitions.current_title', 'Lopende exposities')}
                             </motion.h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {currentEvents.map((exhibition, index) => (
@@ -110,18 +114,18 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                     className="absolute bottom-4 right-4 z-10"
                                                 >
                                                     <button className="px-3 py-1.5 rounded-full shadow bg-white/90 text-gray-700 text-sm font-medium border border-gray-200 hover:bg-orange-500 hover:text-white transition-all">
-                                                        Meer info
+                                                        {t('exhibitions.more_info', 'Meer info')}
                                                     </button>
                                                 </a>
                                             )}
                                             <div className="space-y-2 text-sm text-gray-600">
-                                                <p><strong>Locatie:</strong> {exhibition.location}</p>
-                                                <p><strong>Datum:</strong> {exhibition.date_range}</p>
+                                                <p><strong>{t('exhibitions.location_label', 'Locatie:')}</strong> {exhibition.location}</p>
+                                                <p><strong>{t('exhibitions.date_label', 'Datum:')}</strong> {exhibition.date_range}</p>
                                                 {exhibition.opening_hours && (
-                                                    <p><strong>Openingstijden:</strong> {exhibition.opening_hours}</p>
+                                                    <p><strong>{t('exhibitions.opening_hours_label', 'Openingstijden:')}</strong> {exhibition.opening_hours}</p>
                                                 )}
                                                 {exhibition.ticket_info && (
-                                                    <p><strong>Entree:</strong> {exhibition.ticket_info}</p>
+                                                    <p><strong>{t('exhibitions.ticket_info_label', 'Entree:')}</strong> {exhibition.ticket_info}</p>
                                                 )}
                                             </div>
                                         </div>
@@ -141,7 +145,9 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                 transition={{ duration: 0.8 }}
                                 className="mb-16"
                             >
-                                <h2 className="text-3xl font-light mb-12 text-gray-800">Aankomende exposities</h2>
+                                <h2 className="text-3xl font-light mb-12 text-gray-800">
+                                    {t('exhibitions.upcoming_title', 'Aankomende exposities')}
+                                </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {upcomingEvents.map((exhibition, index) => (
                                         <motion.div
@@ -177,8 +183,8 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                     </a>
                                                 )}
                                                 <div className="text-sm text-gray-600">
-                                                    <p><strong>Locatie:</strong> {exhibition.location}</p>
-                                                    <p><strong>Datum:</strong> {exhibition.date_range}</p>
+                                                    <p><strong>{t('exhibitions.location_label', 'Locatie:')}</strong> {exhibition.location}</p>
+                                                    <p><strong>{t('exhibitions.date_label', 'Datum:')}</strong> {exhibition.date_range}</p>
                                                 </div>
                                             </div>
                                         </motion.div>
@@ -192,7 +198,9 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8 }}
                             >
-                                <h2 className="text-3xl font-light mb-12 text-gray-800">Recente exposities</h2>
+                                <h2 className="text-3xl font-light mb-12 text-gray-800">
+                                    {t('exhibitions.recent_title', 'Recente exposities')}
+                                </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {recentEvents.map((exhibition, index) => (
                                         <motion.div
@@ -228,8 +236,8 @@ const Exhibitions: React.FC<ExhibitionsProps> = ({ currentEvents, upcomingEvents
                                                     </a>
                                                 )}
                                                 <div className="text-sm text-gray-600">
-                                                    <p><strong>Locatie:</strong> {exhibition.location}</p>
-                                                    <p><strong>Datum:</strong> {exhibition.date_range}</p>
+                                                    <p><strong>{t('exhibitions.location_label', 'Locatie:')}</strong> {exhibition.location}</p>
+                                                    <p><strong>{t('exhibitions.date_label', 'Datum:')}</strong> {exhibition.date_range}</p>
                                                 </div>
                                             </div>
                                         </motion.div>

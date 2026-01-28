@@ -109,6 +109,29 @@ return [
     'contact.success_message' => '¡Gracias por tu mensaje! Nos pondremos en contacto contigo lo antes posible.',
     'contact.error_message' => 'Ocurrió un error. Por favor, inténtalo de nuevo más tarde.',
 
+    // About Page
+    'about.title' => '¿Quién soy?',
+    'about.subtitle' => 'El rostro detrás de KritterZ',
+    'about.name' => 'Corine Eising',
+    'about.intro' => 'Ese es el nombre del artista detrás de KritterZ.',
+    'about.story_paragraph_1' => 'Mientras me recuperaba del agotamiento en 2019, una amiga me arrastró a un curso de soldadura. Me encantó; fuego, llamas, esmerilado y martilleo, finalmente hacer algo de nuevo, ser desafiada creativamente. Allí redescubrí una parte de la creatividad que había olvidado hace mucho tiempo que tenía. Eso me dio ganas de más, pero la soldadura no es algo que simplemente se haga en un pequeño patio trasero. Otra amiga, muy creativa en bordado y otros trabajos de \'manualidades\', me envió enlaces de varias plataformas de redes sociales. Allí me encontré rápidamente con creaciones metálicas, especialmente pájaros, que parecían fantásticos de poder hacer. Piezas más pequeñas, así que ¿por qué no soldar en lugar de soldar? Si no hubiera conocido por casualidad a alguien de Groningen que estaba dispuesto a revelarme los secretos de la soldadura de cubiertos, tal vez no habría funcionado, pero ahora estamos bastante más adelante con los \'KritterZ\'. Creo que ahora he encontrado mi propio estilo en esto y mis creaciones son reconocibles como KritterZ. Por sugerencia de mi esposo, instalamos un cobertizo en nuestro jardín donde, junto con mis hijos, construí un banco de trabajo y un sistema de extracción. Disfruto mucho y me siento satisfecha haciendo mi arte de cubiertos allí y espero poder dedicar más tiempo a ello en el período venidero. ¡Espero que puedan disfrutarlo tanto como yo!',
+    'about.story_paragraph_2' => 'Cada pieza de cubiertos tiene su propia historia. Al transformarlos en obras de arte, les doy una nueva vida y un nuevo significado. Mi trabajo es una reflexión sobre la sostenibilidad y la belleza de la reutilización.',
+    'about.passion_title' => 'Mi pasión',
+    'about.passion_paragraph_1' => 'Empecé a hacer los KritterZ porque realmente disfruto haciéndolos. Esto ahora se ha convertido en un pasatiempo (de tiempo completo) con el que también puedo hacer felices a otros.',
+    'about.passion_paragraph_2' => 'Me esfuerzo por contribuir a un mundo más sostenible con mi arte, donde la reutilización y la creatividad van de la mano. También encuentro cada vez más importante que las personas vean la belleza y la singularidad de la naturaleza en mis obras. Espero que mi trabajo contribuya un poco a la conservación y restauración de la naturaleza de esta manera.',
+
+    // Exhibitions Page
+    'exhibitions.title' => 'Exposiciones',
+    'exhibitions.subtitle' => 'Descubre dónde se puede ver mi trabajo',
+    'exhibitions.current_title' => 'Exposiciones actuales',
+    'exhibitions.upcoming_title' => 'Exposiciones próximas',
+    'exhibitions.recent_title' => 'Exposiciones recientes',
+    'exhibitions.location_label' => 'Ubicación:',
+    'exhibitions.date_label' => 'Fecha:',
+    'exhibitions.opening_hours_label' => 'Horario de apertura:',
+    'exhibitions.ticket_info_label' => 'Entrada:',
+    'exhibitions.more_info' => 'Más info',
+
     // Common
     'common.loading' => 'Cargando...',
     'common.error' => 'Ocurrió un error',
