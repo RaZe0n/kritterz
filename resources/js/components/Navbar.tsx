@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useT } from '@/hooks/useT';
+import { useLocale } from '@/hooks/useLocale';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,7 @@ const Navbar = () => {
 
     const { props } = usePage<{ locale: string; translations?: Record<string, string> }>();
     const t = useT(props.translations || {});
+    const currentLocale = useLocale();
 
     useEffect(() => {
         const controlNavbar = () => {
@@ -35,7 +37,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex items-center">
-                        <Link href={`/${props.locale}`} className="text-xl font-light text-gray-800 group flex items-center space-x-2">
+                        <Link href={`/${currentLocale}`} className="text-xl font-light text-gray-800 group flex items-center space-x-2">
                             <i className="fas fa-dove text-orange-500 text-lg"></i>
                             <span className="relative">
                                 KritterZ
@@ -47,28 +49,28 @@ const Navbar = () => {
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
                         <Link 
-                            href={`/` + props.locale + `/gallery`} 
+                            href={`/${currentLocale}/gallery`} 
                             className="text-gray-600 hover:text-orange-600 transition-colors relative group"
                         >
                             {t('nav.gallery')}
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 group-hover:w-full transition-all duration-300"></span>
                         </Link>
                         <Link 
-                            href={`/` + props.locale + `/exhibitions`} 
+                            href={`/${currentLocale}/exhibitions`} 
                             className="text-gray-600 hover:text-orange-600 transition-colors relative group"
                         >
                             {t('nav.exhibitions')}
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 group-hover:w-full transition-all duration-300"></span>
                         </Link>
                         <Link 
-                            href={`/` + props.locale + `/about`} 
+                            href={`/${currentLocale}/about`} 
                             className="text-gray-600 hover:text-orange-600 transition-colors relative group"
                         >
                             {t('nav.about')}
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 group-hover:w-full transition-all duration-300"></span>
                         </Link>
                         <Link 
-                            href={`/` + props.locale + `/contact`} 
+                            href={`/${currentLocale}/contact`} 
                             className="text-gray-600 hover:text-orange-600 transition-colors relative group"
                         >
                             {t('nav.contact')}
@@ -106,25 +108,25 @@ const Navbar = () => {
                 <div className="md:hidden border-t border-orange-100">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         <Link
-                            href={`/` + props.locale + `/gallery`}
+                            href={`/${currentLocale}/gallery`}
                             className="block px-3 py-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-colors"
                         >
                             {t('nav.gallery')}
                         </Link>
                         <Link
-                            href={`/` + props.locale + `/exhibitions`}
+                            href={`/${currentLocale}/exhibitions`}
                             className="block px-3 py-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-colors"
                         >
                             {t('nav.exhibitions')}
                         </Link>
                         <Link
-                            href={`/` + props.locale + `/about`}
+                            href={`/${currentLocale}/about`}
                             className="block px-3 py-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-colors"
                         >
                             {t('nav.about')}
                         </Link>
                         <Link
-                            href={`/` + props.locale + `/contact`}
+                            href={`/${currentLocale}/contact`}
                             className="block px-3 py-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-colors"
                         >
                             {t('nav.contact')}

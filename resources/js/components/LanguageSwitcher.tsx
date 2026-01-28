@@ -1,5 +1,5 @@
-import { usePage, Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { usePage, Link, router } from '@inertiajs/react';
+import { useState, useEffect } from 'react';
 
 interface PageProps {
     locale?: string;
@@ -14,6 +14,8 @@ const LOCALE_META: Record<string, { label: string; flag: string }> = {
     es: { label: 'Español', flag: '🇪🇸' },
 };
 
+const STORAGE_KEY = 'kritterz_preferred_locale';
+
 export default function LanguageSwitcher() {
     const { url, props } = usePage<PageProps>();
     const locales = props.availableLocales && props.availableLocales.length
@@ -26,10 +28,24 @@ export default function LanguageSwitcher() {
     const derivedLocale = locales.includes(segments[0]) ? segments[0] : locales[0] || 'nl';
     const [open, setOpen] = useState(false);
 
+    // Save locale to localStorage when it changes
+    useEffect(() => {
+        if (derivedLocale && locales.includes(derivedLocale)) {
+            localStorage.setItem(STORAGE_KEY, derivedLocale);
+        }
+    }, [derivedLocale, locales]);
+
     const pathWithoutLocale = segments.slice(1).join('/');
 
     const buildPath = (locale: string) => {
         return '/' + locale + (pathWithoutLocale ? '/' + pathWithoutLocale : '');
+    };
+
+    const handleLocaleChange = (locale: string) => {
+        // Save to localStorage immediately
+        localStorage.setItem(STORAGE_KEY, locale);
+        setOpen(false);
+        // Navigate will happen via Link href
     };
 
     if (locales.length <= 1) {
@@ -84,7 +100,7 @@ export default function LanguageSwitcher() {
                                             ? 'bg-orange-500 text-white'
                                             : 'text-gray-700 hover:bg-gray-100'
                                     }`}
-                                    onClick={() => setOpen(false)}
+                                    onClick={() => handleLocaleChange(loc)}
                                 >
                                     <span>{meta.flag}</span>
                                     <span>{meta.label}</span>

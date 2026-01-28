@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
 import { useT } from '@/hooks/useT';
+import { useLocale } from '@/hooks/useLocale';
 
 interface FooterProps {
     auth?: {
@@ -15,7 +16,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ auth }) => {
     const { props } = usePage<{ locale: string; translations?: Record<string, string> }>();
-    const locale = props.locale;
+    const locale = useLocale();
     const t = useT(props.translations || {});
 
     const handleLogout = () => {

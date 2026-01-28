@@ -39,8 +39,8 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
-        $supportedLocales = config('locales.supported', ['en']);
-        $defaultLocale = config('locales.default', config('app.locale', 'en'));
+        $supportedLocales = config('locales.supported', ['nl', 'en', 'de', 'fr', 'es']);
+        $defaultLocale = config('locales.default', 'nl');
         $currentLocale = app()->getLocale();
 
         return [
