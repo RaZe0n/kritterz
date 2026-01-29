@@ -27,7 +27,7 @@ class Artwork extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'artwork_tag')->withPivot('order');
     }
 
     public function translations()

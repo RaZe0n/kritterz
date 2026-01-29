@@ -53,6 +53,7 @@ return [
     'gallery.title' => 'Portfolio',
     'gallery.subtitle' => 'Sehen Sie unten alle meine vielfältigen Kreationen.',
     'gallery.all_artworks' => 'Alle Kunstwerke',
+    'gallery.no_artworks_in_category' => 'Keine Kunstwerke in dieser Kategorie.',
     'gallery.show_available_only' => 'Nur verfügbare Kunstwerke anzeigen',
     'gallery.sold' => 'Verkauft',
     'gallery.available' => 'Verfügbar',

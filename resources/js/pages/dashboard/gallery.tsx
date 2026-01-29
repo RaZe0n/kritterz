@@ -80,36 +80,55 @@ export default function DashboardGallery({ artworks: initialArtworks, stats }: P
     ];
     const [tags, setTags] = useState<Tag[]>([]);
     const [selectedTag, setSelectedTag] = useState<number | null>(null);
-    const [artworks, setArtworks] = useState<Artwork[]>([]);
+    // Show server-passed artworks when no tag selected; when a tag is selected, show that tag's artworks
+    const [artworks, setArtworks] = useState<Artwork[]>(initialArtworks);
     const [loading, setLoading] = useState(false);
     const [saving, setSaving] = useState(false);
     const [saveMessage, setSaveMessage] = useState<string | null>(null);
+
+    // Keep in sync when initialArtworks changes (e.g. after navigation)
+    useEffect(() => {
+        if (!selectedTag) {
+            setArtworks(initialArtworks);
+        }
+    }, [initialArtworks, selectedTag]);
 
     // Fetch tags on mount
     useEffect(() => {
         axios.get('/api/tags').then(res => setTags(res.data));
     }, []);
 
-    // Fetch artworks for selected tag
+    // Fetch artworks for selected tag; fallback to client-side filter if API returns empty
     useEffect(() => {
         if (selectedTag) {
             setLoading(true);
-            axios.get(`/dashboard/tags/${selectedTag}/artworks`)
+            axios.get(route('dashboard.tags.artworks', { locale, tag: selectedTag }))
                 .then(res => {
-                    console.log('API response for artworks:', res.data);
-                    setArtworks(res.data.artworks);
+                    const fromApi = res.data.artworks ?? [];
+                    if (fromApi.length > 0) {
+                        setArtworks(fromApi);
+                    } else {
+                        // Fallback: filter initial artworks by this tag (in case pivot/API returns empty)
+                        const filtered = initialArtworks.filter(
+                            (a) => a.tags?.some((t) => Number(t.id) === Number(selectedTag)) ?? false
+                        );
+                        setArtworks(filtered);
+                    }
                 })
-                .catch(err => {
-                    setArtworks([]);
-                    // Optionally, you could set an error state here
+                .catch(() => {
+                    // On error, fallback to client-side filter
+                    const filtered = initialArtworks.filter(
+                        (a) => a.tags?.some((t) => Number(t.id) === Number(selectedTag)) ?? false
+                    );
+                    setArtworks(filtered);
                 })
                 .finally(() => {
                     setLoading(false);
                 });
         } else {
-            setArtworks([]);
+            setArtworks(initialArtworks);
         }
-    }, [selectedTag]);
+    }, [selectedTag, initialArtworks]);
 
     // DnD-kit setup
     const sensors = useSensors(

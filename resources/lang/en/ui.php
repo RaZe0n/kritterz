@@ -53,6 +53,7 @@ return [
     'gallery.title' => 'Portfolio',
     'gallery.subtitle' => 'View all my diverse creations below.',
     'gallery.all_artworks' => 'All artworks',
+    'gallery.no_artworks_in_category' => 'No artworks in this category.',
     'gallery.show_available_only' => 'Show only available artworks',
     'gallery.sold' => 'Sold',
     'gallery.available' => 'Available',

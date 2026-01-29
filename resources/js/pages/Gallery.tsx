@@ -37,9 +37,8 @@ interface GalleryProps {
 const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
     const { props } = usePage<{ locale: string; translations?: Record<string, string> }>();
     const t = useT(props.translations || {});
-    // Find the Recent tag and set it as initial selection if it exists
-    const recentTag = tags.find(tag => tag.name.toLowerCase() === 'recent');
-    const [selectedTag, setSelectedTag] = useState<number | null>(recentTag ? recentTag.id : null);
+    // Start with no tag selected (show all). Avoid initializing from a tag that might have 0 artworks.
+    const [selectedTag, setSelectedTag] = useState<number | null>(null);
 
     // Add state for 'for sale' filter
     const [forSaleOnly, setForSaleOnly] = useState(false);
@@ -106,7 +105,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
     const filteredGroups = useMemo(() => {
         let groups = groupedArtworks;
         if (selectedTag !== null) {
-            groups = groups.filter(group => group.tag.id === selectedTag);
+            groups = groups.filter(group => Number(group.tag.id) === Number(selectedTag));
         }
         if (forSaleOnly) {
             groups = groups
@@ -181,11 +180,12 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                 {orderedTags.map((tag) => (
                                     <button
                                         key={tag.id}
+                                        type="button"
                                         onClick={() => setSelectedTag(selectedTag === tag.id ? null : tag.id)}
                                         className={`px-4 py-2 rounded-full text-sm font-medium transition-colors`}
                                         style={{
-                                            backgroundColor: selectedTag === tag.id ? tag.color : '#f3f4f6',
-                                            color: selectedTag === tag.id ? 'white' : '#374151',
+                                            backgroundColor: Number(selectedTag) === Number(tag.id) ? tag.color : '#f3f4f6',
+                                            color: Number(selectedTag) === Number(tag.id) ? 'white' : '#374151',
                                         }}
                                     >
                                         {tag.name}
@@ -193,6 +193,7 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                                 ))}
                                 {/* Show "All artworks" button last */}
                                 <button
+                                    type="button"
                                     onClick={() => setSelectedTag(null)}
                                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                                         selectedTag === null
@@ -219,6 +220,11 @@ const Gallery: React.FC<GalleryProps> = ({ artworks, tags, auth }) => {
                     {/* Gallery Sections */}
                     <section className="py-20 px-4 md:px-8 lg:px-16">
                         <div className="max-w-8xl mx-auto space-y-16">
+                            {filteredGroups.length === 0 && selectedTag !== null && (
+                                <p className="text-center text-gray-500 py-12">
+                                    {t('gallery.no_artworks_in_category', 'Geen kunstwerken in deze categorie.')}
+                                </p>
+                            )}
                             {filteredGroups.map((group, groupIndex) => (
                                 <motion.div
                                     key={group.tag.id}

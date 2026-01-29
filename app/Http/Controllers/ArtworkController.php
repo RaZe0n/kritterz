@@ -175,10 +175,10 @@ class ArtworkController extends Controller
     public function getArtworksForTag(Request $request, Tag $tag)
     {
         // Only allow admin
-        if (!$request->user() || $request->user()->role !== 'admin') {
+        if (!$request->user() || !$request->user()->hasDashboardAccess()) {
             abort(403);
         }
-        $artworks = $tag->artworks()->with('tags')->orderBy('artwork_tag.order')->get();
+        $artworks = $tag->artworks()->with('tags')->get();
         return response()->json(['artworks' => $artworks]);
     }
 

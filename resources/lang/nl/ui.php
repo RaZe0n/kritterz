@@ -53,6 +53,7 @@ return [
     'gallery.title' => 'Portfolio',
     'gallery.subtitle' => 'Bekijk hieronder al mijn diverse creaties.',
     'gallery.all_artworks' => 'Alle kunstwerken',
+    'gallery.no_artworks_in_category' => 'Geen kunstwerken in deze categorie.',
     'gallery.show_available_only' => 'Toon alleen beschikbare kunstwerken',
     'gallery.sold' => 'Verkocht',
     'gallery.available' => 'Beschikbaar',
