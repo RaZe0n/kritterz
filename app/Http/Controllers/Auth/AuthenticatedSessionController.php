@@ -34,11 +34,12 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
-        
+        $locale = config('locales.default', 'nl');
+
         if ($user->hasDashboardAccess()) {
-            return redirect()->intended(route('dashboard', absolute: false));
+            return redirect()->intended(route('dashboard', ['locale' => $locale], absolute: false));
         } else {
-            return redirect()->intended(route('home', absolute: false));
+            return redirect()->intended(route('home', ['locale' => $locale], absolute: false));
         }
     }
 

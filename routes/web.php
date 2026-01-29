@@ -24,7 +24,9 @@ Route::get('/', function () {
 // Newsletter unsubscribe via token (email link) - must be before API routes
 Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribeByToken'])->name('newsletter.unsubscribe');
 
+// Locale prefix: only match supported locale codes so /login, /register, etc. are not captured
 Route::prefix('{locale}')
+    ->where(['locale' => 'nl|en|de|fr|es'])
     ->middleware(['set.locale'])
     ->group(function () {
         Route::get('/', function () {

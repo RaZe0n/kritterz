@@ -23,7 +23,8 @@ class DashboardAccess
         $user = Auth::user();
         
         if (!$user->hasDashboardAccess()) {
-            return redirect()->route('home')->with('message', 'You do not have access to the dashboard.');
+            $locale = config('locales.default', 'nl');
+            return redirect()->route('home', ['locale' => $locale])->with('message', 'You do not have access to the dashboard.');
         }
 
         return $next($request);

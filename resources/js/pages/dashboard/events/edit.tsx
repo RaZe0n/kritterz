@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { ArrowLeft, Upload, X } from 'lucide-react';
@@ -31,22 +32,13 @@ interface Props {
     event: Event;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Exhibitions',
-        href: '/dashboard/exhibitions',
-    },
-    {
-        title: 'Edit Event',
-        href: '/dashboard/events/edit',
-    }
-];
-
 export default function EditEvent({ event }: Props) {
+    const locale = useDashboardLocale();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+        { title: 'Exhibitions', href: `/${locale}/dashboard/exhibitions` },
+        { title: 'Edit Event', href: `/${locale}/dashboard/events/${event.id}/edit` },
+    ];
     const [imagePreview, setImagePreview] = useState<string | null>(event.image);
     
     const { data, setData, post, processing, errors } = useForm({
@@ -83,7 +75,7 @@ export default function EditEvent({ event }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('dashboard.events.update', event.id));
+        post(route('dashboard.events.update', { locale, event: event.id }));
     };
 
     return (

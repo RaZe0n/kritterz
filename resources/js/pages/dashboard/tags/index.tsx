@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import axios from 'axios';
 import { useState } from 'react';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 
 interface Tag {
     id: number;
@@ -19,6 +20,7 @@ interface TagsIndexProps {
 }
 
 const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
+    const locale = useDashboardLocale();
     const [tagList, setTagList] = useState([...tags].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
     const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
     const [saving, setSaving] = useState(false);
@@ -26,7 +28,7 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
 
     const handleDelete = (tagId: number) => {
         if (confirm('Are you sure you want to delete this tag?')) {
-            router.delete(route('dashboard.tags.destroy', tagId));
+            router.delete(route('dashboard.tags.destroy', { locale, tag: tagId }));
         }
     };
 
@@ -48,7 +50,7 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
         setSaveMessage(null);
         try {
             const order = tagList.map(tag => tag.id);
-            await axios.post(route('dashboard.tags.updateOrder'), { order });
+            await axios.post(route('dashboard.tags.updateOrder', { locale }), { order });
             setSaveMessage('Order saved!');
         } catch (e) {
             setSaveMessage('Error saving order.');
@@ -72,13 +74,13 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Link
-                                    href={route('dashboard')}
+                                    href={route('dashboard', { locale })}
                                     className="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150"
                                 >
                                     Dashboard
                                 </Link>
                                 <Link
-                                    href={route('dashboard.tags.create')}
+                                    href={route('dashboard.tags.create', { locale })}
                                     className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                                 >
                                     <Plus className="w-4 h-4 mr-2" />
@@ -130,13 +132,13 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
                                             </div>
                                             <div className="flex space-x-2">
                                                 <Link
-                                                    href={route('dashboard.tags.show', tag.id)}
+                                                    href={route('dashboard.tags.show', { locale, tag: tag.id })}
                                                     className="text-gray-400 hover:text-gray-600 transition-colors"
                                                 >
                                                     <Eye className="w-4 h-4" />
                                                 </Link>
                                                 <Link
-                                                    href={route('dashboard.tags.edit', tag.id)}
+                                                    href={route('dashboard.tags.edit', { locale, tag: tag.id })}
                                                     className="text-gray-400 hover:text-blue-600 transition-colors"
                                                 >
                                                     <Edit className="w-4 h-4" />
@@ -184,7 +186,7 @@ const TagsIndex: React.FC<TagsIndexProps> = ({ tags }) => {
                                 <h3 className="text-lg font-medium text-gray-900 mb-2">No tags yet</h3>
                                 <p className="text-gray-600 mb-6">Create your first tag to start organizing your gallery.</p>
                                 <Link
-                                    href={route('dashboard.tags.create')}
+                                    href={route('dashboard.tags.create', { locale })}
                                     className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                                 >
                                     <Plus className="w-4 h-4 mr-2" />

@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import { 
@@ -53,26 +54,21 @@ interface Props {
     stats: Stats;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Exhibitions',
-        href: '/dashboard/exhibitions',
-    }
-];
-
 export default function DashboardExhibitions({ 
     currentExhibitions, 
     upcomingExhibitions, 
     pastExhibitions, 
     stats 
 }: Props) {
+    const locale = useDashboardLocale();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+        { title: 'Exhibitions', href: `/${locale}/dashboard/exhibitions` },
+    ];
+
     const handleDelete = (eventId: number) => {
         if (confirm('Are you sure you want to delete this event?')) {
-            router.delete(route('dashboard.events.destroy', eventId));
+            router.delete(route('dashboard.events.destroy', { locale, event: eventId }));
         }
     };
 
@@ -89,7 +85,7 @@ export default function DashboardExhibitions({
                         </p>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={route('dashboard.events.create')}>
+                        <Link href={route('dashboard.events.create', { locale })}>
                             <Button>
                                 <Plus className="mr-2 h-4 w-4" />
                                 Add Exhibition
@@ -167,12 +163,12 @@ export default function DashboardExhibitions({
                                         />
                                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                                             <div className="flex gap-2">
-                                                <Link href={route('dashboard.events.show', exhibition.id)}>
+                                                <Link href={route('dashboard.events.show', { locale, event: exhibition.id })}>
                                                     <Button size="sm" variant="secondary">
                                                         <Eye className="h-4 w-4" />
                                                     </Button>
                                                 </Link>
-                                                <Link href={route('dashboard.events.edit', exhibition.id)}>
+                                                <Link href={route('dashboard.events.edit', { locale, event: exhibition.id })}>
                                                     <Button size="sm" variant="secondary">
                                                         <Edit className="h-4 w-4" />
                                                     </Button>
@@ -272,13 +268,13 @@ export default function DashboardExhibitions({
                                             <p className="text-xs text-muted-foreground mt-1">{exhibition.location}</p>
                                             <p className="text-xs text-muted-foreground">{exhibition.date_range}</p>
                                             <div className="flex items-center gap-4 mt-2">
-                                                <Link href={route('dashboard.events.edit', exhibition.id)}>
+                                                <Link href={route('dashboard.events.edit', { locale, event: exhibition.id })}>
                                                     <Button size="sm" variant="outline">
                                                         <Edit className="h-3 w-3 mr-1" />
                                                         Edit
                                                     </Button>
                                                 </Link>
-                                                <Link href={route('dashboard.events.show', exhibition.id)}>
+                                                <Link href={route('dashboard.events.show', { locale, event: exhibition.id })}>
                                                     <Button size="sm" variant="outline">
                                                         <Eye className="h-3 w-3 mr-1" />
                                                         View
@@ -288,7 +284,7 @@ export default function DashboardExhibitions({
                                         </div>
                                     </motion.div>
                                 ))}
-                                <Link href={route('dashboard.events.create')}>
+                                <Link href={route('dashboard.events.create', { locale })}>
                                     <Button variant="outline" className="w-full">
                                         <Plus className="mr-2 h-4 w-4" />
                                         Add Upcoming Event
@@ -334,7 +330,7 @@ export default function DashboardExhibitions({
                                             <p className="text-xs text-muted-foreground mt-1">{exhibition.location}</p>
                                             <p className="text-xs text-muted-foreground">{exhibition.date_range}</p>
                                             <div className="flex items-center gap-2 mt-2">
-                                                <Link href={route('dashboard.events.show', exhibition.id)}>
+                                                <Link href={route('dashboard.events.show', { locale, event: exhibition.id })}>
                                                     <Button size="sm" variant="outline">
                                                         <Eye className="h-3 w-3 mr-1" />
                                                         View

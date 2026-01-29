@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import AppLayout from '@/layouts/app-layout';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { ArrowLeft, Upload, X } from 'lucide-react';
@@ -22,22 +23,13 @@ interface CreateArtworkProps {
     tags: Tag[];
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Gallery',
-        href: '/dashboard/gallery',
-    },
-    {
-        title: 'Create Artwork',
-        href: '/dashboard/artworks/create',
-    }
-];
-
 export default function CreateArtwork({ tags }: CreateArtworkProps) {
+    const locale = useDashboardLocale();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+        { title: 'Gallery', href: `/${locale}/dashboard/gallery` },
+        { title: 'Create Artwork', href: `/${locale}/dashboard/artworks/create` },
+    ];
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [selectedTags, setSelectedTags] = useState<number[]>([]);
     
@@ -77,7 +69,7 @@ export default function CreateArtwork({ tags }: CreateArtworkProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('dashboard.artworks.store'));
+        post(route('dashboard.artworks.store', { locale }));
     };
 
     return (
@@ -183,7 +175,7 @@ export default function CreateArtwork({ tags }: CreateArtworkProps) {
                                     </div>
                                     {tags.length === 0 && (
                                         <p className="text-sm text-gray-500">
-                                            No tags available. <a href={route('dashboard.tags.create')} className="text-blue-600 hover:underline">Create some tags first</a>.
+                                            No tags available. <a href={route('dashboard.tags.create', { locale })} className="text-blue-600 hover:underline">Create some tags first</a>.
                                         </p>
                                     )}
                                     {errors.tag_ids && (

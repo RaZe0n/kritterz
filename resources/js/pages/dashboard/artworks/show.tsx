@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import AppLayout from '@/layouts/app-layout';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import { ArrowLeft, Edit, Trash2, Calendar, Tag } from 'lucide-react';
@@ -20,25 +21,17 @@ interface Props {
     artwork: Artwork;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Gallery',
-        href: '/dashboard/gallery',
-    },
-    {
-        title: 'Artwork Details',
-        href: '/dashboard/artworks/show',
-    }
-];
-
 export default function ShowArtwork({ artwork }: Props) {
+    const locale = useDashboardLocale();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+        { title: 'Gallery', href: `/${locale}/dashboard/gallery` },
+        { title: 'Artwork Details', href: `/${locale}/dashboard/artworks/${artwork.id}` },
+    ];
+
     const handleDelete = () => {
         if (confirm('Are you sure you want to delete this artwork?')) {
-            router.delete(route('dashboard.artworks.destroy', artwork.id));
+            router.delete(route('dashboard.artworks.destroy', { locale, artwork: artwork.id }));
         }
     };
 
@@ -60,7 +53,7 @@ export default function ShowArtwork({ artwork }: Props) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={route('dashboard.artworks.edit', artwork.id)}>
+                        <Link href={route('dashboard.artworks.edit', { locale, artwork: artwork.id })}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit

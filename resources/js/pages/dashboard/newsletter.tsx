@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import { 
@@ -42,24 +43,19 @@ interface Props {
     stats: Stats;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Newsletter',
-        href: '/dashboard/newsletter/subscribers',
-    }
-];
-
 export default function DashboardNewsletter({ subscribers, stats }: Props) {
+    const locale = useDashboardLocale();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+        { title: 'Newsletter', href: `/${locale}/dashboard/newsletter/subscribers` },
+    ];
+
     const handleDelete = async (subscriberId: number) => {
         if (!confirm('Are you sure you want to delete this subscriber?')) return;
         setManualAddMessage(null);
         setManualAddError(null);
         try {
-            const response = await axios.delete(route('dashboard.newsletter.subscribers.destroy', subscriberId));
+            const response = await axios.delete(route('dashboard.newsletter.subscribers.destroy', { locale, subscriber: subscriberId }));
             if (response.data.success) {
                 setManualAddMessage('Abonnee succesvol verwijderd!');
                 router.reload({ only: ['subscribers', 'stats'] });
@@ -76,7 +72,7 @@ export default function DashboardNewsletter({ subscribers, stats }: Props) {
     };
 
     const handleToggleStatus = (subscriberId: number) => {
-        router.patch(route('dashboard.newsletter.subscribers.toggle', subscriberId));
+        router.patch(route('dashboard.newsletter.subscribers.toggle', { locale, subscriber: subscriberId }));
     };
 
     // State for manual add
@@ -92,7 +88,7 @@ export default function DashboardNewsletter({ subscribers, stats }: Props) {
         setManualAddMessage(null);
         setManualAddError(null);
         try {
-            const response = await axios.post(route('dashboard.newsletter.subscribers.add'), { email: manualEmail });
+            const response = await axios.post(route('dashboard.newsletter.subscribers.add', { locale }), { email: manualEmail });
             if (response.data.success) {
                 setManualAddMessage('Abonnee succesvol toegevoegd!');
                 setManualEmail('');

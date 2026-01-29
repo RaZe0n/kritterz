@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { 
     Users, 
     TrendingUp, 
@@ -76,13 +76,6 @@ interface Props {
     stats: Stats;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    }
-];
-
 export default function Dashboard({ 
     artworks, 
     currentExhibitions, 
@@ -91,6 +84,11 @@ export default function Dashboard({
     recentActivity, 
     stats 
 }: Props) {
+    const locale = (usePage().props as { locale?: string }).locale ?? 'nl';
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+    ];
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -224,25 +222,25 @@ export default function Dashboard({
                         </CardHeader>
                         <CardContent>
                             <div className="grid gap-3">
-                                <Link href={route('dashboard.artworks.create')}>
+                                <Link href={route('dashboard.artworks.create', { locale })}>
                                     <Button className="justify-start w-full" variant="outline">
                                         <Plus className="mr-2 h-4 w-4" />
                                         Add New Artwork
                                     </Button>
                                 </Link>
-                                <Link href={route('dashboard.events.create')}>
+                                <Link href={route('dashboard.events.create', { locale })}>
                                     <Button className="justify-start w-full" variant="outline">
                                         <Calendar className="mr-2 h-4 w-4" />
                                         Schedule Exhibition
                                     </Button>
                                 </Link>
-                                <Link href={route('dashboard.gallery')}>
+                                <Link href={route('dashboard.gallery', { locale })}>
                                     <Button className="justify-start w-full" variant="outline">
                                         <Palette className="mr-2 h-4 w-4" />
                                         View Gallery
                                     </Button>
                                 </Link>
-                                <Link href={route('dashboard.exhibitions')}>
+                                <Link href={route('dashboard.exhibitions', { locale })}>
                                     <Button className="justify-start w-full" variant="outline">
                                         <MapPin className="mr-2 h-4 w-4" />
                                         Manage Exhibitions
@@ -349,7 +347,7 @@ export default function Dashboard({
                                     <p className="text-sm text-muted-foreground">No upcoming events</p>
                                 )}
                                 <div className="pt-2">
-                                    <Link href={route('dashboard.events.create')}>
+                                    <Link href={route('dashboard.events.create', { locale })}>
                                         <Button variant="outline" size="sm" className="w-full">
                                             <Plus className="mr-2 h-3 w-3" />
                                             Add Event

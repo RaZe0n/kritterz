@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Palette } from 'lucide-react';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 
 interface Tag {
     id: number;
@@ -15,6 +16,7 @@ interface TagEditProps {
 }
 
 const TagEdit: React.FC<TagEditProps> = ({ tag }) => {
+    const locale = useDashboardLocale();
     const { data, setData, put, processing, errors } = useForm({
         name: tag.name,
         color: tag.color,
@@ -30,7 +32,7 @@ const TagEdit: React.FC<TagEditProps> = ({ tag }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(route('dashboard.tags.update', tag.id));
+        put(route('dashboard.tags.update', { locale, tag: tag.id }));
     };
 
     return (
@@ -43,7 +45,7 @@ const TagEdit: React.FC<TagEditProps> = ({ tag }) => {
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center">
                                 <Link
-                                    href={route('dashboard.tags.index')}
+                                    href={route('dashboard.tags.index', { locale })}
                                     className="text-gray-400 hover:text-gray-600 mr-4"
                                 >
                                     <ArrowLeft className="w-5 h-5" />
@@ -54,7 +56,7 @@ const TagEdit: React.FC<TagEditProps> = ({ tag }) => {
                                 </div>
                             </div>
                             <Link
-                                href={route('dashboard')}
+                                href={route('dashboard', { locale })}
                                 className="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150"
                             >
                                 Dashboard
@@ -184,7 +186,7 @@ const TagEdit: React.FC<TagEditProps> = ({ tag }) => {
                                 {/* Submit Button */}
                                 <div className="flex justify-end space-x-3 pt-6">
                                     <Link
-                                        href={route('dashboard.tags.index')}
+                                        href={route('dashboard.tags.index', { locale })}
                                         className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                     >
                                         Cancel

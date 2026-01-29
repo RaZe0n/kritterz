@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import AppLayout from '@/layouts/app-layout';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import { ArrowLeft, Edit, Trash2, Calendar, MapPin, Clock, Users, Tag } from 'lucide-react';
@@ -26,22 +27,13 @@ interface Props {
     event: Event;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Exhibitions',
-        href: '/dashboard/exhibitions',
-    },
-    {
-        title: 'Event Details',
-        href: '/dashboard/events/show',
-    }
-];
-
 export default function ShowEvent({ event }: Props) {
+    const locale = useDashboardLocale();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+        { title: 'Exhibitions', href: `/${locale}/dashboard/exhibitions` },
+        { title: 'Event Details', href: `/${locale}/dashboard/events/${event.id}` },
+    ];
     const getStatusBadgeVariant = (status: string) => {
         switch (status) {
             case 'current':
@@ -70,7 +62,7 @@ export default function ShowEvent({ event }: Props) {
 
     const handleDelete = () => {
         if (confirm('Are you sure you want to delete this event?')) {
-            router.delete(route('dashboard.events.destroy', event.id));
+            router.delete(route('dashboard.events.destroy', { locale, event: event.id }));
         }
     };
 
@@ -92,7 +84,7 @@ export default function ShowEvent({ event }: Props) {
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={route('dashboard.events.edit', event.id)}>
+                        <Link href={route('dashboard.events.edit', { locale, event: event.id })}>
                             <Button variant="outline">
                                 <Edit className="mr-2 h-4 w-4" />
                                 Edit

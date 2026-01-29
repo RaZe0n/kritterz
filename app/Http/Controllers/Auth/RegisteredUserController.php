@@ -47,11 +47,13 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $locale = config('locales.default', 'nl');
+
         // Redirect based on user role
         if ($user->hasDashboardAccess()) {
-            return to_route('dashboard');
+            return to_route('dashboard', ['locale' => $locale]);
         } else {
-            return to_route('home');
+            return to_route('home', ['locale' => $locale]);
         }
     }
 }

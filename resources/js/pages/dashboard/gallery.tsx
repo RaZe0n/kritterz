@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import { 
@@ -71,18 +72,12 @@ interface Tag {
   order?: number;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Gallery',
-        href: '/dashboard/gallery',
-    }
-];
-
 export default function DashboardGallery({ artworks: initialArtworks, stats }: Props) {
+    const locale = useDashboardLocale();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+        { title: 'Gallery', href: `/${locale}/dashboard/gallery` },
+    ];
     const [tags, setTags] = useState<Tag[]>([]);
     const [selectedTag, setSelectedTag] = useState<number | null>(null);
     const [artworks, setArtworks] = useState<Artwork[]>([]);
@@ -175,12 +170,12 @@ export default function DashboardGallery({ artworks: initialArtworks, stats }: P
                     />
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                         <div className="flex gap-2">
-                            <Link href={route('dashboard.artworks.show', artwork.id)}>
+                            <Link href={route('dashboard.artworks.show', { locale, artwork: artwork.id })}>
                                 <Button size="sm" variant="secondary">
                                     <Eye className="h-4 w-4" />
                                 </Button>
                             </Link>
-                            <Link href={route('dashboard.artworks.edit', artwork.id)}>
+                            <Link href={route('dashboard.artworks.edit', { locale, artwork: artwork.id })}>
                                 <Button size="sm" variant="secondary">
                                     <Edit className="h-4 w-4" />
                                 </Button>
@@ -227,7 +222,7 @@ export default function DashboardGallery({ artworks: initialArtworks, stats }: P
 
     const handleDelete = (artworkId: number) => {
         if (confirm('Are you sure you want to delete this artwork?')) {
-            router.delete(route('dashboard.artworks.destroy', artworkId));
+            router.delete(route('dashboard.artworks.destroy', { locale, artwork: artworkId }));
         }
     };
 
@@ -244,13 +239,13 @@ export default function DashboardGallery({ artworks: initialArtworks, stats }: P
                         </p>
                     </div>
                     <div className="flex items-center gap-2">
-                        <Link href={route('dashboard.tags.index')}>
+                        <Link href={route('dashboard.tags.index', { locale })}>
                             <Button variant="outline">
                                 <Filter className="mr-2 h-4 w-4" />
                                 Manage Tags
                             </Button>
                         </Link>
-                        <Link href={route('dashboard.artworks.create')}>
+                        <Link href={route('dashboard.artworks.create', { locale })}>
                             <Button>
                                 <Plus className="mr-2 h-4 w-4" />
                                 Add Artwork
@@ -396,12 +391,12 @@ export default function DashboardGallery({ artworks: initialArtworks, stats }: P
                                           />
                                           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                                               <div className="flex gap-2">
-                                                  <Link href={route('dashboard.artworks.show', artwork.id)}>
+                                                  <Link href={route('dashboard.artworks.show', { locale, artwork: artwork.id })}>
                                                       <Button size="sm" variant="secondary">
                                                           <Eye className="h-4 w-4" />
                                                       </Button>
                                                   </Link>
-                                                  <Link href={route('dashboard.artworks.edit', artwork.id)}>
+                                                  <Link href={route('dashboard.artworks.edit', { locale, artwork: artwork.id })}>
                                                       <Button size="sm" variant="secondary">
                                                           <Edit className="h-4 w-4" />
                                                       </Button>

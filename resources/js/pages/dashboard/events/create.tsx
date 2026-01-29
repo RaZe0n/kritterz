@@ -5,27 +5,19 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
+import { useDashboardLocale } from '@/hooks/useDashboardLocale';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { ArrowLeft, Upload, X } from 'lucide-react';
 import { useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Exhibitions',
-        href: '/dashboard/exhibitions',
-    },
-    {
-        title: 'Create Event',
-        href: '/dashboard/events/create',
-    }
-];
-
 export default function CreateEvent() {
+    const locale = useDashboardLocale();
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: 'Dashboard', href: `/${locale}/dashboard` },
+        { title: 'Exhibitions', href: `/${locale}/dashboard/exhibitions` },
+        { title: 'Create Event', href: `/${locale}/dashboard/events/create` },
+    ];
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     
     const { data, setData, post, processing, errors } = useForm({
@@ -61,7 +53,7 @@ export default function CreateEvent() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('dashboard.events.store'));
+        post(route('dashboard.events.store', { locale }));
     };
 
     return (
