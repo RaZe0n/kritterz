@@ -103,9 +103,10 @@ class DashboardController extends Controller
     /**
      * Display the newsletter management dashboard.
      */
-    public function newsletter()
+    public function newsletter(Request $request)
     {
-        return redirect()->route('dashboard.newsletter.subscribers');
+        $locale = $request->route('locale', config('locales.default', 'nl'));
+        return redirect()->route('dashboard.newsletter.subscribers', ['locale' => $locale]);
     }
 
     /**

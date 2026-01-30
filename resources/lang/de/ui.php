@@ -24,6 +24,7 @@ return [
     'home.crafting_title' => 'Schleifen, Schleifen und Löten',
     'home.crafting_text' => 'Mit einem Schraubstock, Winkelschleifer, Dremel und Schleifmaschine kommt man beim Herstellen von Besteck-KritterZ schon weit. Dann werden die Teile so natürlich wie möglich mit Silberlot zusammengelötet. Durch Schleifen oder Polieren entstehen verschiedene Looks. Um dies so gut wie möglich zu können, habe ich in professionelle Ausrüstung investiert, die mich dabei unterstützt. Jedes Stück bekommt die Zeit, die es braucht, um zur Geltung zu kommen; manchmal muss ich ein Stück mehrmals anpassen, bis es sich genau richtig anfühlt. Es ist ein Prozess der Geduld und Präzision, bei dem jede KritterZ ihren eigenen Charakter erhält.',
     'home.atelier_title' => 'Meine Woman Cave',
+    'home.creative_space' => 'Kreativer Raum',
     'home.atelier_subtitle' => 'Wo Kreativität und Leidenschaft zusammenkommen',
     'home.atelier_text_1' => 'In meinem Atelier in Zuidhorn, nicht mehr als ein Schuppen im Hinterhof, finden Sie alles, was ich brauche, um meine KritterZ herzustellen.',
     'home.atelier_text_2' => 'Ich habe inzwischen einen großen Besteckbestand gesammelt, sowohl aus Second-Hand-Läden als auch von Menschen erhalten, die wissen, dass ich Besteck sammle. Beim Löten arbeite ich mit verschiedenen Flussmitteln, je nach Art der Legierung im Metall, das ich verwende. Das ist nicht immer von außen sichtbar, zeigt sich aber in der Praxis schnell.',

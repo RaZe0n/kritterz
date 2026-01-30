@@ -24,6 +24,7 @@ return [
     'home.crafting_title' => 'Grinding, sanding and soldering',
     'home.crafting_text' => 'With a vise, angle grinder, Dremel and sander you can go a long way for making cutlery KritterZ. Then the pieces are soldered together as naturally as possible with silver tin. Different looks are created by sanding or polishing. To be able to do this as well as possible, I have invested in professional equipment that helps me with this. Each piece gets the time it needs to come into its own; sometimes I have to adjust a piece several times until it feels just right. It\'s a process of patience and precision, where each KritterZ gets its own character.',
     'home.atelier_title' => 'My Woman Cave',
+    'home.creative_space' => 'Creative space',
     'home.atelier_subtitle' => 'Where creativity and passion come together',
     'home.atelier_text_1' => 'In my studio in Zuidhorn, no more than a shed in the backyard, you\'ll find everything I need to make my KritterZ.',
     'home.atelier_text_2' => 'I have now collected a large stock of cutlery, both from thrift stores and received from people who know I collect cutlery. When soldering I work with different flux materials, depending on the type of alloy in the metal I use. That\'s not always visible on the outside, but becomes apparent in practice quickly.',

@@ -68,13 +68,14 @@ class EventController extends Controller
             'end_date' => $validated['end_date'],
         ]);
 
-        return redirect()->route('dashboard.exhibitions')->with('success', 'Event created successfully.');
+        $locale = $request->route('locale', config('locales.default', 'nl'));
+        return redirect()->route('dashboard.exhibitions', ['locale' => $locale])->with('success', 'Event created successfully.');
     }
 
     /**
      * Display the specified event.
      */
-    public function show(Event $event)
+    public function show(string $locale, Event $event)
     {
         return Inertia::render('dashboard/events/show', [
             'event' => $event
@@ -84,7 +85,7 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified event.
      */
-    public function edit(Event $event)
+    public function edit(string $locale, Event $event)
     {
         return Inertia::render('dashboard/events/edit', [
             'event' => $event
@@ -94,7 +95,7 @@ class EventController extends Controller
     /**
      * Update the specified event in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, string $locale, Event $event)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -135,13 +136,14 @@ class EventController extends Controller
 
         $event->update($data);
 
-        return redirect()->route('dashboard.exhibitions')->with('success', 'Event updated successfully.');
+        $locale = $request->route('locale', config('locales.default', 'nl'));
+        return redirect()->route('dashboard.exhibitions', ['locale' => $locale])->with('success', 'Event updated successfully.');
     }
 
     /**
      * Remove the specified event from storage.
      */
-    public function destroy(Event $event)
+    public function destroy(string $locale, Event $event)
     {
         // Delete image file
         if ($event->image && Storage::disk('public')->exists(str_replace('/storage/', '', $event->image))) {
@@ -150,7 +152,7 @@ class EventController extends Controller
 
         $event->delete();
 
-        return redirect()->route('dashboard.exhibitions')->with('success', 'Event deleted successfully.');
+        return redirect()->route('dashboard.exhibitions', ['locale' => $locale])->with('success', 'Event deleted successfully.');
     }
 
     /**

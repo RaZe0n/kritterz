@@ -216,7 +216,7 @@ class NewsletterController extends Controller
     /**
      * Delete a subscriber
      */
-    public function destroy(NewsletterSubscriber $subscriber): JsonResponse
+    public function destroy(string $locale, NewsletterSubscriber $subscriber): JsonResponse
     {
         try {
             $subscriber->delete();
@@ -236,7 +236,7 @@ class NewsletterController extends Controller
     /**
      * Toggle subscriber status
      */
-    public function toggleStatus(NewsletterSubscriber $subscriber): JsonResponse
+    public function toggleStatus(string $locale, NewsletterSubscriber $subscriber): JsonResponse
     {
         try {
             $subscriber->update(['is_active' => !$subscriber->is_active]);

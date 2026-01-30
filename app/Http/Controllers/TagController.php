@@ -41,13 +41,14 @@ class TagController extends Controller
 
         Tag::create($validated);
 
-        return redirect()->route('dashboard.tags.index')->with('success', 'Tag created successfully.');
+        $locale = $request->route('locale', config('locales.default', 'nl'));
+        return redirect()->route('dashboard.tags.index', ['locale' => $locale])->with('success', 'Tag created successfully.');
     }
 
     /**
      * Display the specified tag.
      */
-    public function show(Tag $tag)
+    public function show(string $locale, Tag $tag)
     {
         $tag->load('artworks');
         
@@ -59,7 +60,7 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified tag.
      */
-    public function edit(Tag $tag)
+    public function edit(string $locale, Tag $tag)
     {
         return Inertia::render('dashboard/tags/edit', [
             'tag' => $tag
@@ -69,7 +70,7 @@ class TagController extends Controller
     /**
      * Update the specified tag in storage.
      */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, string $locale, Tag $tag)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:tags,name,' . $tag->id,
@@ -79,17 +80,18 @@ class TagController extends Controller
 
         $tag->update($validated);
 
-        return redirect()->route('dashboard.tags.index')->with('success', 'Tag updated successfully.');
+        $locale = $request->route('locale', config('locales.default', 'nl'));
+        return redirect()->route('dashboard.tags.index', ['locale' => $locale])->with('success', 'Tag updated successfully.');
     }
 
     /**
      * Remove the specified tag from storage.
      */
-    public function destroy(Tag $tag)
+    public function destroy(string $locale, Tag $tag)
     {
         $tag->delete();
 
-        return redirect()->route('dashboard.tags.index')->with('success', 'Tag deleted successfully.');
+        return redirect()->route('dashboard.tags.index', ['locale' => $locale])->with('success', 'Tag deleted successfully.');
     }
 
     /**

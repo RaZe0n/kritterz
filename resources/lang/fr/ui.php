@@ -24,6 +24,7 @@ return [
     'home.crafting_title' => 'Meulage, ponçage et soudure',
     'home.crafting_text' => 'Avec un étau, une meuleuse d\'angle, un Dremel et une ponceuse, on peut aller loin pour fabriquer des KritterZ en couverts. Ensuite, les pièces sont soudées ensemble aussi naturellement que possible avec de l\'étain argenté. Différents looks sont créés par ponçage ou polissage. Pour pouvoir faire cela aussi bien que possible, j\'ai investi dans un équipement professionnel qui m\'aide dans cette tâche. Chaque pièce obtient le temps dont elle a besoin pour s\'épanouir ; parfois, je dois ajuster une pièce plusieurs fois jusqu\'à ce qu\'elle me semble juste. C\'est un processus de patience et de précision, où chaque KritterZ acquiert son propre caractère.',
     'home.atelier_title' => 'Ma Woman Cave',
+    'home.creative_space' => 'Espace créatif',
     'home.atelier_subtitle' => 'Où créativité et passion se rencontrent',
     'home.atelier_text_1' => 'Dans mon atelier à Zuidhorn, pas plus qu\'un abri dans le jardin, vous trouverez tout ce dont j\'ai besoin pour fabriquer mes KritterZ.',
     'home.atelier_text_2' => 'J\'ai maintenant collecté un grand stock de couverts, à la fois des magasins d\'occasion et reçus de personnes qui savent que je collectionne les couverts. Lors de la soudure, je travaille avec différents matériaux de flux, selon le type d\'alliage dans le métal que j\'utilise. Ce n\'est pas toujours visible de l\'extérieur, mais cela devient évident rapidement en pratique.',

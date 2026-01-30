@@ -335,8 +335,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 className="space-y-6"
                             >
                                 <h3 className="text-2xl font-semibold text-gray-800">
-                                    {/* Could be translated as well if you add a key */}
-                                    Creatieve ruimte
+                                    {t('home.creative_space', 'Creatieve ruimte')}
                                 </h3>
                                 <div className="space-y-4 text-gray-600 leading-relaxed">
                                     <p>{t('home.atelier_text_1')}</p>
@@ -394,7 +393,7 @@ const HomePage: React.FC<HomePageProps> = ({ currentEvents = [], upcomingEvents 
                                 <div className="aspect-square bg-gray-200">
                                     <img 
                                         src="/resources/images/schuur2.jpg" 
-                                        alt="Werkbank en creatieve ruimte" 
+                                        alt={t('home.workbench_space', 'Werkbank en creatieve ruimte')} 
                                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
                                     />
                                 </div>

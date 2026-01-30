@@ -24,6 +24,7 @@ return [
     'home.crafting_title' => 'Molienda, lijado y soldadura',
     'home.crafting_text' => 'Con un tornillo de banco, una amoladora angular, un Dremel y una lijadora puedes llegar lejos para hacer KritterZ de cubiertos. Luego, las piezas se sueldan entre sí de la manera más natural posible con estaño plateado. Se crean diferentes looks mediante lijado o pulido. Para poder hacer esto lo mejor posible, he invertido en equipo profesional que me ayuda con esto. Cada pieza obtiene el tiempo que necesita para destacar; a veces tengo que ajustar una pieza varias veces hasta que se sienta perfecta. Es un proceso de paciencia y precisión, donde cada KritterZ obtiene su propio carácter.',
     'home.atelier_title' => 'Mi Woman Cave',
+    'home.creative_space' => 'Espacio creativo',
     'home.atelier_subtitle' => 'Donde la creatividad y la pasión se encuentran',
     'home.atelier_text_1' => 'En mi estudio en Zuidhorn, no más que un cobertizo en el patio trasero, encontrarás todo lo que necesito para hacer mis KritterZ.',
     'home.atelier_text_2' => 'Ahora he recolectado una gran cantidad de cubiertos, tanto de tiendas de segunda mano como recibidos de personas que saben que colecciono cubiertos. Al soldar, trabajo con diferentes materiales de flujo, dependiendo del tipo de aleación en el metal que uso. Eso no siempre es visible desde el exterior, pero se hace evidente rápidamente en la práctica.',

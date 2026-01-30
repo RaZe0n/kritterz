@@ -24,6 +24,7 @@ return [
     'home.crafting_title' => 'Slijpen, schuren en solderen',
     'home.crafting_text' => 'Met een bankschroef, flex, Dremel en schuurmachine kom je voor het maken van bestek KritterZ een heel eind. Daarna worden de stukken zoveel mogelijk natuurgetrouw aan elkaar gesoldeerd met zilver tin. Door schuren of polijsten worden verschillende looks gecreëerd. Om dit zo goed mogelijk te kunnen doen, heb ik geïnvesteerd in professionele apparatuur die me hierbij helpt. Elk stuk krijgt de tijd dat het nodig heeft om tot zijn recht te komen; soms moet ik een stuk meerdere keren aanpassen tot het precies goed voelt. Het is een proces van geduld en precisie, waarbij elke KritterZ zijn eigen karakter krijgt.',
     'home.atelier_title' => 'Mijn Woman Cave',
+    'home.creative_space' => 'Creatieve ruimte',
     'home.atelier_subtitle' => 'Waar creativiteit en passie samenkomen',
     'home.atelier_text_1' => 'In mijn atelier in Zuidhorn, niet meer dan een schuurtje in de achtertuin, vind je alles wat ik nodig heb om m\'n KritterZ te maken.',
     'home.atelier_text_2' => 'Inmiddels heb ik een flinke voorraad bestek verzameld, zowel uit de kringloopwinkels als ook gekregen van mensen die weten dat ik bestek spaar. Bij het solderen werk ik met verschillende flux materialen, afhankelijk van het type legering in het metaal dat ik gebruik. Dat is niet altijd aan de buitenkant te zien, maar blijkt in de praktijk al snel.',

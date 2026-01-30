@@ -63,16 +63,17 @@ class ArtworkController extends Controller
             $artwork->tags()->attach($validated['tag_ids']);
         }
 
-        return redirect()->route('dashboard.gallery')->with('success', 'Artwork created successfully.');
+        $locale = $request->route('locale', config('locales.default', 'nl'));
+        return redirect()->route('dashboard.gallery', ['locale' => $locale])->with('success', 'Artwork created successfully.');
     }
 
     /**
      * Display the specified artwork.
      */
-    public function show(Artwork $artwork)
+    public function show(string $locale, Artwork $artwork)
     {
         $artwork->load('tags');
-        
+
         return Inertia::render('dashboard/artworks/show', [
             'artwork' => $artwork
         ]);
@@ -81,11 +82,11 @@ class ArtworkController extends Controller
     /**
      * Show the form for editing the specified artwork.
      */
-    public function edit(Artwork $artwork)
+    public function edit(string $locale, Artwork $artwork)
     {
         $artwork->load('tags');
         $tags = Tag::all();
-        
+
         return Inertia::render('dashboard/artworks/edit', [
             'artwork' => $artwork,
             'tags' => $tags
@@ -95,7 +96,7 @@ class ArtworkController extends Controller
     /**
      * Update the specified artwork in storage.
      */
-    public function update(Request $request, Artwork $artwork)
+    public function update(Request $request, string $locale, Artwork $artwork)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -127,13 +128,14 @@ class ArtworkController extends Controller
         // Sync tags
         $artwork->tags()->sync($validated['tag_ids'] ?? []);
 
-        return redirect()->route('dashboard.gallery')->with('success', 'Artwork updated successfully.');
+        $locale = $request->route('locale', config('locales.default', 'nl'));
+        return redirect()->route('dashboard.gallery', ['locale' => $locale])->with('success', 'Artwork updated successfully.');
     }
 
     /**
      * Remove the specified artwork from storage.
      */
-    public function destroy(Artwork $artwork)
+    public function destroy(string $locale, Artwork $artwork)
     {
         // Delete image file
         if ($artwork->image && Storage::disk('public')->exists(str_replace('/storage/', '', $artwork->image))) {
@@ -142,7 +144,7 @@ class ArtworkController extends Controller
 
         $artwork->delete();
 
-        return redirect()->route('dashboard.gallery')->with('success', 'Artwork deleted successfully.');
+        return redirect()->route('dashboard.gallery', ['locale' => $locale])->with('success', 'Artwork deleted successfully.');
     }
 
     /**
@@ -172,7 +174,7 @@ class ArtworkController extends Controller
     /**
      * Get artworks for a tag, ordered by the pivot 'order' column.
      */
-    public function getArtworksForTag(Request $request, Tag $tag)
+    public function getArtworksForTag(Request $request, string $locale, Tag $tag)
     {
         // Only allow admin
         if (!$request->user() || !$request->user()->hasDashboardAccess()) {
@@ -186,7 +188,7 @@ class ArtworkController extends Controller
      * Update the order of artworks for a tag.
      * Expects: { order: [artwork_id1, artwork_id2, ...] }
      */
-    public function updateArtworksOrder(Request $request, Tag $tag)
+    public function updateArtworksOrder(Request $request, string $locale, Tag $tag)
     {
         // Only allow admin
         if (!$request->user() || $request->user()->role !== 'admin') {
